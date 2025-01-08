@@ -18,10 +18,10 @@ jobs:
       - name: Check out the code
         uses: actions/checkout@v3
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: 18
+          version: 9
 
       - name: Install dependencies
         run: pnpm install
