@@ -1,3 +1,120 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply bg-zinc-900 text-zinc-100;
+}
+
+h1 {
+    @apply mt-0 mb-6 text-4xl font-bold text-emerald-400;
+}
+
+h2 {
+    @apply text-2xl font-bold mb-4 text-emerald-400;
+}
+
+a {
+    @apply text-emerald-400 hover:text-emerald-300 transition-colors duration-200;
+}
+
+.section {
+    @apply max-w-2xl mx-auto; /* no extra top/bottom margin */
+    /* If you still want some padding, do it here—but keep it the same everywhere */
+    /* @apply px-8 py-10; (optional) */
+}
+
+/* Add styles for blog post cards */
+.post-card {
+    @apply bg-zinc-800 p-6 rounded-lg transition-all duration-200;
+}
+
+.post-card:hover {
+    @apply transform -translate-y-1 shadow-lg;
+}
+
+/* Prism.js theme customization */
+pre[class*="language-"] {
+    @apply my-4 rounded-lg p-4 bg-zinc-800;
+    overflow-x: auto;
+}
+
+:not(pre) > code {
+    @apply bg-zinc-800 rounded px-1.5 py-0.5 text-sm;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    @apply text-zinc-500;
+}
+
+.token.punctuation {
+    @apply text-zinc-400;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+    @apply text-emerald-400;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+    @apply text-amber-400;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    @apply text-zinc-300;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    @apply text-purple-400;
+}
+
+.token.function,
+.token.class-name {
+    @apply text-blue-400;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    @apply text-red-400;
+}
+
+/* Add this section to style markdown content */
+:global(.markdown) h1,
+:global(.markdown) h2,
+:global(.markdown) h3,
+:global(.markdown) h4,
+:global(.markdown) h5,
+:global(.markdown) h6 {
+    @apply text-emerald-400;
+}
+
+:global(.mdsvex-content) h1,
+:global(.mdsvex-content) h2,
+:global(.mdsvex-content) h3,
+:global(.mdsvex-content) h4,
+:global(.mdsvex-content) h5,
+:global(.mdsvex-content) h6 {
+    @apply text-emerald-400;
+}

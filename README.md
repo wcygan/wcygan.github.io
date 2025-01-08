@@ -7,3 +7,9 @@ This is the source code for my personal website, [wcygan.github.io](https://wcyg
 ```bash
 pnpm run dev --open
 ```
+
+## Create a new post
+
+```bash
+pnpm new-post
+```
