@@ -1,0 +1,1 @@
+import{a,t as e}from"../chunks/disclose-version.CB4VWCSi.js";import"../chunks/legacy.C6TlLc23.js";var p=e("<h1>Welcome to wcygan.github.io</h1>");function n(o){var t=p();a(o,t)}export{n as component};
