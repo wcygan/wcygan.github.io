@@ -1,31 +1,32 @@
 ---
-title: Hello World
+title: New Website
 date: January 7, 2024
-description: Blogging with Svelte and GitHub Pages
+description: Goodbye AWS, Hello GitHub Pages
 ---
 
-# Hello World
+# New Website
 
-I've sunset my old blog and am now using Svelte and GitHub Pages.
+```diff
+- AWS Amplify
++ GitHub Pages
+```
 
-The source code is available at [github.com/wcygan/wcygan.github.io](https://github.com/wcygan/wcygan.github.io)
 
-## Code Styling
-
-I'm using Prism.js to style code blocks. Here's an example:
-
-```rust
+```rust file="src/main.rs"
 fn main() {
     println!("Hello, World!");
 }
 ```
 
-```go
-package main
+Goodbye AWS, Hello GitHub Pages. 
 
-import "fmt"
+I've moved my website from AWS Amplify to GitHub Pages. The new website is built with [Svelte](https://svelte.dev/) and hosted on [GitHub Pages](https://pages.github.com/).
 
-func main() {
-	fmt.Println("Hello, World!")
-}
-```
+---
+
+## Source Code
+
+| Website | Link                                                                             | Provider                                       |
+|---------|----------------------------------------------------------------------------------|------------------------------------------------|
+| New     | [github.com/wcygan/wcygan.github.io](https://github.com/wcygan/wcygan.github.io) | [GitHub Pages](https://pages.github.com/)      |
+| Old     | [github.com/wcygan/wcygan.io](https://github.com/wcygan/wcygan.io)               | [AWS Amplify](https://aws.amazon.com/amplify/) |

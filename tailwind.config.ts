@@ -13,7 +13,10 @@ export default {
                     css: {
                         maxWidth: 'none',
                         p: {
-                            fontSize: '1.175rem',
+                            fontSize: {
+                                base: '1rem',
+                                lg: '1.175rem'
+                            },
                         },
                     },
                 },
@@ -21,7 +24,10 @@ export default {
                     css: {
                         '--tw-prose-headings': 'rgb(52 211 153)', // emerald-400
                         p: {
-                            fontSize: '1.175rem',
+                            fontSize: {
+                                base: '1rem',
+                                lg: '1.175rem'
+                            },
                         },
                     }
                 }
