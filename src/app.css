@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    @apply bg-zinc-900 text-zinc-100;
+    @apply bg-zinc-800 text-zinc-100;
 }
 
 h1 {
@@ -30,7 +30,7 @@ a {
 
 /* Add styles for blog post cards */
 .post-card {
-    @apply bg-zinc-800 p-6 rounded-lg transition-all duration-200;
+    @apply bg-zinc-700 p-6 rounded-lg transition-all duration-200;
 }
 
 .post-card:hover {
@@ -39,12 +39,12 @@ a {
 
 /* Prism.js theme customization */
 pre[class*="language-"] {
-    @apply my-4 rounded-lg p-4 bg-zinc-800;
+    @apply my-4 rounded-lg p-4 bg-zinc-700;
     overflow-x: auto;
 }
 
 :not(pre) > code {
-    @apply bg-zinc-800 rounded px-1.5 py-0.5 text-sm;
+    @apply bg-zinc-700 rounded px-1.5 py-0.5 text-sm;
 }
 
 .token.comment,
