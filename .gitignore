@@ -1,5 +1,6 @@
 .idea
 node_modules
+repomix-output.txt
 
 # Output
 .output
