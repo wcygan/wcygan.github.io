@@ -20,6 +20,7 @@ const welcomeMessages: Welcome[] = [
     { language: 'Turkish', text: 'Hoş geldiniz!' },
     { language: 'Polish', text: 'Witamy!' },
     { language: 'Hungarian', text: 'Üdvözlünk!' },
+    { language: 'Vietnamese', text: 'Xin chào!' },
     { language: 'Romanian', text: 'Bun venit!' }
 ];
 
