@@ -16,7 +16,6 @@
         I’m a Software Engineer interested in system infrastructure and design, and I currently work at
         <a href="https://www.linkedin.com/in/wcygan" target="_blank">LinkedIn</a> on the Linkedin Business Platform (E-Commerce) team.
     </p>
-
 </article>
 
 <article class="mdsvex-content prose prose-invert prose-emerald max-w-none">

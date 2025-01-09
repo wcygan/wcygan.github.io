@@ -40,9 +40,7 @@ date: ${date}
 description: ${description}
 ---
 
- # ${title}
-
- Write your post content here...
+Write your post content here...
  `;
 
 		// Create markdown file
