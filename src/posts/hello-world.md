@@ -1,14 +1,14 @@
 ---
 title: New Website
-date: January 7, 2024
-description: Goodbye AWS, Hello GitHub Pages
+date: January 7, 2025
+description: Goodbye AWS, Hello CloudFlare Pages
 ---
 
 # New Website
 
 ```diff
 - AWS Amplify
-+ GitHub Pages
++ CloudFlare Pages
 ```
 
 
@@ -18,15 +18,15 @@ fn main() {
 }
 ```
 
-Goodbye AWS, Hello GitHub Pages. 
+Goodbye AWS, Hello CloudFlare. 
 
-I've moved my website from AWS Amplify to GitHub Pages. The new website is built with [Svelte](https://svelte.dev/) and hosted on [GitHub Pages](https://pages.github.com/).
+My website is hosted on CloudFlare nowadays. The new website is built with [Svelte](https://svelte.dev/) and hosted on [CloudFlare Pages](https://pages.cloudflare.com/).
 
 ---
 
 ## Source Code
 
-| Website | Link                                                                             | Provider                                       |
-|---------|----------------------------------------------------------------------------------|------------------------------------------------|
-| New     | [github.com/wcygan/wcygan.github.io](https://github.com/wcygan/wcygan.github.io) | [GitHub Pages](https://pages.github.com/)      |
-| Old     | [github.com/wcygan/wcygan.io](https://github.com/wcygan/wcygan.io)               | [AWS Amplify](https://aws.amazon.com/amplify/) |
+| Website | Link                                                                             | Provider                                          |
+|---------|----------------------------------------------------------------------------------|---------------------------------------------------|
+| New     | [github.com/wcygan/wcygan.github.io](https://github.com/wcygan/wcygan.github.io) | [CloudFlare Pages](https://pages.cloudflare.com/) |
+| Old     | [github.com/wcygan/wcygan.io](https://github.com/wcygan/wcygan.io)               | [AWS Amplify](https://aws.amazon.com/amplify/)      |
