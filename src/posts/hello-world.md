@@ -1,28 +1,30 @@
 ---
 title: New Website
 date: January 7, 2025
-description: Goodbye AWS, Hello CloudFlare Pages
+description: Goodbye AWS, Hello CloudFlare
 ---
 
-# New Website
+Goodbye AWS, Hello CloudFlare.
+
+TLDR;
 
 ```diff
-- AWS Amplify
+- AWS Amplify + Route53
+- Hugo + Papermod
 + CloudFlare Pages
++ Svelte
 ```
 
+
+## Code blocks
+
+I'm using [Shiki](https://shiki.style/) for styling, it looks nice:
 
 ```rust file="src/main.rs"
 fn main() {
     println!("Hello, World!");
 }
 ```
-
-Goodbye AWS, Hello CloudFlare. 
-
-My website is hosted on CloudFlare nowadays. The new website is built with [Svelte](https://svelte.dev/) and hosted on [CloudFlare Pages](https://pages.cloudflare.com/).
-
----
 
 ## Source Code
 
