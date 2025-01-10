@@ -26,10 +26,10 @@ const navItems: NavItem[] = [
                 aria-label={label}
             >
                 {#if icon}
-                    <img src={icon} alt="" class="w-5 h-5" />
+                    <img src={icon} alt="" class="w-8 h-8" />
                     <span class="sr-only">{label}</span>
                 {:else}
-                    {label}
+                    <span class="text-xl">{label}</span>
                 {/if}
             </a>
         {/each}
