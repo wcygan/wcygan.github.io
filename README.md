@@ -8,6 +8,9 @@ Managed on https://dash.cloudflare.com/
 
 ```bash
 pnpm run dev --open
+
+# or
+./scripts/develop.sh
 ```
 
 ## Create a new post

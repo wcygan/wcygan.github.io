@@ -18,18 +18,20 @@ const navItems: NavItem[] = [
 <nav class="mb-16 max-w-3xl mx-auto sticky top-0 bg-zinc-800/80 backdrop-blur-sm z-10 p-4">
     <div class="flex gap-6 justify-center">
         {#each navItems as {href, label, external, icon}}
-            <a 
-                {href} 
+            <a
+                {href}
                 class="text-zinc-100 hover:text-emerald-400 transition-all duration-200 flex items-center gap-1"
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
                 aria-label={label}
             >
                 {#if icon}
-                    <img src={icon} alt="" class="w-8 h-8" />
+                    <!-- header icon sizes -->
+                    <img src={icon} alt="" class="w-7 h-7" />
                     <span class="sr-only">{label}</span>
                 {:else}
-                    <span class="text-xl">{label}</span>
+                    <!-- header text sizes -->
+                    <span class="text-lg">{label}</span>
                 {/if}
             </a>
         {/each}
