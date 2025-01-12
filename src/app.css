@@ -23,7 +23,7 @@ a {
 }
 
 .section {
-    @apply max-w-2xl mx-auto px-4 md:px-8; /* Added horizontal padding */
+    @apply max-w-2xl md:max-w-3xl mx-auto px-4 md:px-8; /* Added horizontal padding */
 }
 
 /* Add styles for blog post cards */
