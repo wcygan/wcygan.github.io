@@ -16,5 +16,5 @@ pnpm run dev --open
 ## Create a new post
 
 ```bash
-pnpm new-post
+pnpm post
 ```
