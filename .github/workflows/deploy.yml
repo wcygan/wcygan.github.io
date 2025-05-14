@@ -1,3 +1,5 @@
+# TODO: this needs to be updated to use Deno Fresh properly
+
 name: Deploy with GitHub Actions (v4 Artifacts)
 
 on:
