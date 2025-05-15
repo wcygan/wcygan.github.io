@@ -45,7 +45,7 @@ export default function Home({ data }: PageProps<HomeProps>) {
             />
           ))}
         </div>
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <div style={{ textAlign: "center", marginTop: "15px" }}>
           <a href="/blog" class="button">View All Posts</a>
         </div>
       </section>

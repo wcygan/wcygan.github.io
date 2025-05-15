@@ -23,8 +23,8 @@ body {
 .container {
   width: 90%; /* Slightly wider */
   max-width: 1100px; /* Increased max-width */
-  margin: 30px auto; /* Increased top/bottom margin */
-  padding: 30px; /* Increased padding */
+  margin: 20px auto; /* Reduced top/bottom margin */
+  padding: 20px; /* Reduced padding */
   background-color: #ffffff; /* Clear white for content background */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
   flex-grow: 1;
@@ -35,7 +35,7 @@ header {
   /* background-color: #333; */ /* Old background */
   background-color: transparent; /* Make header transparent or match body */
   color: #333d42; /* Match body text color */
-  padding: 2em 0; /* Increased padding */
+  padding: 1.5em 0; /* Reduced padding */
   text-align: left; /* Align to the left for a more modern feel */
   border-bottom: 1px solid #e0dcd5; /* Subtle bottom border */
 }
@@ -124,7 +124,7 @@ header nav ul li a.active {
 
 footer {
   text-align: center;
-  padding: 2em 0; /* Increased padding */
+  padding: 1.5em 0; /* Reduced padding */
   /* background-color: #333; */ /* Old background */
   background-color: #faf6f0; /* Match body background */
   /* color: #fff; */ /* Old color */
@@ -139,8 +139,8 @@ h1, h2, h3 {
   color: #302a24; /* Darker, warm color for headings, derived from Mocha Mousse idea */
   font-family: "Merriweather", serif; /* Expressive serif for headings */
   font-weight: 700; /* Bold headings */
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
 }
 
 h1 {
@@ -289,14 +289,14 @@ a:hover {
 
 /* Section for Latest Blog Posts on Homepage */
 .latest-posts-section {
-  margin-top: 40px; /* Add some space above the section */
-  padding-top: 30px;
+  margin-top: 25px; /* Reduced space above the section */
+  padding-top: 20px; /* Reduced padding-top */
   border-top: 1px solid #e0dcd5; /* Separator line */
 }
 
 .latest-posts-section h2 {
   text-align: center; /* Center the section title */
-  margin-bottom: 30px;
+  margin-bottom: 20px; /* Reduced margin-bottom */
 }
 
 /* Grid for Blog Post Previews (can be similar to projects-grid) */
