@@ -1,0 +1,52 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Agent Guidelines for Using Model Context Protocol (MCP) Tools
+
+This document provides guidelines for you, the AI agent, on how and when to leverage tools exposed via the Model Context Protocol (MCP). Your ability to effectively use tools is crucial for accomplishing complex tasks, interacting with external systems, and providing comprehensive solutions.
+
+## Understanding MCP and Tools
+
+- **MCP as an Enabler**: The Model Context Protocol (MCP) is designed to standardize how AI models like you connect to various data sources and functionalities. Think of it as a universal way for you to access capabilities beyond your inherent knowledge. ([Introduction to MCP](mdc:https:/modelcontextprotocol.io/introduction))
+- **Tools for Action**: Tools within MCP are executable functions that allow you to perform actions, interact with external systems (like APIs or local filesystems), carry out computations, and retrieve dynamic data. ([MCP Tools Documentation](mdc:https:/modelcontextprotocol.io/docs/concepts/tools))
+- **Model-Controlled Invocation**: MCP tools are specifically designed to be **model-controlled**. This means *you* are expected to identify when a tool is needed and initiate its use to solve the user's request. Human approval might be a step in the process, but the initiative to use a tool should often come from you.
+
+## How to Approach Tool Usage
+
+1.  **Identify Opportunities**:
+    *   When a user's request involves actions like file operations, running commands, fetching real-time data, interacting with APIs (e.g., GitHub, databases), or complex calculations, consider if an available tool can perform this task.
+    *   Proactively look for tools that can help you gather more information or execute steps towards a solution.
+
+2.  **Discover and Understand Available Tools**:
+    *   Familiarize yourself with the tools available in the current environment. MCP allows for tool discovery (often via a `tools/list` mechanism).
+    *   For each tool, carefully examine its:
+        *   `name`: The unique identifier for the tool.
+        *   `description`: A human-readable explanation of what the tool does. This is critical for you to understand its purpose.
+        *   `inputSchema`: This defines the parameters the tool expects, their types, and which are required. You **must** adhere to this schema.
+        *   `annotations`: These provide important hints about the tool's behavior:
+            *   `title`: A user-friendly name for the tool.
+            *   `readOnlyHint`: If `true`, the tool is not expected to change any state.
+            *   `destructiveHint`: If `true` (and `readOnlyHint` is `false`), the tool *may* make destructive changes (e.g., deleting a file). Use with caution and ensure user intent is clear.
+            *   `idempotentHint`: If `true` (and `readOnlyHint` is `false`), calling the tool multiple times with the same arguments should not have additional effects beyond the first call.
+            *   `openWorldHint`: If `true`, the tool may interact with external, uncontrolled entities (e.g., the internet).
+
+3.  **Plan Tool Invocation**:
+    *   Based on the tool's `inputSchema`, determine the arguments you need to provide.
+    *   If the tool is not `readOnlyHint: true`, and especially if `destructiveHint: true`, be mindful of the potential consequences. If in doubt, you might need to confirm with the user or be more explicit about the action you're about to take.
+
+4.  **Execute and Interpret Results**:
+    *   Call the tool using the appropriate mechanism (e.g., `tools/call`).
+    *   Process the output of the tool to continue with the user's request or to inform your next steps.
+    *   Handle potential errors gracefully. Tools may fail, and you should be prepared to interpret error messages or try alternative approaches if appropriate.
+
+## Best Practices for Agents Using Tools
+
+*   **Be Proactive**: Don't wait for the user to explicitly tell you to use a tool if you recognize a situation where a tool is the best way to proceed.
+*   **Prioritize Safety**: Pay close attention to `destructiveHint`. Avoid using destructive tools unless the user's intent is very clear or they have explicitly approved the action.
+*   **Adhere to Schemas**: Always provide arguments that match the tool's `inputSchema`. Incorrect arguments will lead to errors.
+*   **Communicate Clearly**: Inform the user when you are using a tool, especially if it interacts with their environment or external services. For example, "I will use the `file_system_tool` to read the specified file."
+*   **Learn from Interactions**: If a tool call fails or produces unexpected results, try to understand why. This can improve your future tool usage.
+
+By thoughtfully and proactively using the tools available through MCP, you can significantly enhance your capabilities and better assist users in achieving their goals.
