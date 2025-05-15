@@ -31,7 +31,7 @@ body {
 
 header {
   /* background-color: #333; */ /* Old background */
-  background-color: #transparent; /* Make header transparent or match body */
+  background-color: transparent; /* Make header transparent or match body */
   color: #333D42; /* Match body text color */
   padding: 2em 0; /* Increased padding */
   text-align: left; /* Align to the left for a more modern feel */
@@ -45,9 +45,39 @@ header .header-content {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* Vertically align items in header */
 }
 
+.header-identity {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-identity h1 {
+  margin-bottom: 0.1em; /* Reduce space below name */
+  font-size: 2em; /* Ensure it's prominent */
+}
+
+.header-sub-links {
+  font-size: 0.85em;
+  color: #5A6D7C; /* Softer text color */
+}
+
+.header-sub-links a {
+  color: #5A6D7C;
+  text-decoration: none;
+  font-weight: 400; /* Lighter font weight for sub-links */
+  transition: color 0.3s ease;
+}
+
+.header-sub-links a:hover {
+  color: #8C6E5D; /* Accent color on hover */
+  text-decoration: underline;
+}
+
+.header-sub-links span {
+  margin: 0 0.5em;
+}
 
 header h1 {
   margin: 0;
@@ -192,3 +222,58 @@ a:hover {
 /* Specific for font families if we load them via @import or <link> */
 /* body { font-family: 'Manrope', sans-serif; } */
 /* h1, h2, h3, header h1 { font-family: 'Merriweather', serif; } */
+
+/* Grid for Projects Page */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 25px; /* Space between cards */
+  padding: 20px 0; /* Padding around the grid */
+}
+
+/* Adjusting project card for grid if needed */
+.project-card {
+  /* border: 1px solid #ddd; */ /* Old border */
+  border: 1px solid #E0DCD5; /* Softer border */
+  padding: 25px; /* Slightly increased padding for a bit more space inside cards */
+  margin-bottom: 0; /* Remove bottom margin as gap handles spacing in grid */
+  /* background-color: #f9f9f9; */ /* Old background */
+  background-color: #FFFFFF; /* Keep cards white */
+  border-radius: 8px; /* Match container's rounded corners */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05); /* Softer shadow for cards */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  display: flex; /* Using flex to better align content within the card */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; /* Push link to bottom if card heights vary */
+}
+
+.project-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.75em; /* Add some space below title */
+  color: #8C6E5D; /* Accent color for card titles */
+}
+
+.project-card p {
+  flex-grow: 1; /* Allow description to take up available space */
+  margin-bottom: 1em; /* Space before the link */
+}
+
+.project-card a {
+  display: inline-block; /* Make the link behave like a button */
+  padding: 8px 15px;
+  background-color: #8C6E5D;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: auto; /* Push to bottom if using flex column on card */
+}
+
+.project-card a:hover {
+  background-color: #6F584B;
+  color: #FFFFFF; /* Ensure text color remains white on hover */
+  transform: translateY(-2px);
+  text-decoration: none;
+}

@@ -23,7 +23,7 @@ export default function ProjectsPage() {
   return (
     <Layout>
       <h2>My Projects</h2>
-      <div>
+      <div class="projects-grid">
         {projects.map(project => (
           <ProjectCard 
             title={project.title} 
