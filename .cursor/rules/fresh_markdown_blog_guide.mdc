@@ -1,0 +1,107 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Fresh Blog with Markdown (GFM) Guide
+
+This rule outlines best practices for building and maintaining a blog using the Deno Fresh framework, with content stored in Markdown files, rendered using Deno GFM (GitHub Flavored Markdown), and syntax highlighting via PrismJS.
+
+## Core Concepts from Fresh Blog Tutorial ([Source](mdc:https:/deno.com/blog/build-a-blog-with-fresh))
+
+### 1. Project Structure for Blog
+
+- **`posts/` directory**: Store all blog posts as Markdown files (`.md`) in this directory at the project root. (e.g., `posts/my-first-post.md`)
+- **`utils/posts.ts`**: A utility file to handle fetching and processing posts. This typically includes:
+    - `Post` interface: Defines the structure of a post object (slug, title, publishedAt, content, snippet).
+    - `getPost(slug: string): Promise<Post | null>`: Reads a single Markdown file from `./posts/{slug}.md`, parses front matter, and returns a `Post` object or `null`.
+    - `getPosts(): Promise<Post[]>`: Reads all Markdown files from `./posts`, processes them using `getPost`, sorts them (e.g., by date), and returns an array of `Post` objects.
+- **`routes/blog/index.tsx`**: The blog index page.
+    - Contains a Fresh `handler` to call `getPosts()` and pass the `Post[]` to the page component.
+    - Renders a list of post previews (e.g., using a `BlogPostPreview.tsx` component).
+- **`routes/blog/[slug].tsx`**: The individual blog post page.
+    - Contains a Fresh `handler` to call `getPost(ctx.params.slug)` and pass the `Post` object (or `null`) to the page component.
+    - If the post is not found, it should render a 404-like experience (e.g., `ctx.renderNotFound()` or a custom message).
+    - Renders the post title, publication date, and the main content (Markdown parsed to HTML).
+
+### 2. Markdown File Structure
+
+Each `.md` file in the `posts/` directory should start with YAML front matter:
+
+```yaml
+---
+title: This is my first blog post!
+published_at: 2022-11-04T15:00:00.000Z
+snippet: This is an excerpt of my first blog post.
+---
+
+Hello, world! This is the main content of the post in Markdown.
+```
+
+- **`title`**: The title of the blog post.
+- **`published_at`**: The publication date and time in ISO 8601 format. Used for sorting.
+- **`snippet`**: A short summary or excerpt used for previews on the blog index page.
+
+### 3. Dependencies and Configuration (`deno.json`)
+
+Key imports for `import_map.json` (or `deno.json` under `"imports"`):
+
+```json
+{
+  "imports": {
+    "$std/": "https://deno.land/std@<version>/", // For front_matter, path
+    "$gfm": "https://deno.land/x/gfm@<version>/mod.ts", // For Markdown rendering
+    "@/": "./" // For root-relative project imports
+  }
+}
+```
+- The Fresh tutorial specifically uses `$std/encoding/front_matter.ts` for parsing front matter and `$std/path/mod.ts` for joining file paths.
+- An alternative for front matter parsing is `jsr:@std/front-matter` which provides `extractYaml` and other format-specific extractors.
+
+### 4. Rendering Markdown Content
+
+In `routes/blog/[slug].tsx`:
+
+- Import `CSS` and `render` from the GFM module (e.g., `import { CSS, render } from "$gfm";`).
+- Import `Head` from `$fresh/runtime.ts`.
+- Include GFM styles in the page's `<Head>`: `<style dangerouslySetInnerHTML={{ __html: CSS }} />`.
+- Render the Markdown content: `<div class="markdown-body" dangerouslySetInnerHTML={{ __html: render(post.content) }} />`.
+- The `markdown-body` class is necessary for GFM styles to apply correctly.
+
+## Deno GFM Usage ([Source](mdc:https:/raw.githubusercontent.com/denoland/deno-gfm/refs/heads/main/README.md))
+
+- **Installation**: `deno add @deno/gfm` (if using JSR)
+- **Basic Usage**: `import { CSS, render } from "@deno/gfm";`
+- **Styling**: Uses GitHub Primer styles. Themes (light/dark) can be controlled via `data-color-mode`, `data-light-theme`, and `data-dark-theme` attributes on an HTML element wrapping the Markdown body.
+  ```html
+  <body data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+    <div class="markdown-body">
+      <!-- Rendered Markdown -->
+    </div>
+  </body>
+  ```
+- **Extensibility (Syntax Highlighting)**:
+    - GFM uses PrismJS for syntax highlighting.
+    - By default, JS, Markdown, and HTML are included.
+    - To add more languages, import them directly from `npm:prismjs@1.29.0/components/prism-<language>.js`.
+      Example: `import "npm:prismjs@1.29.0/components/prism-typescript.js";`
+- **Inline Rendering**: Use `render(markdown, { inline: true })` for rendering inline Markdown without block-level elements.
+- **Math Rendering**: Disabled by default. Enable with `render(markdown, { allowMath: true })` and include `KATEX_CSS`.
+  `import { CSS, KATEX_CSS, render } from "@deno/gfm";`
+
+## PrismJS for Syntax Highlighting ([Component List](mdc:https:/app.unpkg.com/prismjs@1.29.0/files/components))
+
+- PrismJS is the syntax highlighter used by Deno GFM.
+- To enable highlighting for a specific language, you need to import its component file.
+- The path is typically `npm:prismjs@1.29.0/components/prism-<language>.js`.
+- Refer to the UNPKG link for a full list of available language components (e.g., `prism-python.min.js`, `prism-rust.min.js`, etc.). Choose the non-minified version for imports (e.g., `prism-python.js`).
+
+## Key Files to Check/Implement
+
+- `deno.json`: For imports.
+- `utils/posts.ts`: For post fetching logic.
+- `posts/`: Directory containing `.md` files.
+- `routes/blog/index.tsx`: Blog listing page.
+- `routes/blog/[slug].tsx`: Individual post page (handles Markdown rendering).
+- `components/BlogPostPreview.tsx` (or similar): For displaying post snippets.
+- `static/styles.css`: For any custom overrides or base styles that interact with `markdown-body`.

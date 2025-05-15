@@ -1,0 +1,102 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Fresh Blog Setup: Learnings, Issues & Solutions
+
+This rule documents key insights, troubleshooting steps, and solutions encountered while setting up a Markdown-based blog with Deno Fresh. Its purpose is to aid in future development and ensure smooth operation.
+
+## 1. Core Blog Architecture (Markdown-based)
+
+- **Content Storage**: Blog posts are individual `.md` files stored in a dedicated `posts/` directory at the project root.
+    - Each filename (e.g., `my-cool-post.md`) determines the URL slug (`my-cool-post`).
+- **Front Matter**: Each Markdown file must begin with YAML front matter for metadata.
+    - Required fields: `title` (string), `published_at` (ISO 8601 date string, e.g., `2024-03-15T10:00:00.000Z`), `snippet` (string for summaries).
+    - Example:
+      ```yaml
+      ---
+      title: My Awesome Post
+      published_at: 2024-03-15T00:00:00.000Z
+      snippet: A brief look at something awesome.
+      ---
+      Actual Markdown content starts here...
+      ```
+- **Utility Module (`utils/posts.ts`)**: A central TypeScript module is responsible for:
+    - Defining a `Post` interface (slug, title, publishedAt: Date, content, snippet).
+    - `getPost(slug: string)`: Reads a single `.md` file, parses front matter, and returns a `Post` object or `null`.
+    - `getPosts()`: Reads all `.md` files in `posts/`, calls `getPost` for each, filters out nulls, and sorts them by `publishedAt` (descending).
+- **Fresh Handlers**: Route files (`routes/blog/index.tsx`, `routes/blog/[slug].tsx`, `routes/index.tsx` for previews) use Fresh `Handlers` to asynchronously call `getPosts()` or `getPost()` and pass the data to their respective page components.
+- **Markdown Rendering**: Individual post pages (`routes/blog/[slug].tsx`) use `CSS` and `render` from a GFM (GitHub Flavored Markdown) module (e.g., `$gfm` or `jsr:@deno/gfm`) to convert Markdown content to HTML. Requires `<Head>` from `$fresh/runtime.ts` to inject GFM CSS.
+    - The HTML element containing the rendered Markdown should have the class `markdown-body`.
+
+## 2. Key Dependencies & Configuration (`deno.json`)
+
+- **JSR for Standard Modules**: Prefer JSR specifiers for Deno Standard Library modules where available (e.g., `jsr:@std/front-matter` instead of `$std/encoding/front_matter.ts`) as this can be more reliable.
+- **GFM Module**: For rendering Markdown (e.g., `"$gfm": "https://deno.land/x/gfm@0.1.26/mod.ts"` or `jsr:@deno/gfm`).
+- **Path Alias**: Add `"@/": "./"` to `imports` for cleaner root-relative project imports.
+- **`nodeModulesDir`**: Set to `"auto"` as `true` is deprecated in Deno 2.0.
+
+## 3. Common Issues & Troubleshooting Steps
+
+### a. Module Not Found / Import Errors
+
+- **Issue**: Deno runtime or linter reports "Module not found" or "Uncached or missing remote URL" for standard library or GFM imports.
+- **Solutions**:
+    1.  **Verify URL/Version**: Double-check the import URL and version string in `deno.json` or directly in the import statement. Ensure the module exists at that specific path and version.
+    2.  **Switch to JSR**: If using `deno.land/std/...` paths causes issues, try the equivalent `jsr:@std/...` specifier. This resolved an issue with `front_matter.ts`.
+        - Original problematic import: `import { extract, type Parser } from "$std/encoding/front_matter.ts";`
+        - Successful JSR import: `import { extractYaml } from "jsr:@std/front-matter@1.0.9";` (Note: export names might differ, e.g., `extractYaml` vs. generic `extract`).
+    3.  **Cache Reload (User Environment)**: If URLs are correct, instruct the user to run `deno cache --reload path/to/problematic/file.ts` or `deno cache -r <URL>` in their terminal.
+    4.  **Linter vs. Runtime**: Sometimes the linter might show an error for a new import path that Deno can actually resolve at runtime. Prioritize fixing runtime errors.
+
+### b. Front Matter Parsing Issues
+
+- **Issue**: Posts are not appearing, and console logs (added for debugging) show that posts are being filtered out or metadata is incorrect.
+- **Symptom (from logs)**: `[getPost] Missing or invalid type for front matter attributes... PublishedAt: object`
+- **Cause**: The YAML parser used by `jsr:@std/front-matter` (specifically `extractYaml`) can parse ISO date strings directly into JavaScript `Date` objects. If the subsequent code expects a string and tries to re-parse it (e.g., `new Date(attrs.published_at)` where `attrs.published_at` is already a Date), type checks like `typeof published_at !== 'string'` will fail, incorrectly invalidating the post.
+- **Solution (`utils/posts.ts`)**: When accessing the `published_at` attribute:
+    1.  Check if it's already an `instanceof Date`. If so, use it directly.
+    2.  Else, if it's a `typeof === 'string'`, then parse it with `new Date()`.
+    3.  Handle other types as errors.
+    4.  Always validate the resulting date (e.g., `isNaN(dateObject.getTime())`) before using it.
+    ```typescript
+    // Inside getPost function, after extracting attrs:
+    const raw_published_at = (attrs as Record<string, unknown>).published_at;
+    let publishedAtDate: Date;
+
+    if (raw_published_at instanceof Date) {
+      publishedAtDate = raw_published_at;
+    } else if (typeof raw_published_at === 'string') {
+      publishedAtDate = new Date(raw_published_at);
+    } else {
+      console.error(`Invalid type for published_at...`);
+      return null;
+    }
+    
+    if (isNaN(publishedAtDate.getTime())) {
+        console.error(`Invalid date for published_at...`);
+        return null;
+    }
+    // ... then use publishedAtDate
+    ```
+- **Type Safety for `attrs`**: The `attrs` object returned by `extractYaml` is `Record<string, unknown>` (or just `unknown` depending on the version/typings). Access its properties safely:
+    1.  Check `typeof attrs === 'object' && attrs !== null`.
+    2.  Access properties and then check their specific types (e.g., `typeof title === 'string'`).
+
+### c. Debugging Strategy
+
+- **Console Logging**: When posts aren't appearing, add detailed `console.log` statements in `utils/posts.ts` (and Fresh handlers if necessary):
+    - Log directory reading (`Deno.readDir`).
+    - Log slugs of files being processed.
+    - Log the raw `attrs` object after front matter extraction.
+    - Log results of type checks and validations.
+    - Log the final array of posts before and after sorting/filtering.
+    This was crucial for identifying the `published_at` type mismatch.
+
+## 4. File Paths (Relative vs. Root)
+
+- Use the `@/` alias (defined in `deno.json`) for root-relative paths in imports (e.g., `import foo from "@/utils/bar.ts";`).
+- For file system operations like `Deno.readTextFile` or `Deno.readDir` within `utils/posts.ts`, relative paths like `./posts` are resolved from the current working directory of the Deno process. Ensure these align with your project structure and where `deno task start` is run.
+
+By following these guidelines and being aware of these potential pitfalls, maintaining and extending the Fresh blog should be more straightforward.
