@@ -8,7 +8,7 @@ export const handler: Handlers<Post | null> = {
   async GET(_req, ctx) {
     const post = await getPost(ctx.params.slug);
     // No specific error for not found here, render will handle if post is null
-    return ctx.render(post); 
+    return ctx.render(post);
   },
 };
 
@@ -31,9 +31,11 @@ export default function PostPage({ data: post }: PageProps<Post | null>) {
   return (
     <Layout>
       <Head>
+        {/* deno-lint-ignore react-no-danger */}
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
       </Head>
-      <article class="blog-post-full markdown-body"> {/* Added markdown-body class for GFM styles */}
+      <article class="blog-post-full markdown-body">
+        {/* Added markdown-body class for GFM styles */}
         <h1>{post.title}</h1>
         <p class="post-meta">
           <small>
@@ -45,10 +47,14 @@ export default function PostPage({ data: post }: PageProps<Post | null>) {
           </small>
         </p>
         {/* Render the raw Markdown content using GFM */}
-        <div class="post-content" dangerouslySetInnerHTML={{ __html: render(post.content) }} />
+        {/* deno-lint-ignore react-no-danger */}
+        <div
+          class="post-content"
+          dangerouslySetInnerHTML={{ __html: render(post.content) }}
+        />
         <hr />
         <a href="/blog" class="button">Back to Blog Index</a>
       </article>
     </Layout>
   );
-} 
+}

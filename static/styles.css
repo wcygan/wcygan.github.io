@@ -5,12 +5,14 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&family=Merriweather:wght@400;700&display=swap'); */ /* Commented out as we are linking in Layout.tsx */
 
 body {
-  font-family: 'Manrope', sans-serif; /* Using a more common sans-serif for broader compatibility first */
+  font-family:
+    "Manrope",
+    sans-serif; /* Using a more common sans-serif for broader compatibility first */
   /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
   margin: 0;
   /* background-color: #f4f4f4; */ /* Old background */
-  background-color: #FAF6F0; /* Soft, warm off-white */
-  color: #333D42; /* Dark, desaturated blue/gray for text */
+  background-color: #faf6f0; /* Soft, warm off-white */
+  color: #333d42; /* Dark, desaturated blue/gray for text */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -23,7 +25,7 @@ body {
   max-width: 1100px; /* Increased max-width */
   margin: 30px auto; /* Increased top/bottom margin */
   padding: 30px; /* Increased padding */
-  background-color: #FFFFFF; /* Clear white for content background */
+  background-color: #ffffff; /* Clear white for content background */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
   flex-grow: 1;
   border-radius: 8px; /* Subtle rounded corners */
@@ -32,20 +34,20 @@ body {
 header {
   /* background-color: #333; */ /* Old background */
   background-color: transparent; /* Make header transparent or match body */
-  color: #333D42; /* Match body text color */
+  color: #333d42; /* Match body text color */
   padding: 2em 0; /* Increased padding */
   text-align: left; /* Align to the left for a more modern feel */
-  border-bottom: 1px solid #E0DCD5; /* Subtle bottom border */
+  border-bottom: 1px solid #e0dcd5; /* Subtle bottom border */
 }
 
 /* Apply container-like padding to header content, but full-width background */
 header .header-content {
-    width: 90%;
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Vertically align items in header */
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertically align items in header */
 }
 
 .header-identity {
@@ -60,18 +62,18 @@ header .header-content {
 
 .header-sub-links {
   font-size: 0.85em;
-  color: #5A6D7C; /* Softer text color */
+  color: #5a6d7c; /* Softer text color */
 }
 
 .header-sub-links a {
-  color: #5A6D7C;
+  color: #5a6d7c;
   text-decoration: none;
   font-weight: 400; /* Lighter font weight for sub-links */
   transition: color 0.3s ease;
 }
 
 .header-sub-links a:hover {
-  color: #8C6E5D; /* Accent color on hover */
+  color: #8c6e5d; /* Accent color on hover */
   text-decoration: underline;
 }
 
@@ -83,7 +85,7 @@ header h1 {
   margin: 0;
   /* font-size: 2em; */ /* Old font size */
   font-size: 1.8em; /* Slightly reduced for better balance with new fonts */
-  font-family: 'Merriweather', serif; /* Expressive serif for heading */
+  font-family: "Merriweather", serif; /* Expressive serif for heading */
   font-weight: 700;
 }
 
@@ -102,7 +104,7 @@ header nav ul li {
 
 header nav ul li a {
   /* color: #fff; */ /* Old color */
-  color: #333D42; /* Match body text color */
+  color: #333d42; /* Match body text color */
   text-decoration: none;
   font-size: 1em; /* Adjusted font size */
   font-weight: 400; /* Regular weight for nav links */
@@ -112,10 +114,11 @@ header nav ul li a {
 }
 
 header nav ul li a:hover,
-header nav ul li a.active { /* Assuming an 'active' class can be added for current page */
+header nav ul li a.active {
+  /* Assuming an 'active' class can be added for current page */
   /* text-decoration: underline; */ /* Old hover */
-  background-color: #E9E4DD; /* Mocha Mousse like accent for hover */
-  color: #302A24; /* Darker text on hover */
+  background-color: #e9e4dd; /* Mocha Mousse like accent for hover */
+  color: #302a24; /* Darker text on hover */
   text-decoration: none;
 }
 
@@ -123,31 +126,36 @@ footer {
   text-align: center;
   padding: 2em 0; /* Increased padding */
   /* background-color: #333; */ /* Old background */
-  background-color: #FAF6F0; /* Match body background */
+  background-color: #faf6f0; /* Match body background */
   /* color: #fff; */ /* Old color */
-  color: #5A6D7C; /* Softer text color for footer */
+  color: #5a6d7c; /* Softer text color for footer */
   margin-top: auto;
   font-size: 0.9em;
-  border-top: 1px solid #E0DCD5; /* Subtle top border */
+  border-top: 1px solid #e0dcd5; /* Subtle top border */
 }
 
 h1, h2, h3 {
   /* color: #333; */ /* Old color */
-  color: #302A24; /* Darker, warm color for headings, derived from Mocha Mousse idea */
-  font-family: 'Merriweather', serif; /* Expressive serif for headings */
+  color: #302a24; /* Darker, warm color for headings, derived from Mocha Mousse idea */
+  font-family: "Merriweather", serif; /* Expressive serif for headings */
   font-weight: 700; /* Bold headings */
   margin-top: 1.5em;
   margin-bottom: 0.75em;
 }
 
-h1 { font-size: 2.5em; }
-h2 { font-size: 2em; }
-h3 { font-size: 1.5em; }
-
+h1 {
+  font-size: 2.5em;
+}
+h2 {
+  font-size: 2em;
+}
+h3 {
+  font-size: 1.5em;
+}
 
 a {
   /* color: #007bff; */ /* Old color */
-  color: #8C6E5D; /* Warm "Mocha Mousse" like accent for links */
+  color: #8c6e5d; /* Warm "Mocha Mousse" like accent for links */
   text-decoration: none;
   font-weight: 600; /* Slightly bolder links */
   transition: color 0.3s ease;
@@ -155,30 +163,30 @@ a {
 
 a:hover {
   /* text-decoration: underline; */ /* Old hover */
-  color: #6F584B; /* Darker shade of accent on hover */
+  color: #6f584b; /* Darker shade of accent on hover */
   text-decoration: none; /* Remove underline for a cleaner look */
 }
 
 .project-card, .blog-post-preview {
   /* border: 1px solid #ddd; */ /* Old border */
-  border: 1px solid #E0DCD5; /* Softer border */
+  border: 1px solid #e0dcd5; /* Softer border */
   padding: 20px; /* Increased padding */
   margin-bottom: 25px; /* Increased margin */
   /* background-color: #f9f9f9; */ /* Old background */
-  background-color: #FFFFFF; /* Keep cards white */
+  background-color: #ffffff; /* Keep cards white */
   border-radius: 8px; /* Match container's rounded corners */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05); /* Softer shadow for cards */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Softer shadow for cards */
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .project-card:hover, .blog-post-preview:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Enhanced shadow on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
   transform: translateY(-3px); /* Subtle lift effect */
 }
 
 .project-card h3, .blog-post-preview h3 {
   margin-top: 0;
-  color: #8C6E5D; /* Accent color for card titles */
+  color: #8c6e5d; /* Accent color for card titles */
 }
 
 /* Utility class for a text-only hero section, as per trends */
@@ -194,7 +202,7 @@ a:hover {
 
 .text-hero p {
   font-size: 1.2em;
-  color: #5A6D7C; /* Softer text for hero subtitle */
+  color: #5a6d7c; /* Softer text for hero subtitle */
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
@@ -202,21 +210,21 @@ a:hover {
 
 /* Basic button styling */
 .button, button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #8C6E5D; /* Accent color */
-    color: #FFFFFF;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #8c6e5d; /* Accent color */
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .button:hover, button:hover {
-    background-color: #6F584B; /* Darker accent */
-    transform: translateY(-2px);
+  background-color: #6f584b; /* Darker accent */
+  transform: translateY(-2px);
 }
 
 /* Specific for font families if we load them via @import or <link> */
@@ -226,7 +234,8 @@ a:hover {
 /* Grid for Projects Page */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  grid-template-columns:
+    repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
   gap: 25px; /* Space between cards */
   padding: 20px 0; /* Padding around the grid */
 }
@@ -234,13 +243,13 @@ a:hover {
 /* Adjusting project card for grid if needed */
 .project-card {
   /* border: 1px solid #ddd; */ /* Old border */
-  border: 1px solid #E0DCD5; /* Softer border */
+  border: 1px solid #e0dcd5; /* Softer border */
   padding: 25px; /* Slightly increased padding for a bit more space inside cards */
   margin-bottom: 0; /* Remove bottom margin as gap handles spacing in grid */
   /* background-color: #f9f9f9; */ /* Old background */
-  background-color: #FFFFFF; /* Keep cards white */
+  background-color: #ffffff; /* Keep cards white */
   border-radius: 8px; /* Match container's rounded corners */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05); /* Softer shadow for cards */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Softer shadow for cards */
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   display: flex; /* Using flex to better align content within the card */
   flex-direction: column; /* Stack content vertically */
@@ -250,7 +259,7 @@ a:hover {
 .project-card h3 {
   margin-top: 0;
   margin-bottom: 0.75em; /* Add some space below title */
-  color: #8C6E5D; /* Accent color for card titles */
+  color: #8c6e5d; /* Accent color for card titles */
 }
 
 .project-card p {
@@ -261,8 +270,8 @@ a:hover {
 .project-card a {
   display: inline-block; /* Make the link behave like a button */
   padding: 8px 15px;
-  background-color: #8C6E5D;
-  color: #FFFFFF;
+  background-color: #8c6e5d;
+  color: #ffffff;
   text-decoration: none;
   border-radius: 6px;
   text-align: center;
@@ -272,8 +281,8 @@ a:hover {
 }
 
 .project-card a:hover {
-  background-color: #6F584B;
-  color: #FFFFFF; /* Ensure text color remains white on hover */
+  background-color: #6f584b;
+  color: #ffffff; /* Ensure text color remains white on hover */
   transform: translateY(-2px);
   text-decoration: none;
 }
@@ -282,7 +291,7 @@ a:hover {
 .latest-posts-section {
   margin-top: 40px; /* Add some space above the section */
   padding-top: 30px;
-  border-top: 1px solid #E0DCD5; /* Separator line */
+  border-top: 1px solid #e0dcd5; /* Separator line */
 }
 
 .latest-posts-section h2 {
@@ -299,11 +308,11 @@ a:hover {
 
 /* Re-styling .blog-post-preview if needed for consistency with .project-card style */
 .blog-post-preview {
-  border: 1px solid #E0DCD5;
+  border: 1px solid #e0dcd5;
   padding: 25px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -311,14 +320,14 @@ a:hover {
 }
 
 .blog-post-preview:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transform: translateY(-3px);
 }
 
 .blog-post-preview h3 {
   margin-top: 0;
   margin-bottom: 0.5em;
-  color: #8C6E5D; /* Accent color for titles */
+  color: #8c6e5d; /* Accent color for titles */
   font-size: 1.3em; /* Slightly smaller than project card titles if desired */
 }
 
@@ -328,7 +337,7 @@ a:hover {
 }
 
 .blog-post-preview h3 a:hover {
-  color: #6F584B; /* Darker accent on hover */
+  color: #6f584b; /* Darker accent on hover */
   text-decoration: underline;
 }
 
@@ -339,7 +348,7 @@ a:hover {
 
 .blog-post-preview p small {
   display: block;
-  color: #5A6D7C;
+  color: #5a6d7c;
   margin-bottom: 0.75em;
   font-size: 0.9em;
 }
@@ -347,8 +356,8 @@ a:hover {
 .blog-post-preview a.read-more {
   display: inline-block;
   padding: 8px 15px;
-  background-color: #8C6E5D;
-  color: #FFFFFF;
+  background-color: #8c6e5d;
+  color: #ffffff;
   text-decoration: none;
   border-radius: 6px;
   text-align: center;
@@ -358,8 +367,8 @@ a:hover {
 }
 
 .blog-post-preview a.read-more:hover {
-  background-color: #6F584B;
-  color: #FFFFFF;
+  background-color: #6f584b;
+  color: #ffffff;
   transform: translateY(-2px);
   text-decoration: none;
 }
@@ -371,7 +380,7 @@ a:hover {
 }
 
 .blog-post-full .post-meta {
-  color: #5A6D7C;
+  color: #5a6d7c;
   font-size: 0.9em;
   margin-bottom: 2em;
 }
@@ -389,7 +398,7 @@ a:hover {
   margin-top: 2em;
   margin-bottom: 1.5em;
   border: 0;
-  border-top: 1px solid #E0DCD5;
+  border-top: 1px solid #e0dcd5;
 }
 
 /* GFM Markdown Body Styles (mostly handled by GFM CSS, but can add overrides) */
@@ -398,25 +407,32 @@ a:hover {
   line-height: 1.7;
 }
 
-.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
-  font-family: 'Merriweather', serif; /* Ensure headings use our chosen font */
-  color: #302A24; /* Ensure headings use our chosen color */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  font-family: "Merriweather", serif; /* Ensure headings use our chosen font */
+  color: #302a24; /* Ensure headings use our chosen color */
   margin-top: 1.5em;
   margin-bottom: 0.75em;
 }
 
 .markdown-body p {
   margin-bottom: 1em;
-  font-family: 'Manrope', sans-serif; /* Ensure paragraphs use our chosen font */
-  color: #333D42; /* Ensure paragraphs use our chosen color */
+  font-family:
+    "Manrope",
+    sans-serif; /* Ensure paragraphs use our chosen font */
+  color: #333d42; /* Ensure paragraphs use our chosen color */
 }
 
 .markdown-body a {
-  color: #8C6E5D; /* Consistent link color */
+  color: #8c6e5d; /* Consistent link color */
 }
 
 .markdown-body a:hover {
-  color: #6F584B;
+  color: #6f584b;
   text-decoration: underline;
 }
 

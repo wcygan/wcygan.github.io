@@ -4,7 +4,7 @@ name: Deploy with GitHub Actions (v4 Artifacts)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 # These permissions are required for GitHub Pages in the new Actions-based model.
 permissions:
@@ -37,16 +37,15 @@ jobs:
           name: site-build
           path: ./build
 
-
   # 2) Deploy Job
   deploy:
     # This job depends on the artifacts produced by the "build" job
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read     # to read from the repo
-      pages: write       # to publish to Pages
-      id-token: write    # required for OIDC authentication
+      contents: read # to read from the repo
+      pages: write # to publish to Pages
+      id-token: write # required for OIDC authentication
     steps:
       - name: Download artifact (v4)
         uses: actions/download-artifact@v4

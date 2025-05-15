@@ -15,16 +15,16 @@ export default function BlogIndexPage({ data: posts }: PageProps<Post[]>) {
     <Layout>
       <h2>Blog</h2>
       <div class="blog-posts-grid">
-        {posts.map(post => (
-          <BlogPostPreview 
-            key={post.slug} 
-            slug={post.slug} 
-            title={post.title} 
+        {posts.map((post) => (
+          <BlogPostPreview
+            key={post.slug}
+            slug={post.slug}
+            title={post.title}
             summary={post.snippet} // Use snippet from new Post interface
-            date={post.publishedAt.toISOString().split('T')[0]} // Format Date to string
+            date={post.publishedAt.toISOString().split("T")[0]} // Format Date to string
           />
         ))}
       </div>
     </Layout>
   );
-} 
+}
