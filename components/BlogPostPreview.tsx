@@ -10,15 +10,15 @@ export default function BlogPostPreview(
 ) {
   return (
     <div class="blog-post-preview">
-      <h3>
+      <h3 class="post-title">
         <a href={`/blog/${slug}`}>{title}</a>
       </h3>
       {date && (
-        <p>
+        <p class="post-date">
           <small>Date: {date}</small>
         </p>
       )}
-      <p>{summary}</p>
+      <p class="post-summary">{summary}</p>
       <a href={`/blog/${slug}`} class="read-more">Read more...</a>
     </div>
   );

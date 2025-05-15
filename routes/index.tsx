@@ -33,7 +33,7 @@ export default function Home({ data }: PageProps<HomeProps>) {
       {/* Latest Blog Posts Section */}
       <section class="latest-posts-section">
         <h2>Latest from the Blog</h2>
-        <div class="blog-posts-grid">
+        <div>
           {/* You can reuse .projects-grid or create a new one like .blog-posts-grid */}
           {latestPosts.map((post) => (
             <BlogPostPreview

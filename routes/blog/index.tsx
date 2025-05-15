@@ -14,7 +14,7 @@ export default function BlogIndexPage({ data: posts }: PageProps<Post[]>) {
   return (
     <Layout>
       <h2>Blog</h2>
-      <div class="blog-posts-grid">
+      <div>
         {posts.map((post) => (
           <BlogPostPreview
             key={post.slug}

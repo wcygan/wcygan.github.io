@@ -171,7 +171,7 @@ a:hover {
   /* border: 1px solid #ddd; */ /* Old border */
   border: 1px solid #e0dcd5; /* Softer border */
   padding: 20px; /* Increased padding */
-  margin-bottom: 25px; /* Increased margin */
+  margin-bottom: 25px; /* Existing margin, will be overridden for .blog-post-preview specifically */
   /* background-color: #f9f9f9; */ /* Old background */
   background-color: #ffffff; /* Keep cards white */
   border-radius: 8px; /* Match container's rounded corners */
@@ -317,6 +317,10 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-width: 700px; /* Constrain width for better readability in stacked layout */
+  margin-left: auto; /* Center the card */
+  margin-right: auto; /* Center the card */
+  margin-bottom: 20px; /* Adjusted margin for stacked layout */
 }
 
 .blog-post-preview:hover {
@@ -341,8 +345,14 @@ a:hover {
   text-decoration: underline;
 }
 
-.blog-post-preview p {
-  flex-grow: 1;
+.blog-post-preview .post-date {
+  text-align: center; /* Center the date text */
+  flex-grow: 0; /* Ensure date paragraph doesn't grow */
+  margin-bottom: 0.5em; /* Adjust spacing if needed */
+}
+
+.blog-post-preview .post-summary {
+  flex-grow: 1; /* Summary takes available space */
   margin-bottom: 1em;
 }
 
@@ -355,7 +365,7 @@ a:hover {
 
 .blog-post-preview a.read-more {
   display: inline-block;
-  padding: 8px 15px;
+  padding: 6px 12px; /* Reduced padding for a smaller button */
   background-color: #8c6e5d;
   color: #ffffff;
   text-decoration: none;
@@ -364,6 +374,7 @@ a:hover {
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s ease;
   margin-top: auto; /* Push to bottom */
+  align-self: center; /* Center the button horizontally */
 }
 
 .blog-post-preview a.read-more:hover {
