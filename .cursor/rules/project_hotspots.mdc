@@ -10,23 +10,32 @@ This rule outlines the most important files and directories to consider when mak
 ## Core Content and Pages
 
 *   **`routes/`**: This is the primary directory for all page content and site structure.
-    *   **`routes/index.tsx`**: ([routes/index.tsx](mdc:routes/index.tsx)) The main home page. Most content changes for the current single-page setup will be here.
+    *   **`routes/index.tsx`**: ([routes/index.tsx](mdc:routes/index.tsx)) The main home page, featuring an "About Me" section.
+    *   **`routes/projects.tsx`**: ([routes/projects.tsx](mdc:routes/projects.tsx)) Page to showcase key projects.
+    *   **`routes/blog/index.tsx`**: ([routes/blog/index.tsx](mdc:routes/blog/index.tsx)) Blog index page listing post titles and summaries.
+    *   **`routes/blog/[slug].tsx`**: ([routes/blog/[slug].tsx](mdc:routes/blog/%5Bslug%5D.tsx)) Dynamic route for individual blog posts.
+    *   **`routes/contact.tsx`**: ([routes/contact.tsx](mdc:routes/contact.tsx)) Contact page with email and professional profile links.
     *   **`routes/api/`**: ([routes/api/](mdc:routes/api)) For any backend API endpoints you might add.
-    *   **`routes/_app.tsx`**: ([routes/_app.tsx](mdc:routes/_app.tsx)) Defines the global application shell (e.g., consistent headers, footers, global styles).
+    *   **`routes/_app.tsx`**: ([routes/_app.tsx](mdc:routes/_app.tsx)) Defines the global application shell (e.g., consistent headers, footers, global styles implemented via `Layout.tsx`).
     *   **`routes/_404.tsx`**: ([routes/_404.tsx](mdc:routes/_404.tsx)) For customizing the 404 error page.
 
 ## Interactive and Reusable UI
 
-*   **`islands/`**: ([islands/](mdc:islands)) Contains interactive UI components that require client-side JavaScript.
-*   **`components/`**: ([components/](mdc:components)) For reusable UI components that do not require client-side interactivity.
+*   **`islands/`**: ([islands/](mdc:islands)) Contains interactive UI components that require client-side JavaScript (currently unused in this minimalist setup).
+*   **`components/`**: ([components/](mdc:components)) For reusable UI components that do not require client-side interactivity. Key components include:
+    *   `components/Layout.tsx`: ([components/Layout.tsx](mdc:components/Layout.tsx)) Main layout component wrapping page content, includes Header, Footer, and stylesheet link.
+    *   `components/Header.tsx`: ([components/Header.tsx](mdc:components/Header.tsx)) Site header with navigation links.
+    *   `components/Footer.tsx`: ([components/Footer.tsx](mdc:components/Footer.tsx)) Site footer with copyright information.
+    *   `components/ProjectCard.tsx`: ([components/ProjectCard.tsx](mdc:components/ProjectCard.tsx)) Displays individual projects on the `/projects` page.
+    *   `components/BlogPostPreview.tsx`: ([components/BlogPostPreview.tsx](mdc:components/BlogPostPreview.tsx)) Displays blog post summaries on the `/blog` page.
 
 ## Static Assets
 
 *   **`static/`**: ([static/](mdc:static)) Store all static assets here, such as:
-    *   Images (e.g., `profile.jpg` referenced in [routes/index.tsx](mdc:routes/index.tsx))
-    *   Global CSS files (if not using inline/component-specific styles)
-    *   Font files
-    *   `favicon.ico` ([static/favicon.ico](mdc:static/favicon.ico))
+    *   `static/styles.css`: ([static/styles.css](mdc:static/styles.css)) The single, global stylesheet for the website.
+    *   Images (if any are added).
+    *   Font files (if any are added).
+    *   `favicon.ico`: ([static/favicon.ico](mdc:static/favicon.ico))
 
 ## Configuration Files
 
@@ -37,6 +46,6 @@ This rule outlines the most important files and directories to consider when mak
 
 ## Important Commands
 
-*   **`deno task manifest`**: Remember to run this command in your terminal whenever you add, remove, or rename files in the `routes/` or `islands/` directories. This updates `fresh.gen.ts` ([fresh.gen.ts](mdc:fresh.gen.ts)), which is crucial for Fresh to recognize your project's structure.
+*   **`deno task manifest`**: Remember to run this command in your terminal whenever you add, remove, or rename files in the `routes/` or `islands/` directories. This updates `fresh.gen.ts` ([fresh.gen.ts](mdc:fresh.gen.ts)), which is crucial for Fresh to recognize your project\'s structure.
 
 By referring to these locations, you can efficiently navigate and update the website.
