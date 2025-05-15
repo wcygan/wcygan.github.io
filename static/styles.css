@@ -289,74 +289,90 @@ a:hover {
 
 /* Section for Latest Blog Posts on Homepage */
 .latest-posts-section {
-  margin-top: 25px; /* Reduced space above the section */
-  padding-top: 20px; /* Reduced padding-top */
+  margin-top: 30px; /* Consistent spacing */
+  padding-top: 30px; /* Consistent spacing */
   border-top: 1px solid #e0dcd5; /* Separator line */
 }
 
 .latest-posts-section h2 {
   text-align: center; /* Center the section title */
-  margin-bottom: 20px; /* Reduced margin-bottom */
+  margin-bottom: 30px; /* Increased space below title */
 }
 
-/* Grid for Blog Post Previews (can be similar to projects-grid) */
+/* Grid for Blog Post Previews */
 .blog-posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Slightly larger minmax */
+  gap: 30px; /* Increased gap */
 }
 
-/* Re-styling .blog-post-preview if needed for consistency with .project-card style */
+/* Modernized .blog-post-preview */
 .blog-post-preview {
-  border: 1px solid #e0dcd5;
-  padding: 25px;
   background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e8e8e8; /* Lighter border */
+  border-radius: 12px; /* More pronounced rounded corners */
+  padding: 30px; /* Generous padding */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); /* Softer, more modern shadow */
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* No justify-content here, let natural flow dictate height based on content */
+  max-width: none; /* Remove max-width when in a grid */
+  margin-left: 0; /* Remove auto margins for grid */
+  margin-right: 0; /* Remove auto margins for grid */
+  margin-bottom: 0; /* Gap handles this in grid context */
+}
+
+/* Specific adjustments for .blog-post-preview when it's NOT in .blog-posts-grid 
+   (i.e., on the homepage for "Latest Posts" where it's stacked) */
+.latest-posts-section > div > .blog-post-preview {
   max-width: 700px; /* Constrain width for better readability in stacked layout */
   margin-left: auto; /* Center the card */
   margin-right: auto; /* Center the card */
-  margin-bottom: 20px; /* Adjusted margin for stacked layout */
+  margin-bottom: 25px; /* Spacing between stacked cards */
 }
 
 .blog-post-preview:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Enhanced shadow on hover */
+  transform: translateY(-5px); /* More lift */
 }
 
 .blog-post-preview h3 {
   margin-top: 0;
-  margin-bottom: 0.5em;
-  color: #8c6e5d; /* Accent color for titles */
-  font-size: 1.3em; /* Slightly smaller than project card titles if desired */
+  margin-bottom: 0.6em; /* Slightly more space */
+  color: #2c3e50; /* Darker, more neutral heading color */
+  font-size: 1.45em; /* Slightly larger for better hierarchy */
+  font-weight: 700; /* Ensure bold */
 }
 
 .blog-post-preview h3 a {
-  color: inherit; /* Inherit color from h3 */
+  color: inherit;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .blog-post-preview h3 a:hover {
-  color: #6f584b; /* Darker accent on hover */
-  text-decoration: underline;
+  color: #8c6e5d; /* Existing accent on hover */
+  text-decoration: none; /* Keep no underline */
 }
 
 .blog-post-preview .post-date {
-  text-align: center; /* Center the date text */
-  flex-grow: 0; /* Ensure date paragraph doesn't grow */
-  margin-bottom: 0.5em; /* Adjust spacing if needed */
+  /* text-align: center; */ /* Remove center alignment for date */
+  flex-grow: 0;
+  margin-bottom: 0.75em; /* More space below date */
+  font-size: 0.85em; /* Smaller date */
+  color: #7f8c8d; /* Softer color for date */
 }
 
 .blog-post-preview .post-summary {
-  flex-grow: 1; /* Summary takes available space */
-  margin-bottom: 1em;
+  flex-grow: 1;
+  margin-bottom: 1.5em; /* More space before read more */
+  font-size: 1em; /* Standard body font size */
+  line-height: 1.65; /* Improved line height for summary */
+  color: #34495e; /* Slightly softer text color */
 }
 
-.blog-post-preview p small {
+.blog-post-preview p small { /* This selector was for date, now using .post-date */
   display: block;
   color: #5a6d7c;
   margin-bottom: 0.75em;
@@ -364,58 +380,64 @@ a:hover {
 }
 
 .blog-post-preview a.read-more {
-  display: inline-block;
-  padding: 6px 12px; /* Reduced padding for a smaller button */
-  background-color: #8c6e5d;
-  color: #ffffff;
+  display: inline-block; /* Keep as inline-block */
+  /* background-color: #8c6e5d; */ /* Remove button-like background */
+  background-color: transparent;
+  /* color: #ffffff; */ /* Remove white text */
+  color: #8c6e5d; /* Use accent color for text */
   text-decoration: none;
-  border-radius: 6px;
-  text-align: center;
+  border-radius: 6px; /* Keep radius for potential focus styles */
+  text-align: left; /* Align to left */
   font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: auto; /* Push to bottom */
-  align-self: center; /* Center the button horizontally */
+  padding: 8px 0; /* Adjust padding - more vertical, no horizontal for text link */
+  transition: color 0.3s ease, transform 0.2s ease;
+  margin-top: auto;
+  /* align-self: center; */ /* Remove centering */
+  align-self: flex-start; /* Align to start */
 }
 
 .blog-post-preview a.read-more:hover {
-  background-color: #6f584b;
-  color: #ffffff;
-  transform: translateY(-2px);
-  text-decoration: none;
+  /* background-color: #6f584b; */ /* No background change */
+  color: #6f584b; /* Darker accent on hover */
+  transform: translateX(3px); /* Slight move to right for affordance */
+  text-decoration: underline; /* Add underline on hover for text links */
 }
 
 /* Styling for Full Blog Post Page */
 .blog-post-full h1 {
-  font-size: 2.8em; /* Larger title for individual post */
-  margin-bottom: 0.25em;
+  font-size: 3em; /* Even larger title */
+  margin-bottom: 0.2em; /* Tighter margin below main title */
+  color: #1a2b3c; /* Very dark, almost black for main title */
+  line-height: 1.2;
 }
 
 .blog-post-full .post-meta {
-  color: #5a6d7c;
-  font-size: 0.9em;
-  margin-bottom: 2em;
+  color: #7f8c8d; /* Softer metadata color */
+  font-size: 0.95em; /* Slightly larger metadata */
+  margin-bottom: 2.5em; /* More space before content */
 }
 
 .blog-post-full .post-content {
-  line-height: 1.7;
-  font-size: 1.1em; /* Slightly larger font for readability */
+  line-height: 1.8; /* More generous line height for long text */
+  font-size: 1.1rem; /* Use rem for scalability, slightly larger base */
+  color: #34495e; /* Consistent soft black for body */
 }
 
 .blog-post-full .post-content p {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.6em; /* Ample space between paragraphs */
 }
 
 .blog-post-full hr {
-  margin-top: 2em;
-  margin-bottom: 1.5em;
+  margin-top: 2.5em;
+  margin-bottom: 2em;
   border: 0;
   border-top: 1px solid #e0dcd5;
 }
 
-/* GFM Markdown Body Styles (mostly handled by GFM CSS, but can add overrides) */
+/* GFM Markdown Body Styles */
 .markdown-body {
-  /* Example: Ensure line-height matches the rest of the site if GFM doesn't cover it */
-  line-height: 1.7;
+  line-height: 1.8; /* Match post-content */
+  font-size: 1.1rem; /* Match post-content */
 }
 
 .markdown-body h1,
@@ -424,47 +446,55 @@ a:hover {
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  font-family: "Merriweather", serif; /* Ensure headings use our chosen font */
-  color: #302a24; /* Ensure headings use our chosen color */
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
+  font-family: "Merriweather", serif;
+  color: #2c3e50; /* Darker, neutral heading color */
+  margin-top: 1.8em; /* More top margin for headings */
+  margin-bottom: 0.8em; /* Ample bottom margin */
+  font-weight: 700; /* Ensure headings are bold */
 }
+.markdown-body h1 { font-size: 2.2em; line-height: 1.2; } /* Slightly smaller than page title */
+.markdown-body h2 { font-size: 1.8em; line-height: 1.25;}
+.markdown-body h3 { font-size: 1.5em; line-height: 1.3;}
 
 .markdown-body p {
-  margin-bottom: 1em;
-  font-family:
-    "Manrope",
-    sans-serif; /* Ensure paragraphs use our chosen font */
-  color: #333d42; /* Ensure paragraphs use our chosen color */
+  margin-bottom: 1.6em; /* Match post-content */
+  font-family: "Manrope", sans-serif;
+  color: #34495e; /* Match post-content */
 }
 
 .markdown-body a {
-  color: #8c6e5d; /* Consistent link color */
+  color: #8c6e5d;
+  text-decoration: none; /* No underline by default */
+  border-bottom: 1px solid #8c6e5d30; /* Subtle underline effect */
+  transition: color 0.2s ease, border-bottom-color 0.2s ease;
 }
 
 .markdown-body a:hover {
   color: #6f584b;
-  text-decoration: underline;
+  border-bottom-color: #6f584b; /* Stronger underline on hover */
 }
 
 .markdown-body code {
-  font-family: monospace; /* Consistent code font */
-  background-color: #f0f0f0; /* Subtle background for inline code */
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; /* Modern mono stack */
+  background-color: #f3f4f6; /* Lighter, neutral background */
+  color: #2c3e50; /* Darker text for inline code */
+  padding: 0.25em 0.5em; /* Slightly more padding */
+  border-radius: 6px; /* More rounded corners */
   font-size: 0.9em;
 }
 
 .markdown-body pre {
-  background-color: #2d2d2d; /* Darker background for code blocks */
-  color: #f8f8f2; /* Light text for code blocks */
-  padding: 1em;
-  border-radius: 6px;
-  overflow-x: auto; /* Allow horizontal scrolling for long lines */
+  background-color: #282c34; /* Common dark theme for code blocks */
+  color: #abb2bf; /* Light gray text */
+  padding: 1.25em; /* More padding */
+  border-radius: 8px; /* More rounded corners */
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Subtle shadow for code blocks */
 }
 
 .markdown-body pre code {
-  background-color: transparent; /* Reset background for code within pre */
+  background-color: transparent;
   padding: 0;
   font-size: 0.9em;
+  color: inherit; /* Inherit color from pre */
 }
