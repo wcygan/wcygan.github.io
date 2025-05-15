@@ -1,50 +1,53 @@
-import { PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
+import { Head } from "$fresh/runtime.ts";
 import Layout from "../../components/Layout.tsx";
+import { getPost, Post } from "../../utils/posts.ts"; // Use new posts utility
+import { CSS, render } from "$gfm"; // Import GFM CSS and render function
 
-// In a real app, you would fetch post content based on the slug
-// For this example, we'll use placeholder data and find the post by slug
-const postsData: Record<string, { title: string; content: string; date: string }> = {
-  "first-post": {
-    title: "My First Blog Post",
-    date: "2024-01-15",
-    content: "This is the full content of my first blog post. It's still placeholder text, but imagine it filled with insightful thoughts and ideas. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+export const handler: Handlers<Post | null> = {
+  async GET(_req, ctx) {
+    const post = await getPost(ctx.params.slug);
+    // No specific error for not found here, render will handle if post is null
+    return ctx.render(post); 
   },
-  "second-post": {
-    title: "Exploring Deno Fresh",
-    date: "2024-01-20",
-    content: "Detailed exploration of Deno Fresh. We cover its architecture, benefits, and how to get started. This placeholder content represents a deep dive into the framework. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  },
-  "minimalist-design-thoughts": {
-    title: "Thoughts on Minimalist Web Design",
-    date: "2024-01-25",
-    content: "Discussing the principles of minimalist web design. Why it's effective and how to achieve it. This is more placeholder text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  }
 };
 
-export default function BlogPostPage(props: PageProps) {
-  const { slug } = props.params;
-  const post = postsData[slug];
-
+export default function PostPage({ data: post }: PageProps<Post | null>) {
   if (!post) {
-    // Optionally, you could redirect to a 404 page
-    // For now, just render a message
+    // It's good practice to provide a clear 404 experience.
+    // The Deno Fresh tutorial uses ctx.renderNotFound() in the handler,
+    // but for that to work effectively, the handler type might need to be just Post,
+    // and we'd throw or return a Response for not found.
+    // For simplicity matching the existing structure, we check for null here.
     return (
       <Layout>
-        <h1>Post not found</h1>
-        <p>Sorry, we couldn't find a post with the slug: {slug}</p>
-        <a href="/blog">Back to Blog</a>
+        <h1>Post Not Found</h1>
+        <p>Sorry, the post you are looking for does not exist.</p>
+        <a href="/blog" class="button">Back to Blog</a>
       </Layout>
     );
   }
 
   return (
     <Layout>
-      <article>
+      <Head>
+        <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      </Head>
+      <article class="blog-post-full markdown-body"> {/* Added markdown-body class for GFM styles */}
         <h1>{post.title}</h1>
-        <p><small>Published on: {post.date}</small></p>
-        <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }} />
+        <p class="post-meta">
+          <small>
+            Published on: {post.publishedAt.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </small>
+        </p>
+        {/* Render the raw Markdown content using GFM */}
+        <div class="post-content" dangerouslySetInnerHTML={{ __html: render(post.content) }} />
         <hr />
-        <a href="/blog">Back to Blog Index</a>
+        <a href="/blog" class="button">Back to Blog Index</a>
       </article>
     </Layout>
   );

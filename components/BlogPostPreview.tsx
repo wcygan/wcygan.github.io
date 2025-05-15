@@ -11,7 +11,7 @@ export default function BlogPostPreview({ slug, title, summary, date }: BlogPost
       <h3><a href={`/blog/${slug}`}>{title}</a></h3>
       {date && <p><small>Date: {date}</small></p>}
       <p>{summary}</p>
-      <a href={`/blog/${slug}`}>Read more...</a>
+      <a href={`/blog/${slug}`} class="read-more">Read more...</a>
     </div>
   );
 } 
