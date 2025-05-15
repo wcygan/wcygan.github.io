@@ -1,84 +1,194 @@
+/* static/styles.css */
+/* Modernized styles for 2025 look and feel */
+
+/* Import a Google Font for demonstration - replace with your choice or local fonts */
+/* @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&family=Merriweather:wght@400;700&display=swap'); */ /* Commented out as we are linking in Layout.tsx */
+
 body {
-  font-family: sans-serif;
+  font-family: 'Manrope', sans-serif; /* Using a more common sans-serif for broader compatibility first */
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
   margin: 0;
-  background-color: #f4f4f4;
-  color: #333;
+  /* background-color: #f4f4f4; */ /* Old background */
+  background-color: #FAF6F0; /* Soft, warm off-white */
+  color: #333D42; /* Dark, desaturated blue/gray for text */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  line-height: 1.6;
+  font-weight: 400; /* Regular weight for body */
 }
 
 .container {
-  width: 80%;
-  max-width: 960px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Slightly wider */
+  max-width: 1100px; /* Increased max-width */
+  margin: 30px auto; /* Increased top/bottom margin */
+  padding: 30px; /* Increased padding */
+  background-color: #FFFFFF; /* Clear white for content background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
   flex-grow: 1;
+  border-radius: 8px; /* Subtle rounded corners */
 }
 
 header {
-  background-color: #333;
-  color: #fff;
-  padding: 1em 0;
-  text-align: center;
+  /* background-color: #333; */ /* Old background */
+  background-color: #transparent; /* Make header transparent or match body */
+  color: #333D42; /* Match body text color */
+  padding: 2em 0; /* Increased padding */
+  text-align: left; /* Align to the left for a more modern feel */
+  border-bottom: 1px solid #E0DCD5; /* Subtle bottom border */
 }
+
+/* Apply container-like padding to header content, but full-width background */
+header .header-content {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 header h1 {
   margin: 0;
-  font-size: 2em;
+  /* font-size: 2em; */ /* Old font size */
+  font-size: 1.8em; /* Slightly reduced for better balance with new fonts */
+  font-family: 'Merriweather', serif; /* Expressive serif for heading */
+  font-weight: 700;
 }
 
 header nav ul {
   list-style-type: none;
   padding: 0;
-  text-align: center;
+  /* text-align: center; */ /* Old alignment */
+  margin: 0; /* Remove default margin */
 }
 
 header nav ul li {
   display: inline;
-  margin-right: 20px;
+  margin-right: 0; /* Remove old margin, will add padding to links */
+  margin-left: 25px; /* Space out nav items */
 }
 
 header nav ul li a {
-  color: #fff;
+  /* color: #fff; */ /* Old color */
+  color: #333D42; /* Match body text color */
   text-decoration: none;
-  font-size: 1.1em;
+  font-size: 1em; /* Adjusted font size */
+  font-weight: 400; /* Regular weight for nav links */
+  padding: 8px 12px; /* Add padding for better click targets */
+  border-radius: 6px; /* Subtle rounded corners for links on hover/active */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-header nav ul li a:hover {
-  text-decoration: underline;
+header nav ul li a:hover,
+header nav ul li a.active { /* Assuming an 'active' class can be added for current page */
+  /* text-decoration: underline; */ /* Old hover */
+  background-color: #E9E4DD; /* Mocha Mousse like accent for hover */
+  color: #302A24; /* Darker text on hover */
+  text-decoration: none;
 }
 
 footer {
   text-align: center;
-  padding: 1em 0;
-  background-color: #333;
-  color: #fff;
+  padding: 2em 0; /* Increased padding */
+  /* background-color: #333; */ /* Old background */
+  background-color: #FAF6F0; /* Match body background */
+  /* color: #fff; */ /* Old color */
+  color: #5A6D7C; /* Softer text color for footer */
   margin-top: auto;
+  font-size: 0.9em;
+  border-top: 1px solid #E0DCD5; /* Subtle top border */
 }
 
 h1, h2, h3 {
-  color: #333;
+  /* color: #333; */ /* Old color */
+  color: #302A24; /* Darker, warm color for headings, derived from Mocha Mousse idea */
+  font-family: 'Merriweather', serif; /* Expressive serif for headings */
+  font-weight: 700; /* Bold headings */
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
 }
 
+h1 { font-size: 2.5em; }
+h2 { font-size: 2em; }
+h3 { font-size: 1.5em; }
+
+
 a {
-  color: #007bff;
+  /* color: #007bff; */ /* Old color */
+  color: #8C6E5D; /* Warm "Mocha Mousse" like accent for links */
   text-decoration: none;
+  font-weight: 600; /* Slightly bolder links */
+  transition: color 0.3s ease;
 }
 
 a:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */ /* Old hover */
+  color: #6F584B; /* Darker shade of accent on hover */
+  text-decoration: none; /* Remove underline for a cleaner look */
 }
 
 .project-card, .blog-post-preview {
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 15px;
-  background-color: #f9f9f9;
+  /* border: 1px solid #ddd; */ /* Old border */
+  border: 1px solid #E0DCD5; /* Softer border */
+  padding: 20px; /* Increased padding */
+  margin-bottom: 25px; /* Increased margin */
+  /* background-color: #f9f9f9; */ /* Old background */
+  background-color: #FFFFFF; /* Keep cards white */
+  border-radius: 8px; /* Match container's rounded corners */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05); /* Softer shadow for cards */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.project-card:hover, .blog-post-preview:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Enhanced shadow on hover */
+  transform: translateY(-3px); /* Subtle lift effect */
 }
 
 .project-card h3, .blog-post-preview h3 {
   margin-top: 0;
+  color: #8C6E5D; /* Accent color for card titles */
 }
+
+/* Utility class for a text-only hero section, as per trends */
+.text-hero {
+  padding: 3em 0;
+  text-align: center;
+}
+
+.text-hero h1 {
+  font-size: 3em; /* Larger for hero */
+  margin-bottom: 0.3em;
+}
+
+.text-hero p {
+  font-size: 1.2em;
+  color: #5A6D7C; /* Softer text for hero subtitle */
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Basic button styling */
+.button, button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #8C6E5D; /* Accent color */
+    color: #FFFFFF;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover, button:hover {
+    background-color: #6F584B; /* Darker accent */
+    transform: translateY(-2px);
+}
+
+/* Specific for font families if we load them via @import or <link> */
+/* body { font-family: 'Manrope', sans-serif; } */
+/* h1, h2, h3, header h1 { font-family: 'Merriweather', serif; } */
