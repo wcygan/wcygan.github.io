@@ -4,15 +4,15 @@
 :root {
   --primary-font: "Manrope", sans-serif;
 
-  /* Year 5000 Palette - Calm, Clear, Organic */
-  --bg-color: #f7f5f2; /* Soft, warm, near-white */
-  --text-color: #4a4a4a; /* Deep, warm grey */
-  --heading-color: #3a3a3a; /* Stronger dark grey for headings */
-  --accent-primary: #607d8b; /* Muted slate blue/grey */
-  --accent-secondary: #90a4ae; /* Lighter slate blue/grey */
-  --border-color: #dce0e2; /* Very subtle, light grey border */
-  --highlight-bg: rgba(96, 125, 139, 0.05); /* Faint highlight background */
-  --subtle-text-color: #78716c; /* For less important text like dates */
+  /* Year 5000 Palette - Refined: Ultra-Calm, Natural, High Clarity */
+  --bg-color: #fdfcfb; /* Extremely light, warm off-white (like fine paper) */
+  --text-color: #2c2c2c; /* Very dark, soft grey/off-black (like rich ink) */
+  --heading-color: #1f1f1f; /* Slightly deeper/bolder for main headings */
+  --accent-primary: #6b6b6a; /* Medium, very neutral, earthy grey for links/interactive */
+  --accent-secondary: #8a8a88; /* Lighter neutral grey for hover/subtle emphasis */
+  --border-color: #efefef; /* Extremely light grey for subtle borders */
+  --highlight-bg: rgba(44, 44, 44, 0.035); /* Extremely faint dark highlight on light bg */
+  --subtle-text-color: #7f7f7f; /* Calm, medium grey for dates, metadata */
 
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -358,44 +358,71 @@ a:hover {
 
 /* --- Full Blog Post Page --- */
 .blog-post-full {
-  padding: 0;
+  padding: calc(var(--spacing-unit) * 4) 0; /* Add vertical padding */
 }
 
-.blog-post-full h1 {
-  font-size: 2.8em;
-  margin-bottom: calc(var(--spacing-unit) * 1);
+.blog-post-full h1 { /* Main page title for the blog post */
+  font-size: 2.6em; /* Slightly reduced from 2.8em for better balance */
+  margin-bottom: calc(var(--spacing-unit) * 2); /* Increased bottom margin */
   color: var(--heading-color);
-  line-height: 1.2;
-  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  font-weight: var(--font-weight-bold); /* Keep it bold as it's the main title */
 }
 
 .blog-post-full .post-meta {
   color: var(--subtle-text-color);
-  font-size: 0.95em;
-  margin-bottom: calc(var(--spacing-unit) * 5);
+  font-size: 0.9em; /* Slightly smaller for subtlety */
+  margin-bottom: calc(var(--spacing-unit) * 6); /* More space before content */
   font-weight: var(--font-weight-regular);
 }
 
 .blog-post-full .post-content {
-  line-height: var(--line-height-loose);
-  font-size: 1.1em; /* Slightly larger for long-form reading */
+  line-height: var(--line-height-loose); /* 1.9, good for reading */
+  font-size: 1.12em; /* Slightly larger for optimal readability */
   color: var(--text-color);
 }
 
 .blog-post-full .post-content p {
-  margin-bottom: calc(var(--spacing-unit) * 3);
+  margin-bottom: calc(var(--spacing-unit) * 2.5); /* Consistent with general p */
 }
 
 .blog-post-full hr {
-  margin: calc(var(--spacing-unit) * 6) 0;
+  margin: calc(var(--spacing-unit) * 8) 0; /* More generous spacing for hr */
   border: 0;
   border-top: 1px solid var(--border-color);
 }
 
+/* Specific styling for the "Back to Blog Index" button on post page */
+.blog-post-full a.button {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--accent-primary);
+  padding: calc(var(--spacing-unit) * 1) 0;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  margin-top: calc(var(--spacing-unit) * 4); /* Space above the link */
+}
+
+.blog-post-full a.button:hover {
+  color: var(--accent-secondary);
+  background-color: transparent;
+  transform: translateX(calc(var(--spacing-unit) * -0.5)); /* Shift left slightly */
+  box-shadow: none;
+}
+
+.blog-post-full a.button::before {
+  content: "← "; /* Left arrow */
+  margin-right: calc(var(--spacing-unit) * 0.5);
+}
+
 /* --- GFM Markdown Body Styles --- */
 .markdown-body {
-  line-height: var(--line-height-loose);
-  font-size: 1.1em;
+  line-height: var(--line-height-loose); /* 1.9 */
+  font-size: 1.12em; /* Match .post-content */
   color: var(--text-color);
 }
 
@@ -407,17 +434,19 @@ a:hover {
 .markdown-body h6 {
   font-family: var(--primary-font);
   color: var(--heading-color);
-  margin-top: calc(var(--spacing-unit) * 5);
-  margin-bottom: calc(var(--spacing-unit) * 2);
+  margin-top: calc(var(--spacing-unit) * 6); /* Generous top margin for headings */
+  margin-bottom: calc(var(--spacing-unit) * 2.5);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-dense);
 }
-.markdown-body h1 { font-size: 2.2em; }
-.markdown-body h2 { font-size: 1.8em; }
-.markdown-body h3 { font-size: 1.5em; }
+/* Resetting h1 within markdown-body as page title is separate .blog-post-full h1 */
+.markdown-body h1 { font-size: 2em; }
+.markdown-body h2 { font-size: 1.7em; }
+.markdown-body h3 { font-size: 1.4em; }
+.markdown-body h4 { font-size: 1.2em; }
 
 .markdown-body p {
-  margin-bottom: calc(var(--spacing-unit) * 3);
+  margin-bottom: calc(var(--spacing-unit) * 2.5); /* Consistent with .post-content p */
   font-family: var(--primary-font);
   color: var(--text-color);
 }
@@ -432,24 +461,26 @@ a:hover {
   border-bottom-color: var(--accent-primary);
 }
 
-.markdown-body code {
+.markdown-body code { /* Inline code */
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  background-color: var(--highlight-bg);
-  color: var(--text-color);
-  padding: 0.2em 0.4em;
-  border-radius: calc(var(--spacing-unit) * 0.4);
-  font-size: 0.9em;
-  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--subtle-text-color); /* More subtle inline code */
+  padding: 0.1em 0.3em;
+  border-radius: calc(var(--spacing-unit) * 0.3);
+  font-size: 0.88em; /* Slightly smaller */
+  border: none; /* No border for truly inline feel */
 }
 
-.markdown-body pre {
-  background-color: #f0ece9; /* Slightly different light bg for code blocks */
+.markdown-body pre { /* Code blocks */
+  background-color: var(--highlight-bg); /* Use subtle highlight for code blocks */
   color: var(--text-color);
-  padding: calc(var(--spacing-unit) * 2);
+  padding: calc(var(--spacing-unit) * 2.5); /* More padding */
   border-radius: calc(var(--spacing-unit) * 0.5);
   overflow-x: auto;
   border: 1px solid var(--border-color);
   box-shadow: none;
+  margin-top: calc(var(--spacing-unit) * 2.5);
+  margin-bottom: calc(var(--spacing-unit) * 3);
 }
 
 .markdown-body pre code {
@@ -458,6 +489,46 @@ a:hover {
   font-size: 0.9em;
   color: inherit;
   border: none;
+  line-height: var(--line-height-dense); /* Better line height for code */
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-bottom: calc(var(--spacing-unit) * 2.5);
+  padding-left: calc(var(--spacing-unit) * 3.5); /* Indent lists */
+}
+
+.markdown-body li {
+  margin-bottom: calc(var(--spacing-unit) * 1);
+}
+
+.markdown-body blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: calc(var(--spacing-unit) * 2.5);
+  border-left: 3px solid var(--accent-secondary);
+  color: var(--subtle-text-color);
+  font-style: italic;
+  margin-bottom: calc(var(--spacing-unit) * 2.5);
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: calc(var(--spacing-unit) * 2.5);
+  font-size: 0.95em;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid var(--border-color);
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 1.5);
+  text-align: left;
+}
+
+.markdown-body th {
+  background-color: var(--highlight-bg);
+  font-weight: var(--font-weight-medium);
 }
 
 /* Selection highlight */
