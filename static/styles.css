@@ -1,443 +1,402 @@
 /* static/styles.css */
-/* Modernized styles for 2025 look and feel */
+/* Year 5000 - Hyper-Minimalist, Clarity-Focused Design */
 
-/* Import a Google Font for demonstration - replace with your choice or local fonts */
-/* @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&family=Merriweather:wght@400;700&display=swap'); */ /* Commented out as we are linking in Layout.tsx */
+:root {
+  --primary-font: "Manrope", sans-serif;
+
+  /* Year 5000 Palette - Calm, Clear, Organic */
+  --bg-color: #f7f5f2; /* Soft, warm, near-white */
+  --text-color: #4a4a4a; /* Deep, warm grey */
+  --heading-color: #3a3a3a; /* Stronger dark grey for headings */
+  --accent-primary: #607d8b; /* Muted slate blue/grey */
+  --accent-secondary: #90a4ae; /* Lighter slate blue/grey */
+  --border-color: #dce0e2; /* Very subtle, light grey border */
+  --highlight-bg: rgba(96, 125, 139, 0.05); /* Faint highlight background */
+  --subtle-text-color: #78716c; /* For less important text like dates */
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  --line-height-normal: 1.7;
+  --line-height-dense: 1.5;
+  --line-height-loose: 1.9;
+
+  --spacing-unit: 8px; /* Base unit for margins/padding */
+}
 
 body {
-  font-family:
-    "Manrope",
-    sans-serif; /* Using a more common sans-serif for broader compatibility first */
-  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
+  font-family: var(--primary-font);
   margin: 0;
-  /* background-color: #f4f4f4; */ /* Old background */
-  background-color: #faf6f0; /* Soft, warm off-white */
-  color: #333d42; /* Dark, desaturated blue/gray for text */
+  background-color: var(--bg-color);
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  line-height: 1.6;
-  font-weight: 400; /* Regular weight for body */
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Prevent horizontal scroll from subtle animations */
 }
 
 .container {
-  width: 90%; /* Slightly wider */
-  max-width: 1100px; /* Increased max-width */
-  margin: 20px auto; /* Reduced top/bottom margin */
-  padding: 20px; /* Reduced padding */
-  background-color: #ffffff; /* Clear white for content background */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
-  flex-grow: 1;
-  border-radius: 8px; /* Subtle rounded corners */
-}
-
-header {
-  /* background-color: #333; */ /* Old background */
-  background-color: transparent; /* Make header transparent or match body */
-  color: #333d42; /* Match body text color */
-  padding: 1.5em 0; /* Reduced padding */
-  text-align: left; /* Align to the left for a more modern feel */
-  border-bottom: 1px solid #e0dcd5; /* Subtle bottom border */
-}
-
-/* Apply container-like padding to header content, but full-width background */
-header .header-content {
   width: 90%;
-  max-width: 1100px;
-  margin: 0 auto;
+  max-width: 900px; /* Optimized for reading comfort */
+  margin: calc(var(--spacing-unit) * 6) auto; /* Generous top/bottom margin */
+  padding: 0; /* Container is now more about max-width and centering */
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  flex-grow: 1;
+  border-radius: 0;
+}
+
+/* --- Header & Footer --- */
+header, footer {
+  background-color: transparent;
+  color: var(--text-color);
+  padding: calc(var(--spacing-unit) * 3) 0;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto; /* Center header/footer content */
+}
+
+footer {
+  border-top: 1px solid var(--border-color);
+  border-bottom: none;
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--subtle-text-color);
+  padding: calc(var(--spacing-unit) * 4) 0;
+  margin-top: calc(var(--spacing-unit) * 8);
+}
+
+header .header-content {
+  width: 100%; /* Takes full width of parent (header) */
+  margin: 0;
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Vertically align items in header */
-}
-
-.header-identity {
-  display: flex;
-  flex-direction: column;
+  align-items: center;
 }
 
 .header-identity h1 {
-  margin-bottom: 0.1em; /* Reduce space below name */
-  font-size: 2em; /* Ensure it's prominent */
+  margin: 0;
+  font-size: 1.5em; /* More subtle */
+  color: var(--heading-color);
+  font-weight: var(--font-weight-medium);
 }
 
 .header-sub-links {
   font-size: 0.85em;
-  color: #5a6d7c; /* Softer text color */
+  color: var(--subtle-text-color);
+  margin-top: calc(var(--spacing-unit) * 0.5);
 }
 
 .header-sub-links a {
-  color: #5a6d7c;
+  color: var(--subtle-text-color);
   text-decoration: none;
-  font-weight: 400; /* Lighter font weight for sub-links */
-  transition: color 0.3s ease;
+  font-weight: var(--font-weight-regular);
+  transition: color 0.2s ease;
 }
 
 .header-sub-links a:hover {
-  color: #8c6e5d; /* Accent color on hover */
-  text-decoration: underline;
+  color: var(--accent-primary);
 }
 
 .header-sub-links span {
-  margin: 0 0.5em;
-}
-
-header h1 {
-  margin: 0;
-  /* font-size: 2em; */ /* Old font size */
-  font-size: 1.8em; /* Slightly reduced for better balance with new fonts */
-  font-family: "Merriweather", serif; /* Expressive serif for heading */
-  font-weight: 700;
+  margin: 0 calc(var(--spacing-unit) * 1);
+  color: var(--border-color);
 }
 
 header nav ul {
   list-style-type: none;
   padding: 0;
-  /* text-align: center; */ /* Old alignment */
-  margin: 0; /* Remove default margin */
+  margin: 0;
 }
 
 header nav ul li {
   display: inline;
-  margin-right: 0; /* Remove old margin, will add padding to links */
-  margin-left: 25px; /* Space out nav items */
+  margin-left: calc(var(--spacing-unit) * 3);
 }
 
 header nav ul li a {
-  /* color: #fff; */ /* Old color */
-  color: #333d42; /* Match body text color */
+  color: var(--text-color);
   text-decoration: none;
-  font-size: 1em; /* Adjusted font size */
-  font-weight: 400; /* Regular weight for nav links */
-  padding: 8px 12px; /* Add padding for better click targets */
-  border-radius: 6px; /* Subtle rounded corners for links on hover/active */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1em;
+  font-weight: var(--font-weight-medium);
+  padding: calc(var(--spacing-unit) * 1) 0; /* No horizontal padding, it's a text link */
+  border-radius: 0;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+header nav ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--accent-primary);
+  transition: width 0.3s ease;
 }
 
 header nav ul li a:hover,
 header nav ul li a.active {
-  /* Assuming an 'active' class can be added for current page */
-  /* text-decoration: underline; */ /* Old hover */
-  background-color: #e9e4dd; /* Mocha Mousse like accent for hover */
-  color: #302a24; /* Darker text on hover */
-  text-decoration: none;
+  color: var(--accent-primary);
 }
 
-footer {
-  text-align: center;
-  padding: 1.5em 0; /* Reduced padding */
-  /* background-color: #333; */ /* Old background */
-  background-color: #faf6f0; /* Match body background */
-  /* color: #fff; */ /* Old color */
-  color: #5a6d7c; /* Softer text color for footer */
-  margin-top: auto;
-  font-size: 0.9em;
-  border-top: 1px solid #e0dcd5; /* Subtle top border */
+header nav ul li a:hover::after,
+header nav ul li a.active::after {
+  width: 100%;
 }
 
+/* --- Typography --- */
 h1, h2, h3 {
-  /* color: #333; */ /* Old color */
-  color: #302a24; /* Darker, warm color for headings, derived from Mocha Mousse idea */
-  font-family: "Merriweather", serif; /* Expressive serif for headings */
-  font-weight: 700; /* Bold headings */
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+  color: var(--heading-color);
+  font-family: var(--primary-font);
+  font-weight: var(--font-weight-medium); /* Softer bold */
+  margin-top: calc(var(--spacing-unit) * 5); /* More top spacing */
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  line-height: var(--line-height-dense);
 }
 
-h1 {
-  font-size: 2.5em;
-}
-h2 {
-  font-size: 2em;
-}
-h3 {
-  font-size: 1.5em;
+h1 { font-size: 2.4em; }
+h2 { font-size: 1.9em; }
+h3 { font-size: 1.5em; }
+
+p {
+  margin-bottom: calc(var(--spacing-unit) * 2.5);
 }
 
 a {
-  /* color: #007bff; */ /* Old color */
-  color: #8c6e5d; /* Warm "Mocha Mousse" like accent for links */
+  color: var(--accent-primary);
   text-decoration: none;
-  font-weight: 600; /* Slightly bolder links */
-  transition: color 0.3s ease;
+  font-weight: var(--font-weight-medium);
+  transition: color 0.2s ease, border-color 0.2s ease;
+  border-bottom: 1px solid transparent; /* Prepare for hover effect */
 }
 
 a:hover {
-  /* text-decoration: underline; */ /* Old hover */
-  color: #6f584b; /* Darker shade of accent on hover */
-  text-decoration: none; /* Remove underline for a cleaner look */
+  color: var(--accent-secondary);
+  border-bottom-color: var(--accent-secondary);
 }
 
-.project-card, .blog-post-preview {
-  /* border: 1px solid #ddd; */ /* Old border */
-  border: 1px solid #e0dcd5; /* Softer border */
-  padding: 20px; /* Increased padding */
-  margin-bottom: 25px; /* Existing margin, will be overridden for .blog-post-preview specifically */
-  /* background-color: #f9f9f9; */ /* Old background */
-  background-color: #ffffff; /* Keep cards white */
-  border-radius: 8px; /* Match container's rounded corners */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Softer shadow for cards */
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+/* --- Content Blocks (formerly cards) --- */
+.project-card,
+.blog-post-preview {
+  border: none; /* No more card borders */
+  padding: calc(var(--spacing-unit) * 4) 0; /* Vertical padding, no horizontal */
+  margin-bottom: calc(var(--spacing-unit) * 5); /* Spacing between items */
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+  border-bottom: 1px solid var(--border-color); /* Subtle separator */
+}
+
+.project-card:last-child,
+.blog-post-preview:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .project-card:hover, .blog-post-preview:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
-  transform: translateY(-3px); /* Subtle lift effect */
+  background-color: var(--highlight-bg); /* Very subtle hover */
+  transform: none;
+  box-shadow: none;
 }
 
 .project-card h3, .blog-post-preview h3 {
   margin-top: 0;
-  color: #8c6e5d; /* Accent color for card titles */
+  margin-bottom: calc(var(--spacing-unit) * 1);
+  color: var(--heading-color);
+  font-size: 1.4em; /* Adjusted size for content blocks */
+  font-weight: var(--font-weight-medium);
 }
 
-/* Utility class for a text-only hero section, as per trends */
-.text-hero {
-  padding: 3em 0;
-  text-align: center;
+.project-card h3 a, .blog-post-preview h3 a {
+  color: inherit; /* Inherit color from h3 */
+  border-bottom: none;
 }
 
-.text-hero h1 {
-  font-size: 3em; /* Larger for hero */
-  margin-bottom: 0.3em;
+.project-card h3 a:hover, .blog-post-preview h3 a:hover {
+  color: var(--accent-primary);
+  border-bottom: none;
 }
 
-.text-hero p {
-  font-size: 1.2em;
-  color: #5a6d7c; /* Softer text for hero subtitle */
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Basic button styling */
+/* --- Buttons --- */
 .button, button {
   display: inline-block;
-  padding: 10px 20px;
-  background-color: #8c6e5d; /* Accent color */
-  color: #ffffff;
-  font-weight: 600;
+  padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
+  background-color: var(--accent-primary);
+  color: var(--bg-color); /* Light text on dark button for contrast */
+  font-weight: var(--font-weight-medium);
   text-decoration: none;
-  border-radius: 6px;
-  border: none;
+  border-radius: calc(var(--spacing-unit) * 0.5); /* Subtle radius */
+  border: 1px solid var(--accent-primary);
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  text-transform: none; /* No uppercase */
+  letter-spacing: 0;
 }
 
 .button:hover, button:hover {
-  background-color: #6f584b; /* Darker accent */
-  transform: translateY(-2px);
+  background-color: var(--accent-secondary);
+  color: var(--bg-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(96, 125, 139, 0.2);
 }
 
-/* Specific for font families if we load them via @import or <link> */
-/* body { font-family: 'Manrope', sans-serif; } */
-/* h1, h2, h3, header h1 { font-family: 'Merriweather', serif; } */
-
-/* Grid for Projects Page */
-.projects-grid {
-  display: grid;
-  grid-template-columns:
-    repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-  gap: 25px; /* Space between cards */
-  padding: 20px 0; /* Padding around the grid */
+/* --- Homepage Specifics --- */
+.container > section:first-child { /* About Me section */
+  padding: calc(var(--spacing-unit) * 2) 0;
+  margin-bottom: calc(var(--spacing-unit) * 6);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
 }
 
-/* Adjusting project card for grid if needed */
-.project-card {
-  /* border: 1px solid #ddd; */ /* Old border */
-  border: 1px solid #e0dcd5; /* Softer border */
-  padding: 25px; /* Slightly increased padding for a bit more space inside cards */
-  margin-bottom: 0; /* Remove bottom margin as gap handles spacing in grid */
-  /* background-color: #f9f9f9; */ /* Old background */
-  background-color: #ffffff; /* Keep cards white */
-  border-radius: 8px; /* Match container's rounded corners */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Softer shadow for cards */
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  display: flex; /* Using flex to better align content within the card */
-  flex-direction: column; /* Stack content vertically */
-  justify-content: space-between; /* Push link to bottom if card heights vary */
+.container > section:first-child h2 {
+  font-size: 1.2em; /* More of a subtle section intro */
+  color: var(--subtle-text-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+  margin-bottom: calc(var(--spacing-unit) * 3);
+  font-weight: var(--font-weight-medium);
 }
 
-.project-card h3 {
-  margin-top: 0;
-  margin-bottom: 0.75em; /* Add some space below title */
-  color: #8c6e5d; /* Accent color for card titles */
+.container > section:first-child p {
+  font-size: 1.1em;
+  line-height: var(--line-height-loose);
+  color: var(--text-color);
+  text-align: left;
 }
 
-.project-card p {
-  flex-grow: 1; /* Allow description to take up available space */
-  margin-bottom: 1em; /* Space before the link */
-}
-
-.project-card a {
-  display: inline-block; /* Make the link behave like a button */
-  padding: 8px 15px;
-  background-color: #8c6e5d;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 6px;
-  text-align: center;
-  font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: auto; /* Push to bottom if using flex column on card */
-}
-
-.project-card a:hover {
-  background-color: #6f584b;
-  color: #ffffff; /* Ensure text color remains white on hover */
-  transform: translateY(-2px);
-  text-decoration: none;
-}
-
-/* Section for Latest Blog Posts on Homepage */
 .latest-posts-section {
-  margin-top: 30px; /* Consistent spacing */
-  padding-top: 30px; /* Consistent spacing */
-  border-top: 1px solid #e0dcd5; /* Separator line */
+  padding-top: 0;
+  margin-top: 0;
+  border-top: none;
 }
 
 .latest-posts-section h2 {
-  text-align: center; /* Center the section title */
-  margin-bottom: 30px; /* Increased space below title */
+  font-size: 1.2em; /* Consistent with About Me intro */
+  color: var(--subtle-text-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+  margin-bottom: calc(var(--spacing-unit) * 1); /* Less margin as previews have padding */
+  font-weight: var(--font-weight-medium);
 }
 
-/* Grid for Blog Post Previews */
+/* --- Grid for Projects / Blog (if used) --- */
+/* Keeping grid very minimal, relying on item separators */
+.projects-grid,
 .blog-posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Slightly larger minmax */
-  gap: 30px; /* Increased gap */
+  display: block; /* Revert to block flow for items with separators */
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: calc(var(--spacing-unit) * 4); */
+  padding: 0;
 }
 
-/* Modernized .blog-post-preview */
-.blog-post-preview {
-  background-color: #ffffff;
-  border: 1px solid #e8e8e8; /* Lighter border */
-  border-radius: 12px; /* More pronounced rounded corners */
-  padding: 30px; /* Generous padding */
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); /* Softer, more modern shadow */
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  /* No justify-content here, let natural flow dictate height based on content */
-  max-width: none; /* Remove max-width when in a grid */
-  margin-left: 0; /* Remove auto margins for grid */
-  margin-right: 0; /* Remove auto margins for grid */
-  margin-bottom: 0; /* Gap handles this in grid context */
-}
-
-/* Specific adjustments for .blog-post-preview when it's NOT in .blog-posts-grid 
-   (i.e., on the homepage for "Latest Posts" where it's stacked) */
+/* For blog previews on homepage, if stacked */
 .latest-posts-section > div > .blog-post-preview {
-  max-width: 700px; /* Constrain width for better readability in stacked layout */
-  margin-left: auto; /* Center the card */
-  margin-right: auto; /* Center the card */
-  margin-bottom: 25px; /* Spacing between stacked cards */
-}
-
-.blog-post-preview:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Enhanced shadow on hover */
-  transform: translateY(-5px); /* More lift */
-}
-
-.blog-post-preview h3 {
-  margin-top: 0;
-  margin-bottom: 0.6em; /* Slightly more space */
-  color: #2c3e50; /* Darker, more neutral heading color */
-  font-size: 1.45em; /* Slightly larger for better hierarchy */
-  font-weight: 700; /* Ensure bold */
-}
-
-.blog-post-preview h3 a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.blog-post-preview h3 a:hover {
-  color: #8c6e5d; /* Existing accent on hover */
-  text-decoration: none; /* Keep no underline */
+  max-width: none; /* Full width within container */
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: calc(var(--spacing-unit) * 3);
+  padding: calc(var(--spacing-unit) * 3) 0;
 }
 
 .blog-post-preview .post-date {
-  /* text-align: center; */ /* Remove center alignment for date */
-  flex-grow: 0;
-  margin-bottom: 0.75em; /* More space below date */
-  font-size: 0.85em; /* Smaller date */
-  color: #7f8c8d; /* Softer color for date */
+  margin-bottom: calc(var(--spacing-unit) * 0.5);
+  font-size: 0.9em;
+  color: var(--subtle-text-color);
+  font-weight: var(--font-weight-regular);
 }
 
 .blog-post-preview .post-summary {
   flex-grow: 1;
-  margin-bottom: 1.5em; /* More space before read more */
-  font-size: 1em; /* Standard body font size */
-  line-height: 1.65; /* Improved line height for summary */
-  color: #34495e; /* Slightly softer text color */
-}
-
-.blog-post-preview p small { /* This selector was for date, now using .post-date */
-  display: block;
-  color: #5a6d7c;
-  margin-bottom: 0.75em;
-  font-size: 0.9em;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  font-size: 1em;
+  line-height: var(--line-height-normal);
+  color: var(--text-color);
 }
 
 .blog-post-preview a.read-more {
-  display: inline-block; /* Keep as inline-block */
-  /* background-color: #8c6e5d; */ /* Remove button-like background */
+  display: inline-block;
   background-color: transparent;
-  /* color: #ffffff; */ /* Remove white text */
-  color: #8c6e5d; /* Use accent color for text */
+  color: var(--accent-primary);
   text-decoration: none;
-  border-radius: 6px; /* Keep radius for potential focus styles */
-  text-align: left; /* Align to left */
-  font-weight: 600;
-  padding: 8px 0; /* Adjust padding - more vertical, no horizontal for text link */
-  transition: color 0.3s ease, transform 0.2s ease;
-  margin-top: auto;
-  /* align-self: center; */ /* Remove centering */
-  align-self: flex-start; /* Align to start */
+  font-weight: var(--font-weight-medium);
+  padding: calc(var(--spacing-unit) * 1) 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+  margin-top: 0;
+  align-self: flex-start;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .blog-post-preview a.read-more:hover {
-  /* background-color: #6f584b; */ /* No background change */
-  color: #6f584b; /* Darker accent on hover */
-  transform: translateX(3px); /* Slight move to right for affordance */
-  text-decoration: underline; /* Add underline on hover for text links */
+  color: var(--accent-secondary);
+  transform: translateX(calc(var(--spacing-unit) * 0.5));
 }
 
-/* Styling for Full Blog Post Page */
+.blog-post-preview a.read-more::after {
+  content: " →";
+  transition: none;
+  margin-left: 0;
+}
+
+/* --- Full Blog Post Page --- */
+.blog-post-full {
+  padding: 0;
+}
+
 .blog-post-full h1 {
-  font-size: 3em; /* Even larger title */
-  margin-bottom: 0.2em; /* Tighter margin below main title */
-  color: #1a2b3c; /* Very dark, almost black for main title */
+  font-size: 2.8em;
+  margin-bottom: calc(var(--spacing-unit) * 1);
+  color: var(--heading-color);
   line-height: 1.2;
+  font-weight: var(--font-weight-bold);
 }
 
 .blog-post-full .post-meta {
-  color: #7f8c8d; /* Softer metadata color */
-  font-size: 0.95em; /* Slightly larger metadata */
-  margin-bottom: 2.5em; /* More space before content */
+  color: var(--subtle-text-color);
+  font-size: 0.95em;
+  margin-bottom: calc(var(--spacing-unit) * 5);
+  font-weight: var(--font-weight-regular);
 }
 
 .blog-post-full .post-content {
-  line-height: 1.8; /* More generous line height for long text */
-  font-size: 1.1rem; /* Use rem for scalability, slightly larger base */
-  color: #34495e; /* Consistent soft black for body */
+  line-height: var(--line-height-loose);
+  font-size: 1.1em; /* Slightly larger for long-form reading */
+  color: var(--text-color);
 }
 
 .blog-post-full .post-content p {
-  margin-bottom: 1.6em; /* Ample space between paragraphs */
+  margin-bottom: calc(var(--spacing-unit) * 3);
 }
 
 .blog-post-full hr {
-  margin-top: 2.5em;
-  margin-bottom: 2em;
+  margin: calc(var(--spacing-unit) * 6) 0;
   border: 0;
-  border-top: 1px solid #e0dcd5;
+  border-top: 1px solid var(--border-color);
 }
 
-/* GFM Markdown Body Styles */
+/* --- GFM Markdown Body Styles --- */
 .markdown-body {
-  line-height: 1.8; /* Match post-content */
-  font-size: 1.1rem; /* Match post-content */
+  line-height: var(--line-height-loose);
+  font-size: 1.1em;
+  color: var(--text-color);
 }
 
 .markdown-body h1,
@@ -446,55 +405,72 @@ a:hover {
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  font-family: "Merriweather", serif;
-  color: #2c3e50; /* Darker, neutral heading color */
-  margin-top: 1.8em; /* More top margin for headings */
-  margin-bottom: 0.8em; /* Ample bottom margin */
-  font-weight: 700; /* Ensure headings are bold */
+  font-family: var(--primary-font);
+  color: var(--heading-color);
+  margin-top: calc(var(--spacing-unit) * 5);
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-dense);
 }
-.markdown-body h1 { font-size: 2.2em; line-height: 1.2; } /* Slightly smaller than page title */
-.markdown-body h2 { font-size: 1.8em; line-height: 1.25;}
-.markdown-body h3 { font-size: 1.5em; line-height: 1.3;}
+.markdown-body h1 { font-size: 2.2em; }
+.markdown-body h2 { font-size: 1.8em; }
+.markdown-body h3 { font-size: 1.5em; }
 
 .markdown-body p {
-  margin-bottom: 1.6em; /* Match post-content */
-  font-family: "Manrope", sans-serif;
-  color: #34495e; /* Match post-content */
+  margin-bottom: calc(var(--spacing-unit) * 3);
+  font-family: var(--primary-font);
+  color: var(--text-color);
 }
 
 .markdown-body a {
-  color: #8c6e5d;
-  text-decoration: none; /* No underline by default */
-  border-bottom: 1px solid #8c6e5d30; /* Subtle underline effect */
-  transition: color 0.2s ease, border-bottom-color 0.2s ease;
+  color: var(--accent-primary);
+  border-bottom: 1px solid var(--accent-secondary);
 }
 
 .markdown-body a:hover {
-  color: #6f584b;
-  border-bottom-color: #6f584b; /* Stronger underline on hover */
+  color: var(--accent-secondary);
+  border-bottom-color: var(--accent-primary);
 }
 
 .markdown-body code {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; /* Modern mono stack */
-  background-color: #f3f4f6; /* Lighter, neutral background */
-  color: #2c3e50; /* Darker text for inline code */
-  padding: 0.25em 0.5em; /* Slightly more padding */
-  border-radius: 6px; /* More rounded corners */
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  background-color: var(--highlight-bg);
+  color: var(--text-color);
+  padding: 0.2em 0.4em;
+  border-radius: calc(var(--spacing-unit) * 0.4);
   font-size: 0.9em;
+  border: 1px solid var(--border-color);
 }
 
 .markdown-body pre {
-  background-color: #282c34; /* Common dark theme for code blocks */
-  color: #abb2bf; /* Light gray text */
-  padding: 1.25em; /* More padding */
-  border-radius: 8px; /* More rounded corners */
+  background-color: #f0ece9; /* Slightly different light bg for code blocks */
+  color: var(--text-color);
+  padding: calc(var(--spacing-unit) * 2);
+  border-radius: calc(var(--spacing-unit) * 0.5);
   overflow-x: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Subtle shadow for code blocks */
+  border: 1px solid var(--border-color);
+  box-shadow: none;
 }
 
 .markdown-body pre code {
   background-color: transparent;
   padding: 0;
   font-size: 0.9em;
-  color: inherit; /* Inherit color from pre */
+  color: inherit;
+  border: none;
 }
+
+/* Selection highlight */
+::selection {
+  background-color: var(--accent-secondary);
+  color: var(--bg-color);
+}
+
+/* Remove futuristic scrollbar */
+::-webkit-scrollbar { width: auto; height: auto; }
+::-webkit-scrollbar-track { background: auto; }
+::-webkit-scrollbar-thumb { background: auto; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: auto; }
+
+/* Specific Text Hero class cleanup if it was used elsewhere */
+.text-hero { display: none; }
