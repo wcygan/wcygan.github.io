@@ -368,6 +368,7 @@ a:hover {
 /* --- Full Blog Post Page --- */
 .blog-post-full {
   padding: calc(var(--spacing-unit) * 4) 0; /* Add vertical padding */
+  background-color: transparent; /* Ensure transparent background */
 }
 
 .blog-post-full h1 { /* Main page title for the blog post */
@@ -383,6 +384,7 @@ a:hover {
   font-size: 0.9em; /* Slightly smaller for subtlety */
   margin-bottom: calc(var(--spacing-unit) * 6); /* More space before content */
   font-weight: var(--font-weight-regular);
+  background-color: transparent; /* Ensure transparent background */
 }
 
 .blog-post-full .post-content {
@@ -433,6 +435,7 @@ a:hover {
   line-height: var(--line-height-loose); /* 1.9 */
   font-size: 1.12em; /* Match .post-content */
   color: var(--text-color);
+  background-color: transparent !important;
 }
 
 .markdown-body h1,
