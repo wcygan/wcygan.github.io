@@ -1,0 +1,103 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Website Design, Structure, and Styling Guide (Simple Aesthetic)
+
+This document outlines the design philosophy, structure, and styling approach for this Deno Fresh website, aiming for a "Simple" hyper-minimalist, clarity-focused aesthetic. Adhering to these guidelines will ensure consistency and maintain the intended user experience.
+
+## 1. Core Philosophy: Simple Design
+
+The design prioritizes:
+
+*   **Effortless Clarity**: Content is paramount. The design recedes to present information with maximum legibility and immediate understanding.
+*   **Natural & Organic Feel**: Colors and layouts are inspired by calm, natural elements. Soft, desaturated tones and flowing structures are preferred over rigid boxes.
+*   **Intelligent Minimalism**: Only essential elements are present. Generous whitespace (or "light space") guides focus and creates a serene user experience.
+*   **Fluid & Adaptive**: The design aims for a natural and intuitive presentation on all display types.
+*   **Subtle Sophistication**: Interactions are smooth and almost imperceptible, enhancing the experience without drawing attention.
+
+## 2. Project Structure (Deno Fresh)
+
+Key directories and files:
+
+*   **`routes/`**: Defines application pages and API endpoints.
+    *   `routes/index.tsx`: Homepage.
+    *   `routes/blog/index.tsx`: Blog listing page.
+    *   `routes/blog/[slug].tsx`: Individual blog post page.
+    *   `routes/_app.tsx`: Global app shell (via `components/Layout.tsx`).
+*   **`components/`**: Reusable UI components.
+    *   `components/Layout.tsx`: Main layout component, wraps all page content, includes `Header` and `Footer`, and links the global stylesheet and fonts.
+    *   `components/Header.tsx`: Site header.
+    *   `components/Footer.tsx`: Site footer.
+    *   `components/BlogPostPreview.tsx`: Component for displaying blog post summaries.
+*   **`static/`**: Static assets.
+    *   `static/styles.css`: The single, global stylesheet for the website. **All theme and core styling are defined here.**
+*   **`utils/`**: Utility modules.
+    *   `utils/posts.ts`: Handles fetching, parsing, and processing blog post data from Markdown files.
+*   **`posts/`**: Contains all blog posts as `.md` files with YAML front matter.
+
+## 3. Styling Approach & Key Files
+
+*   **Global Stylesheet**: All styling is managed through `static/styles.css`.
+*   **CSS Variables**: The core of the theme is defined using CSS variables in the `:root` of `static/styles.css`. This allows for easy maintenance and consistent application of the color palette and typographic scales.
+    *   `--bg-color: #fdfcfb;` (Extremely light, warm off-white)
+    *   `--text-color: #2c2c2c;` (Very dark, soft grey/off-black)
+    *   `--heading-color: #1f1f1f;` (Slightly deeper for main headings)
+    *   `--accent-primary: #6b6b6a;` (Neutral, earthy grey for links/interactive elements)
+    *   `--accent-secondary: #8a8a88;` (Lighter neutral grey for hover/subtle emphasis)
+    *   `--border-color: #efefef;` (Extremely light grey for subtle borders)
+    *   `--highlight-bg: rgba(44, 44, 44, 0.035);` (Extremely faint dark highlight)
+    *   `--subtle-text-color: #7f7f7f;` (Calm, medium grey for metadata)
+    *   Font weight, line height, and spacing unit variables are also defined.
+*   **Typography**:
+    *   The primary and sole font is **Manrope**, loaded via Google Fonts in `components/Layout.tsx`.
+    *   Emphasis is on clear typographic hierarchy, generous line heights, and comfortable line lengths, defined using CSS variables.
+*   **Layout**:
+    *   The main content container (`.container`) is optimized for reading comfort (`max-width: 900px`) and acts as a centering wrapper without its own background or borders.
+    *   Sections and content blocks (e.g., `.blog-post-preview`) are primarily defined by spacing and subtle bottom borders, promoting a flowing, organic layout rather than distinct boxes.
+    *   Headers and footers (`header`, `footer`) are lightweight and integrate cleanly.
+
+## 4. Content Presentation
+
+*   **Blog Post Previews (`.blog-post-preview` on `/` and `/blog`):**
+    *   Styled as elegant typographic entries, not distinct cards.
+    *   Separated by a subtle bottom border.
+    *   Focus on clear presentation of title, date, and snippet.
+    *   "Read more..." link is a simple text link with an arrow.
+*   **Individual Blog Posts (`routes/blog/[slug].tsx` & `.blog-post-full`):**
+    *   Maximal focus on the reading experience.
+    *   Generous spacing and line height for content within `.markdown-body`.
+    *   The main post title (`.blog-post-full h1`) is prominent.
+    *   Metadata (`.post-meta`) is subtle.
+    *   The "Back to Blog Index" link is a minimal text link with a left arrow.
+*   **Markdown Rendering (GFM)**:
+    *   The `routes/blog/[slug].tsx` page uses `CSS` and `render` from `$gfm` (GitHub Flavored Markdown).
+    *   Styles for Markdown elements (headings, paragraphs, code blocks, lists, blockquotes, tables) are customized in `static/styles.css` to match the "Simple" aesthetic.
+    *   Inline code is very subtle; code blocks have a faint highlight background.
+
+## 5. Ensuring Consistent Styling and Layout
+
+*   **Global Box Model & Scrollbar**:
+    *   `html { box-sizing: border-box; overflow-y: scroll; }`
+    *   `*, *::before, *::after { box-sizing: inherit; }`
+    *   These rules in `static/styles.css` are crucial for preventing layout shifts caused by the appearance/disappearance of the vertical scrollbar and ensure predictable element sizing.
+*   **Use CSS Variables**: When adding new styles or components, **always** use the predefined CSS variables for colors, fonts, spacing, etc., to maintain theme consistency.
+*   **Layout Component**: `components/Layout.tsx` provides the consistent page shell (header, footer, global font links, main stylesheet link). New pages should use this layout.
+*   **Single Stylesheet**: All custom styles should reside in `static/styles.css`. Avoid inline styles or component-specific style tags unless absolutely necessary for highly dynamic, isolated cases.
+*   **Reference Existing Styles**: Before creating new styles, check `static/styles.css` for existing utility classes or patterns that can be reused.
+
+## 6. Blog Content Management (`posts/` & `utils/posts.ts`)
+
+*   Blog posts are `.md` files in the `posts/` directory.
+*   Each file **must** have YAML front matter with:
+    *   `title` (string)
+    *   `published_at` (ISO 8601 date string, e.g., `2024-03-15T10:00:00.000Z`)
+    *   `snippet` (string for summaries)
+*   The `utils/posts.ts` module handles:
+    *   Defining the `Post` interface.
+    *   `getPost(slug: string)`: Fetches and parses a single post.
+    *   `getPosts()`: Fetches, parses all posts, and sorts them by `publishedAt` (descending).
+*   Remember to run `deno task manifest` if you add, remove, or rename files in `routes/` or `islands/` to update `fresh.gen.ts`.
+
+By following these guidelines, the website will maintain its intended "Simple" aesthetic, ensuring clarity, ease of use, and a consistent, high-quality user experience.

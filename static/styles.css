@@ -1,6 +1,15 @@
 /* static/styles.css */
 /* Year 5000 - Hyper-Minimalist, Clarity-Focused Design */
 
+html {
+  box-sizing: border-box;
+  overflow-y: scroll; /* Ensures scrollbar is always present, preventing width jumps */
+}
+
+*, *::before, *::after {
+  box-sizing: inherit; /* All elements inherit border-box from html */
+}
+
 :root {
   --primary-font: "Manrope", sans-serif;
 
