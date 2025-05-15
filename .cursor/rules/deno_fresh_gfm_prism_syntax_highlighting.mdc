@@ -1,0 +1,103 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Deno Fresh + GFM Syntax Highlighting with PrismJS
+
+## Problem
+
+When using `jsr:@deno/gfm` (or older `deno.land/x/gfm`) in a Deno Fresh project, syntax highlighting for languages other than the defaults (JavaScript, Markdown, HTML) may not work even if PrismJS language components are imported.
+
+The root cause is a **PrismJS instance mismatch**: 
+- `jsr:@deno/gfm` internally imports and uses its own instance of PrismJS (typically via an `npm:prismjs` specifier).
+- If your project imports PrismJS language components from a different source (e.g., directly from `https://esm.sh/...`), these components register themselves with a *separate* PrismJS instance in the global scope.
+- As a result, GFM's internal Prism instance remains unaware of the additional language grammars, and code blocks for those languages will not be highlighted (i.e., they won't get the `language-xxxx` class on the `<pre>`/`<code>` tags, nor the `token` classes on inner `<span>`s).
+
+## Solution
+
+To ensure additional language grammars are registered with the *same* PrismJS instance that `jsr:@deno/gfm` uses, you must import the PrismJS language components using the `npm:prismjs@<version>/components/...` specifier. These imports must occur *before* any Markdown rendering via GFM's `render()` function is called.
+
+1.  **Create a dedicated utility file** (e.g., `utils/prism_languages.ts`) to centralize these imports:
+
+    ```typescript
+    // utils/prism_languages.ts
+    // This file augments the PrismJS instance used by jsr:@deno/gfm.
+
+    // IMPORTANT: Import core first, using the npm: specifier.
+    // @ts-ignore: Allow deep import for PrismJS with npm specifier
+    import "npm:prismjs@1.29.0/components/prism-core.js";
+
+    // Add other desired languages, also using npm: specifier.
+    // @ts-ignore: Allow deep import for PrismJS with npm specifier
+    import "npm:prismjs@1.29.0/components/prism-rust.js";
+    // @ts-ignore: Allow deep import for PrismJS with npm specifier
+    import "npm:prismjs@1.29.0/components/prism-typescript.js";
+    // @ts-ignore: Allow deep import for PrismJS with npm specifier
+    import "npm:prismjs@1.29.0/components/prism-python.js";
+    // Add more languages as needed following this pattern.
+
+    // Note: The Deno linter (and VS Code Deno extension) may show warnings for
+    // these deep npm: imports (e.g., "NPM package prismjs@1.29.0 does not
+    // define an export components/prism-core.js"). This is because these paths
+    // are not formally listed in PrismJS's package.json "exports".
+    // However, Deno's npm: specifier resolution mechanism allows access to these files
+    // at runtime, and this is how jsr:@deno/gfm itself likely accesses them.
+    // The `@ts-ignore` comments can be used to suppress these warnings in your IDE.
+    ```
+
+2.  **Import this utility file early** in your application's main entry point (e.g., `main.ts` for Fresh projects), before the Fresh server starts and before any routes that might render Markdown are processed:
+
+    ```typescript
+    // main.ts
+    import "$std/dotenv/load.ts";
+    import "@/utils/prism_languages.ts"; // Import custom Prism languages
+
+    import { start } from "$fresh/server.ts";
+    import manifest from "./fresh.gen.ts";
+    import config from "./fresh.config.ts";
+
+    await start(manifest, config);
+    ```
+
+3.  **Ensure `deno.json` uses `jsr:@deno/gfm`**: 
+    Make sure your `$gfm` import in `deno.json` points to a recent JSR version of GFM.
+    ```json
+    {
+      "imports": {
+        // ... other imports
+        "$gfm": "jsr:@deno/gfm@0.11.0", // Or latest stable version
+        // ...
+      }
+    }
+    ```
+
+4.  **Verify GFM Usage in Route/Component**:
+    The route file responsible for rendering Markdown (e.g., `routes/blog/[slug].tsx`) should correctly import `CSS` and `render` from `$gfm` and use them:
+    ```tsx
+    import { Head } from "$fresh/runtime.ts";
+    import { CSS, render } from "$gfm";
+
+    // ... in component ...
+    <Head>
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
+    </Head>
+    <article
+      class="markdown-body"
+      dangerouslySetInnerHTML={{ __html: render(post.content) }}
+    />
+    ```
+    No Prism-specific imports are needed directly in the route file if the utility file (`prism_languages.ts`) is imported in `main.ts`.
+
+5.  **Cache Reload and Restart**: After making these changes, always stop your development server, clear the Deno cache for relevant files, and restart the server:
+    ```sh
+    deno cache --reload utils/prism_languages.ts main.ts deno.json
+    deno task start
+    ```
+    Then perform a hard refresh in your browser.
+
+By following these steps, additional languages will be correctly registered with the PrismJS instance used by `jsr:@deno/gfm`, enabling syntax highlighting for your specified languages.
+
+### Key Takeaway
+
+The crucial insight is that when a library like `jsr:@deno/gfm` bundles or internally depends on a package like `PrismJS` using a specific import mechanism (e.g., `npm:` specifiers), any attempt to augment that package (e.g., add more languages to Prism) must use the *same import mechanism and target the same version* to ensure modifications apply to the correct, shared instance.

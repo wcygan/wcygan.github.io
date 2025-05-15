@@ -4,6 +4,11 @@ import Layout from "../../components/Layout.tsx";
 import { getPost, Post } from "../../utils/posts.ts"; // Use new posts utility
 import { CSS, render } from "$gfm"; // Import GFM CSS and render function
 
+// Dynamically import additional Prism languages to augment GFM's Prism instance
+await import("npm:prismjs@1.29.0/components/prism-rust.js");
+await import("npm:prismjs@1.29.0/components/prism-typescript.js");
+await import("npm:prismjs@1.29.0/components/prism-python.js");
+
 export const handler: Handlers<Post | null> = {
   async GET(_req, ctx) {
     const post = await getPost(ctx.params.slug);
