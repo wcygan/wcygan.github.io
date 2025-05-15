@@ -1,0 +1,74 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Deno Fresh Best Practices
+
+This document outlines best practices and key concepts for developing applications with the Deno Fresh framework.
+
+## Project Structure and Key Directories
+
+Understand the purpose of each main directory:
+- **`components/`**: For UI components ([components/Button.tsx](mdc:components/Button.tsx)) that are not interactive on the client-side by default.
+- **`islands/`**: For interactive UI components ([islands/Counter.tsx](mdc:islands/Counter.tsx)) that are hydrated on the client-side.
+- **`routes/`**: Defines application pages and API endpoints.
+    - `index.tsx` ([routes/index.tsx](mdc:routes/index.tsx)) for root paths.
+    - Dynamic routes like `[name].tsx`.
+    - API routes (typically `.ts` files) are often in `api/` ([routes/api/joke.ts](mdc:routes/api/joke.ts) or `routes/api/users/[id].ts`).
+    - Special files: `_app.tsx` ([routes/_app.tsx](mdc:routes/_app.tsx)) for the global app shell, `_404.tsx` ([routes/_404.tsx](mdc:routes/_404.tsx)) for 404 pages.
+- **`static/`**: For static assets like images ([static/logo.svg](mdc:static/logo.svg)), CSS ([static/styles.css](mdc:static/styles.css)), and favicons ([static/favicon.ico](mdc:static/favicon.ico)).
+
+## Core Configuration and Manifest Files
+
+- **`deno.json`** ([deno.json](mdc:deno.json)): The main Deno configuration. Manages:
+    - `tasks`: Script definitions for `build`, `start`, `lint`, etc.
+    - `imports`: Project dependencies.
+    - `compilerOptions`: TypeScript/JSX settings.
+- **`fresh.config.ts`** ([fresh.config.ts](mdc:fresh.config.ts)): Fresh framework-specific configurations, like plugins (e.g., Twind).
+- **`main.ts`** ([main.ts](mdc:main.ts)): Entry point for the production server.
+- **`dev.ts`** ([dev.ts](mdc:dev.ts)): Development server entry point, often with live reloading.
+- **`fresh.gen.ts`** ([fresh.gen.ts](mdc:fresh.gen.ts)): Auto-generated manifest of routes and islands. Do not edit manually; regenerate with `deno task manifest`.
+- **`.gitignore`** ([.gitignore](mdc:.gitignore)): Specifies files for Git to ignore, like the `_fresh/` build output directory.
+
+## Common Deno Tasks
+
+Utilize the tasks defined in `deno.json`:
+- **`deno task check`**: Lint, format, and type-check the codebase.
+- **`deno task start`**: Run the development server (e.g., `deno run -A --watch=static/,routes/ dev.ts`).
+- **`deno task build`**: Build the application for production (e.g., `deno run -A dev.ts build`).
+- **`deno task preview`**: Preview the production build using `main.ts`.
+- **`deno task update`**: Update the Fresh framework (e.g., `deno run -A -r https://fresh.deno.dev/update .`).
+- **`deno task manifest`**: Regenerate `fresh.gen.ts`.
+
+## API Route Development
+
+- Structure API routes logically, often within `routes/api/`.
+- For a `users` resource, you might have:
+    - `routes/api/users/index.ts` (for `GET` all users, `POST` new user)
+    - `routes/api/users/[id].ts` (for `GET`, `PUT`, `DELETE` a specific user by ID)
+- Fresh supports standard HTTP methods in handlers for creating REST APIs.
+
+## Initialization and Updates
+
+- **New Project**: `deno run -A -r https://fresh.deno.dev/`
+- **From Latest Commit**: `deno run -A -r https://raw.githubusercontent.com/denoland/fresh/main/init.ts`
+- **From Local Source**: `deno run -A -r path/to/local/fresh/init.ts`
+- Keep Fresh updated using `deno task update`. Be aware of potential code mods for breaking changes (e.g., JSX transform, Twind plugin updates).
+
+## Customization and Advanced Usage
+
+- **Changing Source Directory**: If moving code to `src/`, update paths in `deno.json` tasks accordingly (e.g., `deno run -A --watch=src/static/,src/routes/ src/dev.ts`).
+- **Using Canary/Forked Fresh**: Modify the Fresh import path in `deno.json` under `imports` to point to a specific commit hash or a forked repository URL.
+- **Twind CSS**:
+    - Fresh projects often use the Twind plugin.
+    - For Twind v1, update `fresh.config.ts` to use `$fresh/plugins/twindv1.ts` and adjust `twind.config.ts` with the new configuration structure.
+
+## General Principles
+
+- **No Build Step**: Code is transpiled JIT, allowing for fast iteration.
+- **JIT Rendering on the Edge**: Pages are rendered on demand on the server.
+- **Optional Client-Side Hydration**: Use islands for interactivity.
+- **File-System Routing**: Routes are determined by the file structure in the `routes/` directory.
+
+Refer to the [official Fresh documentation](mdc:https:/fresh.deno.dev/docs) for comprehensive details.
