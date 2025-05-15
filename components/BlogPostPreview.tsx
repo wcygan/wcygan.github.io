@@ -19,7 +19,7 @@ export default function BlogPostPreview(
         </p>
       )}
       <p class="post-summary">{summary}</p>
-      <a href={`/blog/${slug}`} class="read-more">Read more...</a>
+      <a href={`/blog/${slug}`} class="read-more">Read more</a>
     </div>
   );
 }

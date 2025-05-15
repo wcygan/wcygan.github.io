@@ -64,7 +64,7 @@ Key directories and files:
     *   Styled as elegant typographic entries, not distinct cards.
     *   Separated by a subtle bottom border.
     *   Focus on clear presentation of title, date, and snippet.
-    *   "Read more..." link is a simple text link with an arrow.
+    *   "Read more" link is a simple text link with an arrow.
 *   **Individual Blog Posts (`routes/blog/[slug].tsx` & `.blog-post-full`):**
     *   Maximal focus on the reading experience.
     *   Generous spacing and line height for content within `.markdown-body`.

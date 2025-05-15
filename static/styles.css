@@ -17,10 +17,7 @@ html {
   --bg-color: #fdfcfb; /* Extremely light, warm off-white (like fine paper) */
   --text-color: #2c2c2c; /* Very dark, soft grey/off-black (like rich ink) */
   --heading-color: #1f1f1f; /* Slightly deeper/bolder for main headings */
-  --accent-primary: #6b6b6a; /* Medium, very neutral, earthy grey for links/interactive */
-  --accent-secondary: #8a8a88; /* Lighter neutral grey for hover/subtle emphasis */
   --border-color: #efefef; /* Extremely light grey for subtle borders */
-  --highlight-bg: rgba(44, 44, 44, 0.035); /* Extremely faint dark highlight on light bg */
   --subtle-text-color: #7f7f7f; /* Calm, medium grey for dates, metadata */
 
   --font-weight-light: 300;
@@ -33,6 +30,15 @@ html {
   --line-height-loose: 1.9;
 
   --spacing-unit: 8px; /* Base unit for margins/padding */
+
+  /* Pantone Color of the Year - Foundations */
+  --pantone-2025-mocha-mousse: #836953; /* Mocha Mousse (PANTONE 19-1214) */
+  --pantone-2024-peach-fuzz: #F2C7B2; /* Peach Fuzz (PANTONE 13-1023) */
+
+  /* Update foundational accent colors */
+  --accent-primary: var(--pantone-2025-mocha-mousse);
+  --accent-secondary: var(--pantone-2024-peach-fuzz);
+  --highlight-bg: rgba(242, 199, 178, 0.1); /* 10% opacity Peach Fuzz */
 }
 
 body {
@@ -198,19 +204,18 @@ a:hover {
 /* --- Content Blocks (formerly cards) --- */
 .project-card,
 .blog-post-preview {
-  border: none; /* No more card borders */
-  padding: calc(var(--spacing-unit) * 4) 0; /* Vertical padding, no horizontal */
-  margin-bottom: calc(var(--spacing-unit) * 5); /* Spacing between items */
-  background-color: transparent;
-  border-radius: 0;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  border-radius: calc(var(--spacing-unit) * 1);
   box-shadow: none;
-  transition: none;
-  border-bottom: 1px solid var(--border-color); /* Subtle separator */
+  transition: background-color 0.2s ease, border-radius 0.2s ease;
+  padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 4); /* Vertical and horizontal padding */
+  margin-bottom: calc(var(--spacing-unit) * 5); /* Spacing between items */
 }
 
 .project-card:last-child,
 .blog-post-preview:last-child {
-  border-bottom: none;
   margin-bottom: 0;
 }
 
@@ -257,8 +262,16 @@ a:hover {
 .button:hover, button:hover {
   background-color: var(--accent-secondary);
   color: var(--bg-color);
+  border-color: var(--accent-secondary);
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(96, 125, 139, 0.2);
+  /* subtle neutral drop shadow */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Add focus styles to button for accessibility */
+.button:focus, button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(131, 105, 83, 0.4); /* Mocha Mousse focus ring */
 }
 
 /* --- Homepage Specifics --- */
@@ -322,7 +335,7 @@ a:hover {
   margin-left: 0;
   margin-right: 0;
   margin-bottom: calc(var(--spacing-unit) * 3);
-  padding: calc(var(--spacing-unit) * 3) 0;
+  padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 4);
 }
 
 .blog-post-preview .post-date {
@@ -347,7 +360,7 @@ a:hover {
   text-decoration: none;
   font-weight: var(--font-weight-medium);
   padding: calc(var(--spacing-unit) * 1) 0;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease;
   margin-top: 0;
   align-self: flex-start;
   text-transform: none;
@@ -356,13 +369,20 @@ a:hover {
 
 .blog-post-preview a.read-more:hover {
   color: var(--accent-secondary);
-  transform: translateX(calc(var(--spacing-unit) * 0.5));
+  text-decoration: underline;
+  transform: none;
 }
 
 .blog-post-preview a.read-more::after {
   content: " →";
   transition: none;
   margin-left: 0;
+}
+
+/* Prevent double underline on read-more links */
+.blog-post-preview a.read-more,
+.blog-post-preview a.read-more:hover {
+  border-bottom: none;
 }
 
 /* --- Full Blog Post Page --- */
@@ -484,7 +504,7 @@ a:hover {
 }
 
 .markdown-body pre { /* Code blocks */
-  background-color: var(--highlight-bg); /* Use subtle highlight for code blocks */
+  background-color: rgba(242, 199, 178, 0.3); /* Much darker background for code blocks */
   color: var(--text-color);
   padding: calc(var(--spacing-unit) * 2.5); /* More padding */
   border-radius: calc(var(--spacing-unit) * 0.5);
