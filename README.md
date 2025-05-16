@@ -1,16 +1,20 @@
-# Fresh project
+# wcygan.github.io
 
-Your new Fresh project is ready to go. You can follow the Fresh "Getting
-Started" guide here: https://fresh.deno.dev/docs/getting-started
+This is the source code for my personal website, [wcygan.github.io](https://wcygan.github.io).
 
-### Usage
+Managed on https://dash.cloudflare.com/
 
-Make sure to install Deno: https://deno.land/manual/getting_started/installation
+## Quickstart
 
-Then start the project in development mode:
+```bash
+pnpm run dev --open
 
+# or
+./scripts/develop.sh
 ```
-deno task dev
-```
 
-This will watch the project directory and restart as necessary.
+## Create a new post
+
+```bash
+pnpm post
+```
