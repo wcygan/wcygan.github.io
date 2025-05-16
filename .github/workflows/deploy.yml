@@ -34,9 +34,5 @@ jobs:
         with:
           apiToken:  ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: |
-            pages deploy ./build \
-              --project-name=${{ env.CLOUDFLARE_PAGES_PROJECT }} \
-              --branch=${{ github.ref_name }} \
-              --commit-dirty=true
+          command: pages deploy ./build --project-name=${{ env.CLOUDFLARE_PAGES_PROJECT }} --branch=${{ github.ref_name }} --commit-dirty=true
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
