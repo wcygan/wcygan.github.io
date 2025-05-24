@@ -81,12 +81,25 @@ code {
 
 /* Table styles */
 .mdsvex-content table {
-    @apply min-w-full my-4 block overflow-x-auto !important;
+    @apply min-w-full my-6 block overflow-x-auto border-collapse !important;
     border-spacing: 0 !important;
 }
 
 .mdsvex-content td, th {
-    @apply border border-zinc-400 px-2 py-2 whitespace-nowrap !important;
+    @apply border border-zinc-400 px-4 py-1.5 md:px-6 md:py-2 !important;
+    text-align: left;
+}
+
+.mdsvex-content th {
+    @apply bg-zinc-700 font-semibold text-emerald-400 !important;
+}
+
+.mdsvex-content tr:hover {
+    @apply bg-zinc-700/50 transition-colors duration-200 !important;
+}
+
+.mdsvex-content tbody tr:nth-child(even) {
+    @apply bg-zinc-800/50 !important;
 }
 
 table {

@@ -9,19 +9,20 @@ tags: [Kubernetes]
 
 Meet Anton - a Kubernetes cluster that runs in my basement. Built on the foundation of [onedr0p's cluster-template](https://github.com/onedr0p/cluster-template), Anton represents my journey into self-hosted infrastructure.
 
+<div class="flex justify-center my-6">
 <img src="https://raw.githubusercontent.com/wcygan/anton/refs/heads/main/static/anton.jpg" alt="Anton Cluster" width="200" />
+</div>
 
 
 ## The Hardware
 
 Anton consists of three identical [MINISFORUM MS-01](https://www.minisforum.com/collections/station-mini-series/products/minisforum-ms-01) mini PCs, each packing serious compute power into a compact form factor:
 
-| Component | Specification |
-|-----------|---------------|
-| **CPU** | Intel i9-13900H (14 cores, 20 threads) |
-| **Memory** | 96GB DDR5 |
-| **Storage** | 500GB NVMe SSD |
-| **Role** | Kubernetes control-plane nodes |
+| Name  | Model | CPU       | Storage     | RAM  | OS    | Role          |
+|-------|-------|-----------|-------------|------|-------|---------------|
+| k8s-1 | MS-01 | i9-13900H | 500GB NVMe  | 96GB | Talos | Control Plane |
+| k8s-2 | MS-01 | i9-13900H | 500GB NVMe  | 96GB | Talos | Control Plane |
+| k8s-3 | MS-01 | i9-13900H | 500GB NVMe  | 96GB | Talos | Control Plane |
 
 ## The Software Stack
 
