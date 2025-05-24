@@ -1,19 +1,17 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import PostCard from '$lib/components/PostCard.svelte';
-    import { getRandomWelcome } from '$lib/welcome';
 
     export let data: PageData;
-    const welcome = getRandomWelcome();
 </script>
 
 <article class="mdsvex-content prose prose-invert prose-emerald max-w-none">
-    <h1>{welcome.text}</h1>
+    <h1>Welcome!</h1>
     <p class="mb-4 text-zinc-100">
         Hi, my name is <strong>Will Cygan</strong>.
     </p>
     <p class="mb-8 text-zinc-300">
-        I’m a Software Engineer interested in system infrastructure and design, and I currently work at
+        I'm a Software Engineer interested in system infrastructure and design, and I currently work at
         <a href="https://www.linkedin.com/in/wcygan" target="_blank">LinkedIn</a> on the Linkedin Business Platform (E-Commerce) team.
     </p>
 </article>
