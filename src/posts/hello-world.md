@@ -2,7 +2,7 @@
 title: New Website
 date: January 7, 2025
 description: Goodbye AWS, Hello CloudFlare
-tags: [web-development, svelte, cloudflare, migration]
+tags: [website, cloudflare, migration]
 ---
 
 Goodbye AWS, Hello CloudFlare.
