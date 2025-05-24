@@ -28,6 +28,7 @@ Example frontmatter:
 title: Your Post Title  
 date: January 7, 2025
 description: Brief description for SEO and post cards
+tags: [tag1, tag2, tag3] # optional but recommended
 ---
 ```
 
