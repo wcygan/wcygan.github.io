@@ -2,7 +2,7 @@
 title: Anton
 date: May 23, 2025
 description: Kubernetes @ home
-tags: [Kubernetes]
+tags: [Kubernetes, Talos, Homelab]
 ---
 
 # Anton: My Basement Kubernetes Cluster
