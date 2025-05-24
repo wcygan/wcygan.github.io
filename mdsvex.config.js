@@ -23,7 +23,8 @@ const highlighter = await createHighlighter({
 		'go',
 		'java',
 		'python',
-		'diff'
+		'diff',
+		'yaml'
 	]
 });
 

@@ -1,0 +1,54 @@
+---
+title: Anton
+date: May 23, 2025
+description: Kubernetes @ home
+tags: [Kubernetes]
+---
+
+# Anton: My Basement Kubernetes Cluster
+
+Meet Anton - a Kubernetes cluster that runs in my basement. Built on the foundation of [onedr0p's cluster-template](https://github.com/onedr0p/cluster-template), Anton represents my journey into self-hosted infrastructure.
+
+<img src="https://raw.githubusercontent.com/wcygan/anton/refs/heads/main/static/anton.jpg" alt="Anton Cluster" width="200" />
+
+
+## The Hardware
+
+Anton consists of three identical [MINISFORUM MS-01](https://www.minisforum.com/collections/station-mini-series/products/minisforum-ms-01) mini PCs, each packing serious compute power into a compact form factor:
+
+| Component | Specification |
+|-----------|---------------|
+| **CPU** | Intel i9-13900H (14 cores, 20 threads) |
+| **Memory** | 96GB DDR5 |
+| **Storage** | 500GB NVMe SSD |
+| **Role** | Kubernetes control-plane nodes |
+
+## The Software Stack
+
+### Operating System: Talos Linux
+
+Anton runs on [Talos Linux](https://github.com/siderolabs/talos), an immutable Kubernetes-focused operating system. Unlike traditional Linux distributions, Talos:
+
+- Has no SSH access or package manager
+- Is configured entirely through declarative YAML
+- Provides atomic updates and rollbacks
+- Offers enhanced security through immutability
+
+This choice eliminated the operational overhead of managing traditional Linux installations while providing a rock-solid foundation for Kubernetes.
+
+### Kubernetes Distribution
+
+The cluster runs vanilla Kubernetes deployed through Talos, giving me:
+
+- **High Availability**: Three control-plane nodes ensure the cluster survives hardware failures
+- **Workload Flexibility**: All nodes can run workloads, maximizing resource utilization
+- **Latest Features**: Direct access to upstream Kubernetes releases
+
+## Conclusion
+
+Hosting your own hardware (and software) can be a great way to learn while avoiding bills from cloud providers. For anyone considering a similar project, the [cluster-template](https://github.com/onedr0p/cluster-template) provides an excellent starting point.
+
+---
+
+*The complete Anton configuration is available on [GitHub](https://github.com/wcygan/anton), showcasing real-world GitOps practices and Kubernetes patterns.*
+
