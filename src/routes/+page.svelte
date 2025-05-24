@@ -6,13 +6,9 @@
 </script>
 
 <article class="mdsvex-content prose prose-invert prose-emerald max-w-none">
-    <h1>Welcome!</h1>
-    <p class="mb-4 text-zinc-100">
-        Hi, my name is <strong>Will Cygan</strong>.
-    </p>
-    <p class="mb-8 text-zinc-300">
-        I'm a Software Engineer interested in system infrastructure and design, and I currently work at
-        <a href="https://www.linkedin.com/in/wcygan" target="_blank">LinkedIn</a> on the Linkedin Business Platform (E-Commerce) team.
+    <h1>Will Cygan</h1>
+    <p class="text-xl mb-6">
+        Software Engineer at LinkedIn building scalable e-commerce infrastructure
     </p>
 </article>
 
