@@ -1,21 +1,20 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write
+#!/usr/bin/env node
 
-/**
- * Blog post creation script for Deno
- * Usage: deno run --allow-read --allow-write scripts/new-post.ts
- */
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import readline from 'readline';
 
-import { join, dirname } from "@std/path";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-async function question(query: string): Promise<string> {
-	console.log(query);
-	const buf = new Uint8Array(1024);
-	const n = await Deno.stdin.read(buf) ?? 0;
-	const input = new TextDecoder().decode(buf.subarray(0, n)).trim();
-	return input;
-}
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
 
-async function createPost(): Promise<void> {
+const question = (query) => new Promise((resolve) => rl.question(query, resolve));
+
+async function createPost() {
 	try {
 		// Get post details from user
 		const title = await question('Enter post title: ');
@@ -26,7 +25,7 @@ async function createPost(): Promise<void> {
 		const tagsInput = await question('Enter tags (comma-separated, or press Enter for default "blog, tech"): ');
 		
 		// Process tags
-		let tags: string[];
+		let tags;
 		if (tagsInput.trim() === '') {
 			tags = ['blog', 'tech'];
 		} else {
@@ -55,28 +54,23 @@ tags: [${tags.map(tag => `${tag}`).join(', ')}]
 ---
 
 Write your post content here...
-`;
-
-		// Get the script directory and create paths
-		const scriptDir = dirname(new URL(import.meta.url).pathname);
-		const projectRoot = join(scriptDir, '..');
-		const postsDir = join(projectRoot, 'src', 'posts');
-		const postsFilePath = join(projectRoot, 'src', 'lib', 'posts.ts');
+ `;
 
 		// Create markdown file
-		await Deno.writeTextFile(join(postsDir, `${slug}.md`), markdownContent);
+		await fs.writeFile(path.join(__dirname, '..', 'src', 'posts', `${slug}.md`), markdownContent);
 
 		// Read existing posts.ts
-		const postsContent = await Deno.readTextFile(postsFilePath);
+		const postsPath = path.join(__dirname, '..', 'src', 'lib', 'posts.ts');
+		const postsContent = await fs.readFile(postsPath, 'utf-8');
 
 		// Add new post to posts array
 		const newPost = `    {
-        title: '${title}',
-        date: '${date}',
-        description: '${description}',
-        slug: '${slug}',
-        tags: [${tags.map(tag => `'${tag}'`).join(', ')}]
-    }`;
+         title: '${title}',
+         date: '${date}',
+         description: '${description}',
+         slug: '${slug}',
+         tags: [${tags.map(tag => `'${tag}'`).join(', ')}]
+     }`;
 
 		// Insert new post at the beginning of the array
 		const updatedContent = postsContent.replace(
@@ -85,17 +79,16 @@ Write your post content here...
 		);
 
 		// Write updated posts.ts
-		await Deno.writeTextFile(postsFilePath, updatedContent);
+		await fs.writeFile(postsPath, updatedContent);
 
 		console.log(`\nSuccess! Created new post: ${slug}.md`);
 		console.log(`Tags: [${tags.join(', ')}]`);
 		console.log(`Added post to posts.ts`);
 	} catch (error) {
 		console.error('Error creating post:', error);
-		Deno.exit(1);
+	} finally {
+		rl.close();
 	}
 }
 
-if (import.meta.main) {
-	await createPost();
-} 
+createPost();

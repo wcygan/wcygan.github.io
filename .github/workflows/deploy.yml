@@ -1,4 +1,4 @@
-name: Deploy with GitHub Actions (Deno)
+name: Deploy with GitHub Actions (v4 Artifacts)
 
 on:
   push:
@@ -16,19 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
       - name: Install dependencies
-        run: deno install --allow-scripts
+        run: pnpm install
 
       - name: Build site
         # Make sure your SvelteKit build output is in ./build (adapter-static config)
-        run: deno task build
+        run: pnpm run build
 
       - name: Upload artifact (v4)
         uses: actions/upload-artifact@v4
