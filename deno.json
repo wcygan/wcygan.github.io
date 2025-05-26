@@ -1,0 +1,63 @@
+{
+    "tasks": {
+        "dev": "vite dev",
+        "dev:network": "vite dev --port 3000 --host",
+        "build": "vite build",
+        "preview": "vite preview",
+        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+        "format": "deno fmt",
+        "lint": "deno lint && prettier --check .",
+        "test:unit": "vitest",
+        "test": "deno task test:unit -- --run",
+        "post": "deno run --allow-read --allow-write scripts/new-post.ts"
+    },
+    "fmt": {
+        "useTabs": true,
+        "indentWidth": 2,
+        "exclude": [
+            "build/",
+            ".svelte-kit/",
+            "static/"
+        ]
+    },
+    "lint": {
+        "exclude": [
+            "build/",
+            ".svelte-kit/",
+            "static/"
+        ]
+    },
+    "imports": {
+        "vite": "npm:vite@^6.0.7",
+        "svelte": "npm:svelte@^5.16.6",
+        "@sveltejs/kit": "npm:@sveltejs/kit@^2.15.2",
+        "@sveltejs/vite-plugin-svelte": "npm:@sveltejs/vite-plugin-svelte@^5.0.3",
+        "@sveltejs/adapter-static": "npm:@sveltejs/adapter-static@^3.0.8",
+        "tailwindcss": "npm:tailwindcss@^3.4.17",
+        "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
+        "autoprefixer": "npm:autoprefixer@^10.4.20",
+        "mdsvex": "npm:mdsvex@^0.12.3",
+        "shiki": "npm:shiki@^1.26.1",
+        "shiki-transformer-copy-button": "npm:shiki-transformer-copy-button@^0.0.3",
+        "prettier": "npm:prettier@^3.4.2",
+        "prettier-plugin-svelte": "npm:prettier-plugin-svelte@^3.3.2",
+        "prettier-plugin-tailwindcss": "npm:prettier-plugin-tailwindcss@^0.6.9",
+        "eslint": "npm:eslint@^9.17.0",
+        "eslint-config-prettier": "npm:eslint-config-prettier@^9.1.0",
+        "eslint-plugin-svelte": "npm:eslint-plugin-svelte@^2.46.1",
+        "@eslint/compat": "npm:@eslint/compat@^1.2.4",
+        "globals": "npm:globals@^15.14.0",
+        "typescript": "npm:typescript@^5.7.2",
+        "typescript-eslint": "npm:typescript-eslint@^8.19.1",
+        "svelte-check": "npm:svelte-check@^4.1.1",
+        "vitest": "npm:vitest@^2.1.8",
+        "@std/path": "jsr:@std/path@^1.0.8"
+    },
+    "nodeModulesDir": "auto",
+    "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "allowArbitraryExtensions": true,
+        "noEmit": true
+    }
+}

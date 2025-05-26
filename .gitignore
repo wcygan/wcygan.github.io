@@ -1,5 +1,6 @@
 .idea
-node_modules
+node_modules  # Deno uses this with nodeModulesDir: auto
+node_modules/
 repomix-output.txt
 
 # Output
@@ -24,3 +25,6 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .aider*
+
+# Note: deno.lock should be committed to git
+.vite

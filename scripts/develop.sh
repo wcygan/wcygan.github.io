@@ -1,2 +1,2 @@
 #!/bin/bash
-pnpm run dev --open
+deno task dev --port 3000 --host --open
