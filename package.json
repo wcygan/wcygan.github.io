@@ -13,7 +13,13 @@
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"post": "node scripts/new-post.js"
+		"post": "node scripts/new-post.js",
+		"ci:test": "deno run --allow-all scripts/test-github-actions.ts",
+		"ci:test:quick": "deno run --allow-all scripts/quick-test.ts",
+		"ci:test:ci": "deno run --allow-all scripts/test-github-actions.ts --workflow ci",
+		"ci:test:verbose": "deno run --allow-all scripts/test-github-actions.ts --verbose",
+		"ci:check": "deno run --allow-all scripts/test-github-actions.ts --dry-run",
+		"ci:help": "deno run --allow-all scripts/test-github-actions.ts --help"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.4",
@@ -41,5 +47,6 @@
 	},
 	"dependencies": {
 		"@tailwindcss/typography": "^0.5.16"
-	}
+	},
+	"packageManager": "pnpm@9.15.3"
 }

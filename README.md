@@ -23,3 +23,13 @@ pnpm run dev --open
 ```bash
 pnpm post
 ```
+
+## CI Testing
+
+```bash
+pnpm ci:test
+```
+
+```bash
+pnpm ci:test:quick
+```
