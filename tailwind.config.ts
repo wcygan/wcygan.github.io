@@ -12,6 +12,9 @@ export default {
                 DEFAULT: {
                     css: {
                         maxWidth: 'none',
+                        // Remove backticks from inline code
+                        "code::before": { content: '""' },
+                        "code::after": { content: '""' },
                         p: {
                             fontSize: {
                                 base: '1rem',
@@ -23,6 +26,9 @@ export default {
                 invert: {
                     css: {
                         '--tw-prose-headings': 'rgb(52 211 153)', // emerald-400
+                        // Also remove backticks for the invert theme
+                        "code::before": { content: '""' },
+                        "code::after": { content: '""' },
                         p: {
                             fontSize: {
                                 base: '1rem',
