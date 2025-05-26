@@ -1,7 +1,7 @@
 ---
 title: Anton
 date: May 23, 2025
-description: Kubernetes @ Home
+description: Building a Kubernetes cluster in my basement
 tags: [Kubernetes, Talos, Homelab]
 ---
 
