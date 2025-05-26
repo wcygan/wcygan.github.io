@@ -19,17 +19,22 @@ async function createPost() {
 		// Get post details from user
 		const title = await question('Enter post title: ');
 		const description = await question('Enter post description: ');
-		
+
 		// Get tags with default suggestions
 		console.log('\nSuggested tags: website, blog, tutorial, tech, programming, project, review');
-		const tagsInput = await question('Enter tags (comma-separated, or press Enter for default "blog, tech"): ');
-		
+		const tagsInput = await question(
+			'Enter tags (comma-separated, or press Enter for default "blog, tech"): '
+		);
+
 		// Process tags
 		let tags;
 		if (tagsInput.trim() === '') {
 			tags = ['blog', 'tech'];
 		} else {
-			tags = tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+			tags = tagsInput
+				.split(',')
+				.map((tag) => tag.trim())
+				.filter((tag) => tag.length > 0);
 		}
 
 		// Generate slug from title
@@ -50,7 +55,7 @@ async function createPost() {
 title: ${title}
 date: ${date}
 description: ${description}
-tags: [${tags.map(tag => `${tag}`).join(', ')}]
+tags: [${tags.map((tag) => `${tag}`).join(', ')}]
 ---
 
 Write your post content here...
@@ -69,7 +74,7 @@ Write your post content here...
          date: '${date}',
          description: '${description}',
          slug: '${slug}',
-         tags: [${tags.map(tag => `'${tag}'`).join(', ')}]
+         tags: [${tags.map((tag) => `'${tag}'`).join(', ')}]
      }`;
 
 		// Insert new post at the beginning of the array

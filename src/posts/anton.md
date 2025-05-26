@@ -13,16 +13,15 @@ Meet Anton - a Kubernetes cluster that runs in my basement. Built on the foundat
 <img src="https://raw.githubusercontent.com/wcygan/anton/refs/heads/main/static/anton.jpg" alt="Anton Cluster" width="200" />
 </div>
 
-
 ## The Hardware
 
 Anton consists of three identical [MINISFORUM MS-01](https://www.minisforum.com/collections/station-mini-series/products/minisforum-ms-01) mini PCs, each packing serious compute power into a compact form factor:
 
-| Name  | Model | CPU       | Storage     | RAM  | OS    | Role          |
-|-------|-------|-----------|-------------|------|-------|---------------|
-| k8s-1 | MS-01 | i9-13900H | 500GB NVMe  | 96GB | Talos | Control Plane |
-| k8s-2 | MS-01 | i9-13900H | 500GB NVMe  | 96GB | Talos | Control Plane |
-| k8s-3 | MS-01 | i9-13900H | 500GB NVMe  | 96GB | Talos | Control Plane |
+| Name  | Model | CPU       | Storage    | RAM  | OS    | Role          |
+| ----- | ----- | --------- | ---------- | ---- | ----- | ------------- |
+| k8s-1 | MS-01 | i9-13900H | 500GB NVMe | 96GB | Talos | Control Plane |
+| k8s-2 | MS-01 | i9-13900H | 500GB NVMe | 96GB | Talos | Control Plane |
+| k8s-3 | MS-01 | i9-13900H | 500GB NVMe | 96GB | Talos | Control Plane |
 
 ## The Software Stack
 
@@ -51,5 +50,4 @@ Hosting your own hardware (and software) can be a great way to learn while avoid
 
 ---
 
-*The complete Anton configuration is available on [GitHub](https://github.com/wcygan/anton), showcasing real-world GitOps practices and Kubernetes patterns.*
-
+_The complete Anton configuration is available on [GitHub](https://github.com/wcygan/anton), showcasing real-world GitOps practices and Kubernetes patterns._
