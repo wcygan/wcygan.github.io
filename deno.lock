@@ -1,7 +1,6 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@std/fs@^1.0.8": "1.0.17",
     "jsr:@std/path@^1.0.8": "1.0.9",
     "npm:@eslint/compat@^1.2.4": "1.2.9_eslint@9.27.0",
     "npm:@sveltejs/adapter-static@^3.0.8": "3.0.8_@sveltejs+kit@2.21.1__@sveltejs+vite-plugin-svelte@5.0.3___svelte@5.33.2____acorn@8.14.1___vite@6.3.5____picomatch@4.0.2__svelte@5.33.2___acorn@8.14.1__vite@6.3.5___picomatch@4.0.2__acorn@8.14.1_@sveltejs+vite-plugin-svelte@5.0.3__svelte@5.33.2___acorn@8.14.1__vite@6.3.5___picomatch@4.0.2_svelte@5.33.2__acorn@8.14.1_vite@6.3.5__picomatch@4.0.2_@types+node@22.10.7",
@@ -30,9 +29,6 @@
     "npm:vitest@^2.1.8": "2.1.9_vite@5.4.19_@types+node@22.10.7"
   },
   "jsr": {
-    "@std/fs@1.0.17": {
-      "integrity": "1c00c632677c1158988ef7a004cb16137f870aafdb8163b9dce86ec652f3952b"
-    },
     "@std/path@1.0.9": {
       "integrity": "260a49f11edd3db93dd38350bf9cd1b4d1366afa98e81b86167b4e3dd750129e"
     }
@@ -2631,7 +2627,6 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/fs@^1.0.8",
       "jsr:@std/path@^1.0.8",
       "npm:@eslint/compat@^1.2.4",
       "npm:@sveltejs/adapter-static@^3.0.8",
