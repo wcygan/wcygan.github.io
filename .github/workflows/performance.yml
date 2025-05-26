@@ -16,7 +16,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 9.15.3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,13 +29,6 @@ jobs:
 
       - name: Build site
         run: pnpm run build
-
-      - name: Serve site
-        run: |
-          pnpm run preview &
-          sleep 5
-        env:
-          CI: true
 
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
@@ -54,7 +47,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 9.15.3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
