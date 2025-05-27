@@ -2,6 +2,42 @@
 
 This directory contains automation scripts for the wcygan.github.io project.
 
+## Resume Download Script
+
+### Overview
+
+Automatically download the latest resume PDF from the GitHub repository and save it locally, replacing the existing file if it exists.
+
+### Quick Start
+
+```bash
+# Download resume to default location (static/will_cygan_resume.pdf)
+deno run --allow-read --allow-write --allow-net scripts/download-resume.ts
+
+# Download with verbose output
+deno run --allow-read --allow-write --allow-net scripts/download-resume.ts --verbose
+
+# Download to custom location
+deno run --allow-read --allow-write --allow-net scripts/download-resume.ts --output docs/resume.pdf
+
+# Dry run (check what would be downloaded)
+deno run --allow-read --allow-write --allow-net scripts/download-resume.ts --dry-run
+```
+
+### Features
+
+- ✅ **Automatic Download**: Fetches latest resume from GitHub repository
+- 📊 **Size Comparison**: Shows file size differences between old and new versions
+- 🔍 **URL Validation**: Checks accessibility before downloading
+- 📁 **Directory Creation**: Automatically creates output directories if needed
+- 🔄 **File Replacement**: Safely replaces existing files
+- 📋 **Verbose Logging**: Detailed output with file sizes and headers
+- 🧪 **Dry Run Mode**: Preview downloads without actually downloading
+
+### Source
+
+Downloads from: `https://github.com/wcygan/resume/raw/main/will_cygan_resume.pdf`
+
 ## GitHub Actions Integration Testing
 
 ### Overview
@@ -40,6 +76,7 @@ Test GitHub Actions workflows locally using `act` before pushing to GitHub. This
 |--------|---------|-------|
 | `test-github-actions.ts` | Full integration test suite | `deno run --allow-all scripts/test-github-actions.ts` |
 | `quick-test.ts` | Quick CI workflow test | `deno run --allow-all scripts/quick-test.ts` |
+| `download-resume.ts` | Download latest resume PDF | `deno run --allow-read --allow-write --allow-net scripts/download-resume.ts` |
 | `new-post.js` | Create new blog post | `npm run post` |
 
 ### GitHub Actions Integration Test Features
