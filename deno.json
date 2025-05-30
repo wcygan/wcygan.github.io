@@ -1,6 +1,8 @@
 {
 	"tasks": {
 		"dev": "vite dev",
+		// https://github.com/denoland/deno/issues/26155
+		// BUILD IS BLOCKED BY THIS ISSUE
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
