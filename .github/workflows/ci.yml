@@ -16,27 +16,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
         with:
-          version: 9.15.3
+          deno-version: v2.x
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Cache workspace
+      - name: Cache Deno and Node modules
         uses: actions/cache@v4
         with:
           path: |
+            ~/.deno
+            ~/.cache/deno
             node_modules
-            .svelte-kit
-          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          key: ${{ runner.os }}-deno-node_modules-${{ hashFiles('deno.json', 'deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-node_modules-
+
+      - name: Install dependencies
+        run: deno task install # Assuming you have an "install" task in deno.json
+
+      - name: Cache SvelteKit build artifacts
+        uses: actions/cache@v4
+        with:
+          path: .svelte-kit
+          key: ${{ runner.os }}-sveltekit-${{ github.sha }}
 
   # Parallel jobs that use cached dependencies
   quality:
@@ -48,30 +51,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
         with:
-          version: 9.15.3
+          deno-version: v2.x
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Restore workspace
+      - name: Restore Deno and Node modules cache
         uses: actions/cache@v4
         with:
           path: |
+            ~/.deno
+            ~/.cache/deno
             node_modules
-            .svelte-kit
-          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          key: ${{ runner.os }}-deno-node_modules-${{ hashFiles('deno.json', 'deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-node_modules-
+
+      - name: Restore SvelteKit cache
+        uses: actions/cache@v4
+        with:
+          path: .svelte-kit
+          key: ${{ runner.os }}-sveltekit-${{ github.sha }}
 
       - name: Format check
-        run: pnpm run format --check
+        run: deno task format --check
 
       - name: Lint
-        run: pnpm run lint
+        run: deno task lint
 
   typecheck:
     runs-on: ubuntu-latest
@@ -82,27 +88,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
         with:
-          version: 9.15.3
+          deno-version: v2.x
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Restore workspace
+      - name: Restore Deno and Node modules cache
         uses: actions/cache@v4
         with:
           path: |
+            ~/.deno
+            ~/.cache/deno
             node_modules
-            .svelte-kit
-          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          key: ${{ runner.os }}-deno-node_modules-${{ hashFiles('deno.json', 'deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-node_modules-
+
+      - name: Restore SvelteKit cache
+        uses: actions/cache@v4
+        with:
+          path: .svelte-kit
+          key: ${{ runner.os }}-sveltekit-${{ github.sha }}
 
       - name: Type check
-        run: pnpm run check
+        run: deno task check
 
   test:
     runs-on: ubuntu-latest
@@ -113,27 +122,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
         with:
-          version: 9.15.3
+          deno-version: v2.x
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Restore workspace
+      - name: Restore Deno and Node modules cache
         uses: actions/cache@v4
         with:
           path: |
+            ~/.deno
+            ~/.cache/deno
             node_modules
-            .svelte-kit
-          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          key: ${{ runner.os }}-deno-node_modules-${{ hashFiles('deno.json', 'deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-node_modules-
+      
+      - name: Restore SvelteKit cache
+        uses: actions/cache@v4
+        with:
+          path: .svelte-kit
+          key: ${{ runner.os }}-sveltekit-${{ github.sha }}
 
       - name: Run tests
-        run: pnpm run test
+        run: deno task test
 
   build:
     runs-on: ubuntu-latest
@@ -144,27 +156,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
         with:
-          version: 9.15.3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Restore workspace
+          deno-version: v2.x
+      
+      - name: Restore Deno and Node modules cache
         uses: actions/cache@v4
         with:
           path: |
+            ~/.deno
+            ~/.cache/deno
             node_modules
-            .svelte-kit
-          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          key: ${{ runner.os }}-deno-node_modules-${{ hashFiles('deno.json', 'deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-node_modules-
+
+      - name: Restore SvelteKit cache
+        uses: actions/cache@v4
+        with:
+          path: .svelte-kit
+          key: ${{ runner.os }}-sveltekit-${{ github.sha }}
 
       - name: Build
-        run: pnpm run build
+        run: deno task build
 
       - name: Upload build artifacts
         if: github.ref == 'refs/heads/main'

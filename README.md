@@ -9,10 +9,14 @@ This is the source code for my personal website, [wcygan.github.io](https://wcyg
 
 Managed on https://dash.cloudflare.com/
 
+## Prerequisites
+
+- [Deno](https://deno.land/) v1.x or v2.x (latest stable recommended)
+
 ## Quickstart
 
 ```bash
-pnpm run dev --open
+deno task dev --open
 
 # or
 ./scripts/develop.sh
@@ -21,15 +25,17 @@ pnpm run dev --open
 ## Create a new post
 
 ```bash
-pnpm post
+deno task post
 ```
 
-## CI Testing
+## CI Tasks (Local Execution)
+
+To run checks similar to those in CI:
 
 ```bash
-pnpm ci:test
-```
-
-```bash
-pnpm ci:test:quick
+deno task check  # Type checking
+deno task lint   # Linting
+deno task format --check # Formatting check
+deno task test   # Run tests
+deno task build  # Build the project
 ```

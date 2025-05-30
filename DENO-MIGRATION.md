@@ -4,7 +4,7 @@
 
 This document outlines a sequential, dependency-aware migration from pnpm to Deno.
 
-## Task 1: Create deno.json
+## Task 1: Create deno.json ✅
 
 - Description: Replace `package.json` by creating a `deno.json` in the project root.
 - Actions:
@@ -20,7 +20,7 @@ This document outlines a sequential, dependency-aware migration from pnpm to Den
   - Add entries: `.deno/`, `node_modules/`.
 - Dependencies: Task 1.
 
-## Task 3: Update scripts
+## Task 3: Update scripts ✅
 
 - Description: Switch shell scripts to use Deno tasks.
 - Actions:
@@ -28,14 +28,14 @@ This document outlines a sequential, dependency-aware migration from pnpm to Den
   - Add Deno shebang to `scripts/new-post.js`: `#!/usr/bin/env -S deno run --allow-read --allow-write`.
 - Dependencies: Task 1.
 
-## Task 4: Remove pnpm-specific files
+## Task 4: Remove pnpm-specific files ✅
 
 - Description: Clean up old package management files.
 - Actions:
   - Delete `package.json`, `pnpm-lock.yaml`, `.npmrc`.
 - Dependencies: Task 1, Task 2, Task 3.
 
-## Task 5: Update GitHub Actions workflows
+## Task 5: Update GitHub Actions workflows ✅
 
 - Description: Migrate CI/CD workflows to Deno.
 - Actions:
@@ -45,7 +45,7 @@ This document outlines a sequential, dependency-aware migration from pnpm to Den
     - Configure caching for Deno (`~/.deno`, `~/.cache/deno`, `node_modules`).
 - Dependencies: Task 1, Task 2, Task 3, Task 4.
 
-## Task 6: Update documentation
+## Task 6: Update documentation ✅
 
 - Description: Reflect Deno usage in `README.md`.
 - Actions:
@@ -54,7 +54,7 @@ This document outlines a sequential, dependency-aware migration from pnpm to Den
   - Update badges to point to Deno-based workflows.
 - Dependencies: Task 5.
 
-## Task 7: Update development workflow documentation
+## Task 7: Update development workflow documentation ✅
 
 - Description: Update internal workflow docs to describe Deno-based processes.
 - Actions:

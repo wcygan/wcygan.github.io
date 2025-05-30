@@ -2723,33 +2723,6 @@
       "npm:typescript@^5.7.2",
       "npm:vite@^6.0.7",
       "npm:vitest@^2.1.8"
-    ],
-    "packageJson": {
-      "dependencies": [
-        "npm:@eslint/compat@^1.2.4",
-        "npm:@sveltejs/adapter-static@^3.0.8",
-        "npm:@sveltejs/kit@^2.15.2",
-        "npm:@sveltejs/vite-plugin-svelte@^5.0.3",
-        "npm:@tailwindcss/typography@~0.5.16",
-        "npm:autoprefixer@^10.4.20",
-        "npm:eslint-config-prettier@^9.1.0",
-        "npm:eslint-plugin-svelte@^2.46.1",
-        "npm:eslint@^9.17.0",
-        "npm:globals@^15.14.0",
-        "npm:mdsvex@~0.12.3",
-        "npm:prettier-plugin-svelte@^3.3.2",
-        "npm:prettier-plugin-tailwindcss@~0.6.9",
-        "npm:prettier@^3.4.2",
-        "npm:shiki-transformer-copy-button@^0.0.3",
-        "npm:shiki@^1.26.1",
-        "npm:svelte-check@^4.1.1",
-        "npm:svelte@^5.16.6",
-        "npm:tailwindcss@^3.4.17",
-        "npm:typescript-eslint@^8.19.1",
-        "npm:typescript@^5.7.2",
-        "npm:vite@^6.0.7",
-        "npm:vitest@^2.1.8"
-      ]
-    }
+    ]
   }
 }

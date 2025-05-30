@@ -18,16 +18,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
         with:
-          version: 9.15.3
+          deno-version: v2.x # Or your specific Deno version
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Cache Deno and Node modules
+        uses: actions/cache@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          path: |
+            ~/.deno
+            ~/.cache/deno
+            node_modules
+          key: ${{ runner.os }}-deno-node_modules-${{ hashFiles('deno.json', 'deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-node_modules-
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -35,10 +40,10 @@ jobs:
           static_site_generator: sveltekit
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: deno task install # Or your specific install command in deno.json
 
       - name: Build
-        run: pnpm run build
+        run: deno task build # Or your specific build command in deno.json
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
