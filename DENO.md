@@ -6,56 +6,56 @@ Create a new `deno.json` file:
 
 ```json
 {
-  "tasks": {
-    "dev": "deno task vite:dev",
-    "vite:dev": "deno run -A npm:vite dev",
-    "build": "deno task vite:build",
-    "vite:build": "deno run -A npm:vite build",
-    "preview": "deno run -A npm:vite preview",
-    "check": "deno run -A npm:svelte-kit sync && deno task svelte-check",
-    "svelte-check": "deno run -A npm:svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "deno run -A npm:svelte-kit sync && deno run -A npm:svelte-check --tsconfig ./tsconfig.json --watch",
-    "format": "deno run -A npm:prettier --write .",
-    "lint": "deno run -A npm:prettier --check . && deno run -A npm:eslint .",
-    "test:unit": "deno run -A npm:vitest",
-    "test": "deno task test:unit -- --run",
-    "post": "deno run --allow-read --allow-write scripts/new-post.js",
-    "ci:test": "deno run --allow-all scripts/test-github-actions.ts",
-    "ci:test:quick": "deno run --allow-all scripts/quick-test.ts",
-    "ci:test:ci": "deno run --allow-all scripts/test-github-actions.ts --workflow ci",
-    "ci:test:verbose": "deno run --allow-all scripts/test-github-actions.ts --verbose",
-    "ci:check": "deno run --allow-all scripts/test-github-actions.ts --dry-run",
-    "ci:help": "deno run --allow-all scripts/test-github-actions.ts --help"
-  },
-  "imports": {
-    "@sveltejs/adapter-static": "npm:@sveltejs/adapter-static@^3.0.8",
-    "@sveltejs/kit": "npm:@sveltejs/kit@^2.15.2",
-    "@sveltejs/vite-plugin-svelte": "npm:@sveltejs/vite-plugin-svelte@^5.0.3",
-    "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
-    "autoprefixer": "npm:autoprefixer@^10.4.20",
-    "eslint": "npm:eslint@^9.17.0",
-    "eslint-config-prettier": "npm:eslint-config-prettier@^9.1.0",
-    "eslint-plugin-svelte": "npm:eslint-plugin-svelte@^2.46.1",
-    "@eslint/compat": "npm:@eslint/compat@^1.2.4",
-    "globals": "npm:globals@^15.14.0",
-    "mdsvex": "npm:mdsvex@^0.12.3",
-    "prettier": "npm:prettier@^3.4.2",
-    "prettier-plugin-svelte": "npm:prettier-plugin-svelte@^3.3.2",
-    "prettier-plugin-tailwindcss": "npm:prettier-plugin-tailwindcss@^0.6.9",
-    "shiki": "npm:shiki@^1.26.1",
-    "shiki-transformer-copy-button": "npm:shiki-transformer-copy-button@^0.0.3",
-    "svelte": "npm:svelte@^5.16.6",
-    "svelte-check": "npm:svelte-check@^4.1.1",
-    "tailwindcss": "npm:tailwindcss@^3.4.17",
-    "typescript": "npm:typescript@^5.7.2",
-    "typescript-eslint": "npm:typescript-eslint@^8.19.1",
-    "vite": "npm:vite@^6.0.7",
-    "vitest": "npm:vitest@^2.1.8"
-  },
-  "nodeModulesDir": true,
-  "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "es2022"]
-  }
+	"tasks": {
+		"dev": "deno task vite:dev",
+		"vite:dev": "deno run -A npm:vite dev",
+		"build": "deno task vite:build",
+		"vite:build": "deno run -A npm:vite build",
+		"preview": "deno run -A npm:vite preview",
+		"check": "deno run -A npm:svelte-kit sync && deno task svelte-check",
+		"svelte-check": "deno run -A npm:svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "deno run -A npm:svelte-kit sync && deno run -A npm:svelte-check --tsconfig ./tsconfig.json --watch",
+		"format": "deno run -A npm:prettier --write .",
+		"lint": "deno run -A npm:prettier --check . && deno run -A npm:eslint .",
+		"test:unit": "deno run -A npm:vitest",
+		"test": "deno task test:unit -- --run",
+		"post": "deno run --allow-read --allow-write scripts/new-post.js",
+		"ci:test": "deno run --allow-all scripts/test-github-actions.ts",
+		"ci:test:quick": "deno run --allow-all scripts/quick-test.ts",
+		"ci:test:ci": "deno run --allow-all scripts/test-github-actions.ts --workflow ci",
+		"ci:test:verbose": "deno run --allow-all scripts/test-github-actions.ts --verbose",
+		"ci:check": "deno run --allow-all scripts/test-github-actions.ts --dry-run",
+		"ci:help": "deno run --allow-all scripts/test-github-actions.ts --help"
+	},
+	"imports": {
+		"@sveltejs/adapter-static": "npm:@sveltejs/adapter-static@^3.0.8",
+		"@sveltejs/kit": "npm:@sveltejs/kit@^2.15.2",
+		"@sveltejs/vite-plugin-svelte": "npm:@sveltejs/vite-plugin-svelte@^5.0.3",
+		"@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
+		"autoprefixer": "npm:autoprefixer@^10.4.20",
+		"eslint": "npm:eslint@^9.17.0",
+		"eslint-config-prettier": "npm:eslint-config-prettier@^9.1.0",
+		"eslint-plugin-svelte": "npm:eslint-plugin-svelte@^2.46.1",
+		"@eslint/compat": "npm:@eslint/compat@^1.2.4",
+		"globals": "npm:globals@^15.14.0",
+		"mdsvex": "npm:mdsvex@^0.12.3",
+		"prettier": "npm:prettier@^3.4.2",
+		"prettier-plugin-svelte": "npm:prettier-plugin-svelte@^3.3.2",
+		"prettier-plugin-tailwindcss": "npm:prettier-plugin-tailwindcss@^0.6.9",
+		"shiki": "npm:shiki@^1.26.1",
+		"shiki-transformer-copy-button": "npm:shiki-transformer-copy-button@^0.0.3",
+		"svelte": "npm:svelte@^5.16.6",
+		"svelte-check": "npm:svelte-check@^4.1.1",
+		"tailwindcss": "npm:tailwindcss@^3.4.17",
+		"typescript": "npm:typescript@^5.7.2",
+		"typescript-eslint": "npm:typescript-eslint@^8.19.1",
+		"vite": "npm:vite@^6.0.7",
+		"vitest": "npm:vitest@^2.1.8"
+	},
+	"nodeModulesDir": true,
+	"compilerOptions": {
+		"lib": ["dom", "dom.iterable", "es2022"]
+	}
 }
 ```
 
@@ -325,6 +325,7 @@ deno task dev --open
 ### Update `scripts/new-post.js`:
 
 Add Deno shebang at the top:
+
 ```javascript
 #!/usr/bin/env -S deno run --allow-read --allow-write
 ```
@@ -333,7 +334,7 @@ Add Deno shebang at the top:
 
 ### Update `README.md`:
 
-```markdown
+````markdown
 # wcygan.github.io
 
 This is the source code for my personal website, [wcygan.github.io](https://wcygan.github.io).
@@ -357,6 +358,7 @@ deno task dev
 # or
 ./scripts/develop.sh
 ```
+````
 
 ## Create a new post
 
@@ -379,25 +381,30 @@ deno task ci:test:quick
 This project uses Deno as the runtime and package manager. All npm dependencies are accessed through Deno's npm compatibility layer.
 
 ### Install dependencies
+
 ```bash
 deno install
 ```
 
 ### Run development server
+
 ```bash
 deno task dev
 ```
 
 ### Build for production
+
 ```bash
 deno task build
 ```
 
 ### Run tests
+
 ```bash
 deno task test
 ```
-```
+
+````
 
 ## 5. Update `.gitignore`
 
@@ -408,11 +415,12 @@ Add Deno-specific entries:
 # Deno
 .deno
 node_modules/
-```
+````
 
 ## 6. Remove pnpm-specific files
 
 Delete these files:
+
 - `package.json`
 - `pnpm-lock.yaml`
 - `.npmrc`
@@ -423,13 +431,15 @@ Update `.cursor/rules/development-workflow.mdc`:
 
 ```markdown
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
+
 # Development Workflow Standards
 
 ## Local Development
+
 - Start dev server: `deno task dev` or use [develop.sh](mdc:scripts/develop.sh)
 - Hot reload available for all Svelte components
 - Test with `deno task test` (Vitest configured)
@@ -437,30 +447,35 @@ alwaysApply: true
 - Formatting: `deno task format`
 
 ## Content Creation
+
 - New blog posts: `deno task post` - runs [new-post.js](mdc:scripts/new-post.js)
 - Interactive script prompts for title, description
 - Auto-generates slug and frontmatter
 - Creates markdown file in `src/posts/`
 
 ## Build Process
-- Build command: `deno task build` 
+
+- Build command: `deno task build`
 - Outputs static files to `./build` directory
 - Uses SvelteKit adapter-static for GitHub Pages
 - Preview built site: `deno task preview`
 
 ## Deployment Pipeline
+
 - Auto-deploys on push to `main` branch
 - GitHub Actions workflow: [deploy.yml](mdc:.github/workflows/deploy.yml)
 - Process: Install deps → Build → Upload artifacts → Deploy to Pages
 - Static site generation with prerendering enabled
 
 ## Package Management
+
 - Uses Deno as runtime and package manager
 - Lock file: [deno.lock](mdc:deno.lock)
 - Dependencies defined in: [deno.json](mdc:deno.json)
 - npm packages accessed via Deno's npm compatibility
 
 ## Configuration Files
+
 - Deno config: [deno.json](mdc:deno.json)
 - SvelteKit: [svelte.config.js](mdc:svelte.config.js)
 - Vite: [vite.config.ts](mdc:vite.config.ts)
@@ -471,6 +486,7 @@ alwaysApply: true
 ## Summary
 
 The key changes are:
+
 1. **Replace pnpm with Deno** in all GitHub Actions workflows
 2. **Create `deno.json`** with tasks and imports mapping
 3. **Enable `nodeModulesDir`** in deno.json for Vite compatibility

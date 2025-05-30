@@ -47,20 +47,23 @@ Test GitHub Actions workflows locally using `act` before pushing to GitHub. This
 ### Quick Start
 
 1. **Install Prerequisites**:
+
    ```bash
    # macOS
    brew install act docker
-   
+
    # Windows
    choco install act-cli docker-desktop
    ```
 
 2. **Check Prerequisites**:
+
    ```bash
    deno run --allow-all scripts/test-github-actions.ts --dry-run
    ```
 
 3. **Run Quick Test** (CI workflow only):
+
    ```bash
    deno run --allow-all scripts/quick-test.ts
    ```
@@ -72,12 +75,12 @@ Test GitHub Actions workflows locally using `act` before pushing to GitHub. This
 
 ### Available Scripts
 
-| Script | Purpose | Usage |
-|--------|---------|-------|
-| `test-github-actions.ts` | Full integration test suite | `deno run --allow-all scripts/test-github-actions.ts` |
-| `quick-test.ts` | Quick CI workflow test | `deno run --allow-all scripts/quick-test.ts` |
-| `download-resume.ts` | Download latest resume PDF | `deno run --allow-read --allow-write --allow-net scripts/download-resume.ts` |
-| `new-post.js` | Create new blog post | `npm run post` |
+| Script                   | Purpose                     | Usage                                                                        |
+| ------------------------ | --------------------------- | ---------------------------------------------------------------------------- |
+| `test-github-actions.ts` | Full integration test suite | `deno run --allow-all scripts/test-github-actions.ts`                        |
+| `quick-test.ts`          | Quick CI workflow test      | `deno run --allow-all scripts/quick-test.ts`                                 |
+| `download-resume.ts`     | Download latest resume PDF  | `deno run --allow-read --allow-write --allow-net scripts/download-resume.ts` |
+| `new-post.js`            | Create new blog post        | `npm run post`                                                               |
 
 ### GitHub Actions Integration Test Features
 
@@ -110,6 +113,7 @@ deno run --allow-all scripts/test-github-actions.ts --dry-run
 ### VS Code Integration
 
 Use Command Palette (`Ctrl+Shift+P`) → "Tasks: Run Task":
+
 - **Test GitHub Actions (All)** - Run all workflow tests
 - **Test GitHub Actions (CI Only)** - Test CI workflow only
 - **Test GitHub Actions (Verbose)** - Run with detailed output
@@ -117,12 +121,12 @@ Use Command Palette (`Ctrl+Shift+P`) → "Tasks: Run Task":
 
 ### Workflow Coverage
 
-| Workflow | Local Testing | Description |
-|----------|---------------|-------------|
-| **CI** | ✅ Full support | Format, lint, type check, test, build |
-| **Security** | ✅ Full support | Security audit and dependency check |
-| **Performance** | ✅ Full support | Lighthouse and bundle analysis |
-| **Deploy** | ⏭️ Skipped | GitHub Pages deployment (requires secrets) |
+| Workflow        | Local Testing   | Description                                |
+| --------------- | --------------- | ------------------------------------------ |
+| **CI**          | ✅ Full support | Format, lint, type check, test, build      |
+| **Security**    | ✅ Full support | Security audit and dependency check        |
+| **Performance** | ✅ Full support | Lighthouse and bundle analysis             |
+| **Deploy**      | ⏭️ Skipped      | GitHub Pages deployment (requires secrets) |
 
 ### Configuration Files
 
@@ -169,4 +173,4 @@ deno run --allow-all scripts/test-github-actions.ts --dry-run
 
 ---
 
-**Note**: These scripts require Deno and use the `--allow-all` flag for full system access needed to run Docker and act commands. 
+**Note**: These scripts require Deno and use the `--allow-all` flag for full system access needed to run Docker and act commands.

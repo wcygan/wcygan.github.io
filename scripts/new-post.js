@@ -1,9 +1,9 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S deno run --allow-read --allow-write
 
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import readline from 'readline';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import readline from 'node:readline';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -1,2 +1,2 @@
 #!/bin/bash
-pnpm run dev --open
+deno task dev --open

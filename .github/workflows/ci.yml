@@ -7,8 +7,10 @@ on:
     branches: [main]
 
 jobs:
-  ci:
+  # Setup job to install dependencies once
+  setup:
     runs-on: ubuntu-latest
+    name: Setup Dependencies
 
     steps:
       - name: Checkout
@@ -28,17 +30,138 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Cache workspace
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .svelte-kit
+          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+
+  # Parallel jobs that use cached dependencies
+  quality:
+    runs-on: ubuntu-latest
+    name: Code Quality
+    needs: setup
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Restore workspace
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .svelte-kit
+          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+
       - name: Format check
         run: pnpm run format --check
 
       - name: Lint
         run: pnpm run lint
 
+  typecheck:
+    runs-on: ubuntu-latest
+    name: Type Check
+    needs: setup
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Restore workspace
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .svelte-kit
+          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+
       - name: Type check
         run: pnpm run check
 
+  test:
+    runs-on: ubuntu-latest
+    name: Tests
+    needs: setup
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Restore workspace
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .svelte-kit
+          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+
       - name: Run tests
         run: pnpm run test
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+    needs: [quality, typecheck, test]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Restore workspace
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .svelte-kit
+          key: workspace-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
 
       - name: Build
         run: pnpm run build
