@@ -5,6 +5,7 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"sync": "svelte-kit sync",
 		"format": "prettier --write .",
 		"lint": "eslint .",
 		"test:unit": "vitest",
@@ -20,7 +21,11 @@
 	"nodeModulesDir": "auto",
 	"compilerOptions": {
 		"allowJs": true,
-		"lib": ["dom", "dom.iterable", "es6"],
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"es6"
+		],
 		"allowSyntheticDefaultImports": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
@@ -37,7 +42,7 @@
 	"imports": {
 		"@eslint/compat": "npm:@eslint/compat@^1.2.4",
 		"@sveltejs/adapter-static": "npm:@sveltejs/adapter-static@^3.0.8",
-		"@sveltejs/kit": "npm:@sveltejs/kit@^2.15.2",
+		"@sveltejs/kit": "npm:@sveltejs/kit@^2.21.1",
 		"@sveltejs/vite-plugin-svelte": "npm:@sveltejs/vite-plugin-svelte@^5.0.3",
 		"@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
 		"autoprefixer": "npm:autoprefixer@^10.4.20",
