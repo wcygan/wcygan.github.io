@@ -55,8 +55,8 @@ importers:
         specifier: ^1.26.1
         version: 1.29.2
       shiki-transformer-copy-button:
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.5
+        version: 0.0.5
       svelte:
         specifier: ^5.16.6
         version: 5.33.2
@@ -1646,8 +1646,8 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  shiki-transformer-copy-button@0.0.3:
-    resolution: {integrity: sha512-MPwtpYEWWhLFVBaEY/IeI34tBNuynu2n/khHEysTa1ijodLauS7fg38FTBthML3WxpE/Z5kRdZeitRQx7FJgdA==}
+  shiki-transformer-copy-button@0.0.5:
+    resolution: {integrity: sha512-PQYu6muxUC42ULWIDp2Fq80Mktt7Qy5JAdDHJV5VEEzMIcMcHu1VW8hYo4XLXVFcOwCQBJB7wjH9ImJjoDiD+g==}
 
   shiki@1.29.2:
     resolution: {integrity: sha512-njXuliz/cP+67jU2hukkxCNuH1yUi4QfdZZY+sMr5PPrIyXSu5iTb/qYC4BiWWB0vZ+7TbdvYUCeL23zpwCfbg==}
@@ -3401,7 +3401,7 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shiki-transformer-copy-button@0.0.3:
+  shiki-transformer-copy-button@0.0.5:
     dependencies:
       hastscript: 9.0.1
 
