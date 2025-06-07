@@ -5,6 +5,7 @@ This document explains how to test GitHub Actions workflows locally using `act` 
 ## Overview
 
 The integration testing setup allows you to:
+
 - Test workflows locally without pushing to GitHub
 - Validate workflow syntax and logic
 - Debug workflow issues faster
@@ -15,10 +16,12 @@ The integration testing setup allows you to:
 ### Required Tools
 
 1. **Docker** - Required by act to run workflows in containers
+
    - [Install Docker](https://docs.docker.com/get-docker/)
    - Ensure Docker daemon is running
 
 2. **Act** - Tool for running GitHub Actions locally
+
    - **macOS**: `brew install act`
    - **Windows**: `choco install act-cli`
    - **Linux**: `curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash`
@@ -39,16 +42,19 @@ deno run --allow-all scripts/test-github-actions.ts --dry-run
 ### Basic Usage
 
 Test all workflows:
+
 ```bash
 deno run --allow-all scripts/test-github-actions.ts
 ```
 
 Test specific workflow:
+
 ```bash
 deno run --allow-all scripts/test-github-actions.ts --workflow ci
 ```
 
 Verbose output for debugging:
+
 ```bash
 deno run --allow-all scripts/test-github-actions.ts --verbose
 ```
@@ -56,6 +62,7 @@ deno run --allow-all scripts/test-github-actions.ts --verbose
 ### VS Code Integration
 
 Use the Command Palette (`Ctrl+Shift+P`) and run:
+
 - **"Tasks: Run Task"** → **"Test GitHub Actions (All)"**
 - **"Tasks: Run Task"** → **"Test GitHub Actions (CI Only)"**
 - **"Tasks: Run Task"** → **"Test GitHub Actions (Verbose)"**
@@ -63,18 +70,19 @@ Use the Command Palette (`Ctrl+Shift+P`) and run:
 
 ## Available Workflows
 
-| Workflow | Description | Local Testing |
-|----------|-------------|---------------|
-| `ci` | Continuous Integration (format, lint, type check, test, build) | ✅ Full support |
-| `security` | Security audit and dependency check | ✅ Full support |
-| `performance` | Performance testing and bundle analysis | ✅ Full support |
-| `deploy` | Deploy to GitHub Pages | ⏭️ Skipped (requires GitHub secrets) |
+| Workflow      | Description                                                    | Local Testing                        |
+| ------------- | -------------------------------------------------------------- | ------------------------------------ |
+| `ci`          | Continuous Integration (format, lint, type check, test, build) | ✅ Full support                      |
+| `security`    | Security audit and dependency check                            | ✅ Full support                      |
+| `performance` | Performance testing and bundle analysis                        | ✅ Full support                      |
+| `deploy`      | Deploy to GitHub Pages                                         | ⏭️ Skipped (requires GitHub secrets) |
 
 ## Configuration
 
 ### Act Configuration (`.actrc`)
 
 The `.actrc` file configures act with optimized settings:
+
 - Uses smaller Docker images for faster testing
 - Sets artifact server path
 - Configures quiet mode by default
@@ -82,16 +90,17 @@ The `.actrc` file configures act with optimized settings:
 
 ### Workflow Event Simulation
 
-| Workflow | Simulated Event | Act Command |
-|----------|----------------|-------------|
-| CI | `push` | `act push --workflows .github/workflows/ci.yml` |
-| Security | `pull_request` | `act pull_request --workflows .github/workflows/security.yml` |
-| Performance | `pull_request` | `act pull_request --workflows .github/workflows/performance.yml` |
-| Deploy | `push` | Skipped locally |
+| Workflow    | Simulated Event | Act Command                                                      |
+| ----------- | --------------- | ---------------------------------------------------------------- |
+| CI          | `push`          | `act push --workflows .github/workflows/ci.yml`                  |
+| Security    | `pull_request`  | `act pull_request --workflows .github/workflows/security.yml`    |
+| Performance | `pull_request`  | `act pull_request --workflows .github/workflows/performance.yml` |
+| Deploy      | `push`          | Skipped locally                                                  |
 
 ## Understanding Test Results
 
 ### Success Output
+
 ```
 🧪 Testing ci workflow...
 ✅ ci workflow passed (45s)
@@ -109,6 +118,7 @@ Total time: 120s
 ```
 
 ### Failure Output
+
 ```
 🧪 Testing ci workflow...
 ❌ ci workflow failed (30s)
@@ -130,30 +140,39 @@ Total time: 30s
 ### Common Issues
 
 #### Docker Not Running
+
 ```
 ❌ Docker daemon: Failed
 ```
+
 **Solution**: Start Docker Desktop or Docker daemon
 
 #### Act Not Installed
+
 ```
 ❌ Act: Not found
 ```
+
 **Solution**: Install act using the appropriate package manager for your OS
 
 #### Workflow Timeout
+
 ```
 ❌ ci workflow failed with error: Command timed out
 ```
-**Solution**: 
+
+**Solution**:
+
 - Check Docker resources (CPU/Memory)
 - Run with `--verbose` to see where it's hanging
 - Increase timeout in the script if needed
 
 #### Permission Errors
+
 ```
 Error: Permission denied
 ```
+
 **Solution**: Ensure Docker has proper permissions and is running
 
 ### Debugging Tips
@@ -172,6 +191,7 @@ Error: Permission denied
 ## Limitations
 
 ### What Works Locally
+
 - ✅ Code formatting and linting
 - ✅ TypeScript type checking
 - ✅ Unit tests
@@ -180,6 +200,7 @@ Error: Permission denied
 - ✅ Bundle analysis
 
 ### What Doesn't Work Locally
+
 - ❌ GitHub Pages deployment (requires GitHub secrets)
 - ❌ GitHub-specific features (GitHub token, repository context)
 - ❌ External service integrations that require specific credentials
@@ -240,6 +261,7 @@ act --secret-file .secrets
 ### Pre-commit Hook
 
 Add to `.git/hooks/pre-commit`:
+
 ```bash
 #!/bin/bash
 echo "Running GitHub Actions tests..."
@@ -251,6 +273,7 @@ fi
 ```
 
 ### Make it executable:
+
 ```bash
 chmod +x .git/hooks/pre-commit
 ```
@@ -277,4 +300,4 @@ When adding new workflows:
 - [Act Documentation](https://github.com/nektos/act)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Docker Documentation](https://docs.docker.com/)
-- [Deno Documentation](https://deno.land/manual) 
+- [Deno Documentation](https://deno.land/manual)
