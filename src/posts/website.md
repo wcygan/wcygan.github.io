@@ -31,3 +31,7 @@ fn main() {
     println!("Hello, World!");
 }
 ```
+
+---
+
+_The source code for this website is available on [GitHub](https://github.com/wcygan/wcygan.github.io)._
