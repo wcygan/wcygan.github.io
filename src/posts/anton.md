@@ -10,7 +10,7 @@ tags: [Kubernetes, Talos, Homelab]
 Meet Anton - a Kubernetes cluster that runs in my basement. Built on the foundation of [onedr0p's cluster-template](https://github.com/onedr0p/cluster-template), Anton represents my journey into self-hosted infrastructure.
 
 <div class="flex justify-center my-6">
-<img src="https://raw.githubusercontent.com/wcygan/anton/refs/heads/main/static/anton.jpg" alt="Anton Cluster" width="200" />
+<img src="/anton.jpg" alt="Anton Cluster" width="200" />
 </div>
 
 ## The Hardware
