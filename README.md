@@ -23,6 +23,20 @@ pnpm run dev
 pnpm post
 ```
 
+## Download Resume
+
+To fetch the latest version of the resume from GitHub:
+
+```bash
+pnpm download
+```
+
+Or with Deno directly:
+
+```bash
+deno task download
+```
+
 ## CI Testing
 
 ```bash
