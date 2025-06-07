@@ -11,11 +11,10 @@ Managed on https://dash.cloudflare.com/
 
 ## Quickstart
 
-```bash
-pnpm run dev --open
+Install [pnpm](https://pnpm.io/installation) and (Optionally) [Deno](https://docs.deno.com/runtime/getting_started/installation/).
 
-# or
-./scripts/develop.sh
+```bash
+pnpm run dev
 ```
 
 ## Create a new post

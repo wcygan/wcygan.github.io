@@ -8,7 +8,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 pnpm run dev          # Start development server on localhost:5173
-./scripts/develop.sh  # Alternative: start dev server with script
 pnpm run preview      # Preview production build locally
 ```
 
