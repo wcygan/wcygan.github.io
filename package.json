@@ -23,7 +23,7 @@
 		"download": "deno run --allow-read --allow-write --allow-net scripts/download-resume.ts"
 	},
 	"devDependencies": {
-		"@eslint/compat": "^1.2.4",
+		"@eslint/compat": "^1.3.0",
 		"@sveltejs/adapter-static": "^3.0.8",
 		"@sveltejs/kit": "^2.15.2",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
