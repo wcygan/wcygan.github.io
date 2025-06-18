@@ -1,7 +1,15 @@
 <script lang="ts">
 	import '../app.css';
 	import Navbar from '$lib/components/Navbar.svelte';
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+
 	let { children } = $props();
+
+	// Selective redirect: only redirect root path to wcygan.net
+	if (browser && $page.url.pathname === '/' && $page.url.search === '') {
+		window.location.href = 'https://wcygan.net/';
+	}
 </script>
 
 <svelte:head>
