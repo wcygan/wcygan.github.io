@@ -6,7 +6,8 @@ This directory contains automation scripts for the wcygan.github.io project.
 
 ### Overview
 
-Automatically download the latest resume PDF from the GitHub repository and save it locally, replacing the existing file if it exists.
+Automatically download the latest resume PDF from the GitHub repository and save
+it locally, replacing the existing file if it exists.
 
 ### Quick Start
 
@@ -27,7 +28,8 @@ deno run --allow-read --allow-write --allow-net scripts/download-resume.ts --dry
 ### Features
 
 - ✅ **Automatic Download**: Fetches latest resume from GitHub repository
-- 📊 **Size Comparison**: Shows file size differences between old and new versions
+- 📊 **Size Comparison**: Shows file size differences between old and new
+  versions
 - 🔍 **URL Validation**: Checks accessibility before downloading
 - 📁 **Directory Creation**: Automatically creates output directories if needed
 - 🔄 **File Replacement**: Safely replaces existing files
@@ -36,13 +38,15 @@ deno run --allow-read --allow-write --allow-net scripts/download-resume.ts --dry
 
 ### Source
 
-Downloads from: `https://github.com/wcygan/resume/raw/main/will_cygan_resume.pdf`
+Downloads from:
+`https://github.com/wcygan/resume/raw/main/will_cygan_resume.pdf`
 
 ## GitHub Actions Integration Testing
 
 ### Overview
 
-Test GitHub Actions workflows locally using `act` before pushing to GitHub. This helps catch issues early and speeds up development.
+Test GitHub Actions workflows locally using `act` before pushing to GitHub. This
+helps catch issues early and speeds up development.
 
 ### Quick Start
 
@@ -173,4 +177,5 @@ deno run --allow-all scripts/test-github-actions.ts --dry-run
 
 ---
 
-**Note**: These scripts require Deno and use the `--allow-all` flag for full system access needed to run Docker and act commands.
+**Note**: These scripts require Deno and use the `--allow-all` flag for full
+system access needed to run Docker and act commands.
