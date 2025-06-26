@@ -73,9 +73,9 @@ export async function waitForMermaidDiagrams(
 	// If specific count is expected, wait for that many diagrams
 	if (expectedCount !== undefined) {
 		await page.waitForFunction(
-			(count: number) => {
+			(count) => {
 				const diagrams = document.querySelectorAll('.mermaid-render-container svg');
-				return diagrams.length >= count;
+				return diagrams.length >= (count as number);
 			},
 			{ timeout: Math.max(timeout - (Date.now() - startTime), 5000) },
 			expectedCount
@@ -135,9 +135,9 @@ export async function waitForMermaidDiagramType(
 
 	// Then wait for diagram-specific elements
 	await page.waitForFunction(
-		(sel: string) => {
+		(sel) => {
 			const diagrams = document.querySelectorAll('.mermaid-render-container svg');
-			return Array.from(diagrams).some((svg) => svg.querySelectorAll(sel).length > 0);
+			return Array.from(diagrams).some((svg) => svg.querySelectorAll(sel as string).length > 0);
 		},
 		{ timeout },
 		selector
@@ -153,12 +153,12 @@ export async function waitForMermaidDiagramType(
  */
 export async function gotoAndWaitForMermaid(
 	page: {
-		goto: (url: string, options?: { waitUntil?: string; timeout?: number }) => Promise<unknown>;
-		waitForSelector?: (
+		goto: (url: string, options?: any) => Promise<any>;
+		waitForSelector: (
 			selector: string,
 			options?: { timeout?: number; visible?: boolean }
 		) => Promise<unknown>;
-		waitForFunction?: (
+		waitForFunction: (
 			pageFunction: string | ((...args: unknown[]) => unknown),
 			options?: { timeout?: number },
 			...args: unknown[]

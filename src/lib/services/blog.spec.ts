@@ -93,7 +93,7 @@ describe('blog service', () => {
 				(post) =>
 					post.slug !== currentPost.slug &&
 					post.published &&
-					post.tags.some((tag) => currentPost.tags.includes(tag))
+					post.tags.some((tag: string) => currentPost.tags.includes(tag))
 			);
 
 			expect(related).toHaveLength(1); // test-post-2 also has 'test' tag
