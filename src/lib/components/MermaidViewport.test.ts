@@ -133,7 +133,7 @@ describe('MermaidViewport component logic', () => {
 		it('should render immediately when IntersectionObserver is not available', () => {
 			// Remove IntersectionObserver
 			const originalIO = window.IntersectionObserver;
-			// @ts-ignore
+			// @ts-expect-error - Testing fallback when IntersectionObserver is not available
 			delete window.IntersectionObserver;
 
 			let shouldRender = false;
@@ -168,7 +168,7 @@ describe('MermaidViewport component logic', () => {
 		it('should accept custom rootMargin', () => {
 			const customRootMargin = '200px';
 
-			const observer = new IntersectionObserver(vi.fn(), { rootMargin: customRootMargin });
+			new IntersectionObserver(vi.fn(), { rootMargin: customRootMargin });
 
 			expect(mockObserver.IntersectionObserver).toHaveBeenCalledWith(
 				expect.any(Function),
@@ -179,7 +179,7 @@ describe('MermaidViewport component logic', () => {
 		it('should use default rootMargin of 100px', () => {
 			const defaultRootMargin = '100px';
 
-			const observer = new IntersectionObserver(vi.fn(), { rootMargin: defaultRootMargin });
+			new IntersectionObserver(vi.fn(), { rootMargin: defaultRootMargin });
 
 			expect(mockObserver.IntersectionObserver).toHaveBeenCalledWith(
 				expect.any(Function),
@@ -188,7 +188,7 @@ describe('MermaidViewport component logic', () => {
 		});
 
 		it('should use threshold of 0', () => {
-			const observer = new IntersectionObserver(vi.fn(), { threshold: 0 });
+			new IntersectionObserver(vi.fn(), { threshold: 0 });
 
 			expect(mockObserver.IntersectionObserver).toHaveBeenCalledWith(
 				expect.any(Function),

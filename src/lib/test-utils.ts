@@ -1,4 +1,4 @@
-import { render } from '@testing-library/svelte';
+// import { render } from '@testing-library/svelte'; // Unused import
 import { vi } from 'vitest';
 
 // Mock IntersectionObserver for viewport tests
@@ -9,7 +9,7 @@ export const mockIntersectionObserver = () => {
 
 	let observerCallback: IntersectionObserverCallback | null = null;
 
-	const mockIntersectionObserver = vi.fn((callback, options) => {
+	const mockIntersectionObserver = vi.fn((callback: IntersectionObserverCallback) => {
 		observerCallback = callback;
 		return {
 			observe: mockObserve,
@@ -18,7 +18,7 @@ export const mockIntersectionObserver = () => {
 		};
 	});
 
-	window.IntersectionObserver = mockIntersectionObserver as any;
+	window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
 
 	return {
 		IntersectionObserver: mockIntersectionObserver,

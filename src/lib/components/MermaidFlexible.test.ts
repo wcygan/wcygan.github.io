@@ -189,7 +189,7 @@ describe('MermaidFlexible component logic', () => {
 		it('should wait for mount before rendering', async () => {
 			let mounted = false;
 			let slotContent = '';
-			const diagram = undefined;
+			// const diagram = undefined; // Unused variable
 
 			// Before mount
 			expect(mounted).toBe(false);
@@ -205,7 +205,7 @@ describe('MermaidFlexible component logic', () => {
 
 		it('should handle mount with diagram prop', async () => {
 			let mounted = false;
-			const diagram = 'flowchart TD\n  A --> B';
+			// const diagram = 'flowchart TD\n  A --> B'; // Unused variable
 
 			// Before mount
 			expect(mounted).toBe(false);
@@ -224,38 +224,38 @@ describe('MermaidFlexible component logic', () => {
 			const mockImport = vi.fn(() => Promise.resolve({ default: 'MermaidLazy' }));
 
 			// Replace import with mock
-			const originalImport = (globalThis as any).import;
-			(globalThis as any).import = mockImport;
+			const originalImport = (globalThis as unknown).import;
+			(globalThis as unknown).import = mockImport;
 
 			const lazy = true;
 			const viewport = false;
 
 			if (!viewport && lazy) {
-				await (globalThis as any).import('./MermaidLazy.svelte');
+				await (globalThis as unknown).import('./MermaidLazy.svelte');
 			}
 
 			expect(mockImport).toHaveBeenCalledWith('./MermaidLazy.svelte');
 
 			// Restore
-			(globalThis as any).import = originalImport;
+			(globalThis as unknown).import = originalImport;
 		});
 
 		it('should not import MermaidLazy when lazy is false', () => {
 			const mockImport = vi.fn();
-			const originalImport = (globalThis as any).import;
-			(globalThis as any).import = mockImport;
+			const originalImport = (globalThis as unknown).import;
+			(globalThis as unknown).import = mockImport;
 
 			const lazy = false;
 			const viewport = false;
 
 			if (!viewport && lazy) {
-				(globalThis as any).import('./MermaidLazy.svelte');
+				(globalThis as unknown).import('./MermaidLazy.svelte');
 			}
 
 			expect(mockImport).not.toHaveBeenCalled();
 
 			// Restore
-			(globalThis as any).import = originalImport;
+			(globalThis as unknown).import = originalImport;
 		});
 	});
 

@@ -1,10 +1,10 @@
-import { preview, build } from 'vite';
+import { preview } from 'vite';
 import type { PreviewServer } from 'vite';
 import { loadConfigFromFile } from 'vite';
 import { existsSync } from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { launchBrowser, closeBrowser } from './browserUtils';
+// import { launchBrowser, closeBrowser } from './browserUtils'; // Unused imports
 
 const execAsync = promisify(exec);
 
@@ -67,7 +67,7 @@ async function waitForServer(baseUrl: string, timeoutMs: number = 30000): Promis
 
 				return; // Server is ready
 			}
-		} catch (error) {
+		} catch {
 			// Server not ready yet, continue waiting
 		}
 

@@ -120,7 +120,7 @@ describe('MermaidDiagram component logic', () => {
 
 		it('should handle missing container gracefully', async () => {
 			const container = null;
-			const diagram = 'flowchart TD\n  A --> B';
+			// const diagram = 'flowchart TD\n  A --> B'; // Unused variable
 
 			// Simulate the check in renderDiagram
 			if (!container) {

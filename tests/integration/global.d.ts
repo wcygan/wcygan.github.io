@@ -9,8 +9,8 @@ declare global {
 		}
 	}
 
-	var __BROWSER__: Browser | undefined;
-	var __BASE_URL__: string | undefined;
+	const __BROWSER__: Browser | undefined;
+	const __BASE_URL__: string | undefined;
 }
 
 export {};

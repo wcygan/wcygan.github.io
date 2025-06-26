@@ -55,7 +55,7 @@ describe('mermaid-cache', () => {
 
 		it('should return null when window is undefined (SSR)', () => {
 			const originalWindow = global.window;
-			// @ts-ignore
+			// @ts-expect-error - Testing SSR environment without window
 			delete global.window;
 
 			const result = getCachedSVG('test diagram');
@@ -95,7 +95,7 @@ describe('mermaid-cache', () => {
 
 		it('should not store when window is undefined (SSR)', () => {
 			const originalWindow = global.window;
-			// @ts-ignore
+			// @ts-expect-error - Testing SSR environment without window
 			delete global.window;
 
 			setCachedSVG('test', '<svg></svg>');

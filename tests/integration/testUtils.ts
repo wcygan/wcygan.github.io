@@ -23,7 +23,7 @@ export function getTestBaseUrl(): string {
 	const baseUrl =
 		process.env.VITE_TEST_BASE_URL ||
 		process.env.BASE_URL ||
-		(global as any).__BASE_URL__ ||
+		(global as { __BASE_URL__?: string }).__BASE_URL__ ||
 		'http://localhost:4173';
 
 	return baseUrl;
@@ -48,7 +48,17 @@ export function wait(ms: number): Promise<void> {
  * @param timeout - Timeout in milliseconds (default: 15000)
  */
 export async function waitForMermaidDiagrams(
-	page: any,
+	page: {
+		waitForSelector: (
+			selector: string,
+			options?: { timeout?: number; visible?: boolean }
+		) => Promise<unknown>;
+		waitForFunction: (
+			pageFunction: string | ((...args: unknown[]) => unknown),
+			options?: { timeout?: number },
+			...args: unknown[]
+		) => Promise<unknown>;
+	},
 	expectedCount?: number,
 	timeout: number = 15000
 ): Promise<void> {
@@ -95,7 +105,14 @@ export async function waitForMermaidDiagrams(
  * @param timeout - Timeout in milliseconds (default: 15000)
  */
 export async function waitForMermaidDiagramType(
-	page: any,
+	page: {
+		waitForSelector: (selector: string, options?: { timeout?: number }) => Promise<unknown>;
+		waitForFunction: (
+			pageFunction: string | ((...args: unknown[]) => unknown),
+			options?: { timeout?: number },
+			...args: unknown[]
+		) => Promise<unknown>;
+	},
 	diagramType: 'flowchart' | 'sequence' | 'state' | 'git' | 'er' | 'pie',
 	timeout: number = 15000
 ): Promise<void> {
@@ -135,7 +152,18 @@ export async function waitForMermaidDiagramType(
  * @param timeout - Timeout in milliseconds (default: 20000)
  */
 export async function gotoAndWaitForMermaid(
-	page: any,
+	page: {
+		goto: (url: string, options?: { waitUntil?: string; timeout?: number }) => Promise<unknown>;
+		waitForSelector?: (
+			selector: string,
+			options?: { timeout?: number; visible?: boolean }
+		) => Promise<unknown>;
+		waitForFunction?: (
+			pageFunction: string | ((...args: unknown[]) => unknown),
+			options?: { timeout?: number },
+			...args: unknown[]
+		) => Promise<unknown>;
+	},
 	url: string,
 	expectedDiagramCount?: number,
 	timeout: number = 20000

@@ -6,7 +6,7 @@ import {
 	createPage,
 	closePage,
 	getTestBaseUrl,
-	waitForMermaidDiagrams,
+	// waitForMermaidDiagrams, // Unused import
 	gotoAndWaitForMermaid
 } from './testUtils';
 
@@ -65,7 +65,7 @@ describe('Mermaid Complete Integration Tests', () => {
 			// Check that dark theme is applied
 			const hasDarkTheme = await page.$$eval('.mermaid-render-container', (containers) => {
 				return containers.every((container) => {
-					const styles = window.getComputedStyle(container);
+					// const styles = window.getComputedStyle(container); // Unused variable
 					// Dark theme should have dark background or specific styling
 					return (
 						container.classList.contains('mermaid-diagram') ||

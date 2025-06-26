@@ -6,7 +6,7 @@ import {
 	createPage,
 	closePage,
 	getTestBaseUrl,
-	waitForMermaidDiagrams,
+	// waitForMermaidDiagrams, // Unused import
 	waitForMermaidDiagramType,
 	gotoAndWaitForMermaid
 } from './testUtils';
@@ -304,14 +304,14 @@ describe('Mermaid Diagrams Integration Tests', () => {
 			await page.waitForSelector('.mermaid-render-container svg');
 
 			// Get initial render time
-			const initialRenderTime = await page.evaluate(() => performance.now());
+			// const initialRenderTime = await page.evaluate(() => performance.now()); // Unused variable
 
 			// Reload page
 			await page.reload({ waitUntil: 'networkidle2' });
 			await page.waitForSelector('.mermaid-render-container svg');
 
 			// Check if diagrams loaded faster (from cache)
-			const reloadRenderTime = await page.evaluate(() => performance.now());
+			// const reloadRenderTime = await page.evaluate(() => performance.now()); // Unused variable
 
 			// Check that diagrams are still rendered (cache is working)
 			const cachedDiagrams = await page.$$eval(
@@ -338,11 +338,11 @@ describe('Mermaid Diagrams Integration Tests', () => {
 
 			// Trigger Mermaid rendering
 			await page.evaluate(async () => {
-				const mermaid = (window as any).mermaid;
+				const mermaid = (window as unknown as { mermaid?: { run(): Promise<void> } }).mermaid;
 				if (mermaid) {
 					try {
 						await mermaid.run();
-					} catch (error) {
+					} catch {
 						// Expected to fail
 					}
 				}

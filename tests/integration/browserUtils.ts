@@ -6,6 +6,12 @@
 import puppeteer from 'puppeteer';
 import type { Browser, Page } from 'puppeteer';
 
+// Type for global object with browser instance
+interface GlobalType {
+	__BROWSER__?: Browser;
+	__BASE_URL__?: string;
+}
+
 // Default browser configuration
 export const defaultBrowserConfig = {
 	headless: true,
@@ -26,7 +32,7 @@ export async function launchBrowser(config = defaultBrowserConfig): Promise<Brow
 	try {
 		const browser = await puppeteer.launch(config);
 		// Store browser instance globally for shared access
-		(global as any).__BROWSER__ = browser;
+		(global as GlobalType).__BROWSER__ = browser;
 		return browser;
 	} catch (error) {
 		console.error('Failed to launch browser:', error);
@@ -39,12 +45,12 @@ export async function launchBrowser(config = defaultBrowserConfig): Promise<Brow
  * This should be called in afterAll hooks
  */
 export async function closeBrowser(browser?: Browser): Promise<void> {
-	const browserToClose = browser || (global as any).__BROWSER__;
+	const browserToClose = browser || (global as GlobalType).__BROWSER__;
 	if (browserToClose) {
 		try {
 			await browserToClose.close();
 			// Clean up global reference
-			delete (global as any).__BROWSER__;
+			delete (global as GlobalType).__BROWSER__;
 		} catch (error) {
 			console.error('Failed to close browser:', error);
 		}
@@ -56,7 +62,7 @@ export async function closeBrowser(browser?: Browser): Promise<void> {
  * Automatically sets the default viewport
  */
 export async function createPage(viewport = defaultViewport): Promise<Page> {
-	const browser = (global as any).__BROWSER__ as Browser;
+	const browser = (global as GlobalType).__BROWSER__ as Browser;
 
 	if (!browser) {
 		throw new Error(
@@ -87,12 +93,12 @@ export async function closePage(page?: Page): Promise<void> {
  * Useful for tests that need direct browser access
  */
 export function getBrowser(): Browser | undefined {
-	return (global as any).__BROWSER__;
+	return (global as GlobalType).__BROWSER__;
 }
 
 /**
  * Checks if a browser instance is available
  */
 export function hasBrowser(): boolean {
-	return !!(global as any).__BROWSER__;
+	return !!(global as GlobalType).__BROWSER__;
 }
