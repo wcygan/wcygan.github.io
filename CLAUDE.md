@@ -1,6 +1,7 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
 
 ## Essential Commands
 
@@ -85,6 +86,94 @@ pnpm ci:test:quick    # Quick CI workflow test
 2. Use frontmatter: title, date, tags, description, published
 3. Posts automatically appear in blog listing and RSS feed
 
+#### Using Mermaid Diagrams in Posts
+
+Mermaid diagrams are supported in blog posts for creating flowcharts, sequence
+diagrams, and more.
+
+**Basic Usage:**
+
+```svelte
+<script>
+	import MermaidDiagram from '$lib/components/MermaidDiagram.svelte';
+</script>
+
+<MermaidDiagram
+	height={300}
+	diagram={`flowchart TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Do this]
+    B -->|No| D[Do that]`}
+/>
+```
+
+**Available Components:**
+
+- `MermaidDiagram` - Main component with caching and error handling
+- `MermaidViewport` - Lazy-loads when scrolled into view
+- `MermaidFlexible` - Supports both prop and slot syntax
+
+**Performance Tips:**
+
+- Diagrams are automatically cached in sessionStorage
+- Use `MermaidViewport` for diagrams below the fold
+- See `/docs/MERMAID_USAGE.md` for comprehensive guide
+- Visit `/mermaid-examples` for live examples
+
+**Important: Avoiding MDsveX Parsing Issues**
+
+When using Mermaid components in MDsveX files, follow these formatting rules to
+prevent parsing errors:
+
+1. **Component Formatting Pattern:**
+
+   ```svelte
+   <!-- ✅ CORRECT: Props on separate lines -->
+   <MermaidDiagram
+   	height={500}
+   	diagram={`sequenceDiagram
+       participant User
+       participant Server
+       User->>Server: Request
+       Server->>User: Response`}
+   />
+
+   <!-- ❌ WRONG: Can cause MDsveX to inject </p> tags -->
+   <MermaidDiagram
+   	height={500}
+   	diagram={`sequenceDiagram
+   participant User
+   participant Server
+   User->>Server: Request
+   Server->>User: Response`}
+   />
+   ```
+
+2. **Vite Configuration:**
+
+   Ensure `vite.config.ts` has the correct Mermaid alias:
+
+   ```typescript
+   resolve: {
+   	alias: {
+   		mermaid: 'mermaid/dist/mermaid.esm.min.mjs'; // NOT mermaid.esm.mjs
+   	}
+   }
+   ```
+
+3. **Svelte 5 Compatibility:**
+
+   - For components using `bind:textContent`, add `contenteditable="true"`
+   - Use `onMount` with `tick()` for reliable DOM access
+   - Avoid using `$app/environment` for browser detection; use `onMount` instead
+
+4. **Common Issues and Solutions:**
+
+   - **SSR/Hydration failures**: Check Vite module resolution config
+   - **MDsveX paragraph wrapping**: Use the formatting pattern above
+   - **Slot content not working**: Ensure proper `onMount` handling in components
+   - **Direct URL access fails**: Verify module aliases and SSR configuration
+
 #### Modifying Routes
 
 - Page routes in `/src/routes/[route]/+page.svelte`
@@ -102,6 +191,77 @@ pnpm ci:test:quick    # Quick CI workflow test
 - Unit tests with Vitest (run with `pnpm run test`)
 - Local GitHub Actions testing with comprehensive test suite
 - VS Code task integration for quick testing
+- 77 tests covering utilities, services, and component logic
+
+#### Unit Testing Strategy
+
+Due to Svelte 5 compatibility issues with @testing-library/svelte, we use a logic-based testing approach:
+
+```typescript
+// Test component logic without full mounting
+describe('MermaidDiagram component logic', () => {
+	it('should use cached SVG when available', async () => {
+		const cachedSVG = '<svg>cached diagram</svg>';
+		const mockGetCachedSVG = getCachedSVG as ReturnType<typeof vi.fn>;
+		mockGetCachedSVG.mockReturnValue(cachedSVG);
+
+		// Test caching behavior
+		const svg = getCachedSVG(diagram);
+		expect(svg).toBe(cachedSVG);
+	});
+});
+```
+
+**Test Coverage:**
+
+- `src/lib/utils/*.spec.ts` - Utility functions (mermaid-cache, readingTime)
+- `src/lib/services/*.spec.ts` - Service layer (blog filtering, sorting)
+- `src/lib/components/*.test.ts` - Component logic (no full mounting)
+
+**Key Testing Utilities:**
+
+- Mock IntersectionObserver for viewport tests
+- Mock sessionStorage for caching tests
+- Mock Mermaid module for rendering tests
+
+#### Browser Testing with Puppeteer MCP
+
+The Puppeteer MCP tool can be used for end-to-end testing of Mermaid diagrams and blog functionality:
+
+```typescript
+// Example: Testing Mermaid diagram rendering
+// 1. Navigate to a blog post with Mermaid diagrams
+await mcp__puppeteer__puppeteer_navigate({
+	url: 'http://localhost:5173/blog/mermaid-diagrams'
+});
+
+// 2. Wait for diagram to render and take screenshot
+await mcp__puppeteer__puppeteer_screenshot({
+	name: 'mermaid-diagram-rendered',
+	selector: '.mermaid-render-container',
+	width: 800,
+	height: 600
+});
+
+// 3. Test viewport lazy loading
+await mcp__puppeteer__puppeteer_evaluate({
+	script: `window.scrollTo(0, document.querySelector('.mermaid-viewport').offsetTop)`
+});
+
+// 4. Verify diagram loads when in viewport
+await mcp__puppeteer__puppeteer_evaluate({
+	script: `document.querySelector('.mermaid-render-container svg') !== null`
+});
+```
+
+**Common E2E Test Scenarios:**
+
+- Verify Mermaid diagrams render correctly
+- Test lazy loading behavior with viewport scrolling
+- Validate dark theme styling is applied
+- Check sessionStorage caching works
+- Test error states with invalid diagram syntax
+- Verify blog post navigation and filtering
 
 ### Important Configuration Files
 

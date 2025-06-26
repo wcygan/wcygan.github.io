@@ -35,4 +35,5 @@ Add these badges to your main README.md to show the status of your workflows:
 [![Performance](https://github.com/wcygan/wcygan.github.io/actions/workflows/performance.yml/badge.svg)](https://github.com/wcygan/wcygan.github.io/actions/workflows/performance.yml)
 ```
 
-**Note:** Replace `wcygan/wcygan.github.io` with your actual GitHub username and repository name if different.
+**Note:** Replace `wcygan/wcygan.github.io` with your actual GitHub username and
+repository name if different.

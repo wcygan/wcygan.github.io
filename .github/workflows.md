@@ -1,6 +1,7 @@
 # GitHub Actions Workflows
 
-This repository uses GitHub Actions for continuous integration, deployment, and maintenance. Below is an overview of all workflows and their purposes.
+This repository uses GitHub Actions for continuous integration, deployment, and
+maintenance. Below is an overview of all workflows and their purposes.
 
 ## Workflows
 
@@ -8,7 +9,8 @@ This repository uses GitHub Actions for continuous integration, deployment, and 
 
 **Triggers:** Push to `main`, Pull Requests to `main`
 
-**Purpose:** Comprehensive continuous integration pipeline that ensures code quality and functionality.
+**Purpose:** Comprehensive continuous integration pipeline that ensures code
+quality and functionality.
 
 **Steps:**
 
@@ -23,7 +25,8 @@ This repository uses GitHub Actions for continuous integration, deployment, and 
 
 **Triggers:** Push to `main`
 
-**Purpose:** Automated deployment to GitHub Pages using SvelteKit's static adapter.
+**Purpose:** Automated deployment to GitHub Pages using SvelteKit's static
+adapter.
 
 **Features:**
 
@@ -68,7 +71,8 @@ This repository uses GitHub Actions for continuous integration, deployment, and 
 
 **File:** `.github/dependabot.yml`
 
-**Purpose:** Automated dependency updates to keep the project secure and up-to-date.
+**Purpose:** Automated dependency updates to keep the project secure and
+up-to-date.
 
 **Features:**
 
@@ -105,11 +109,14 @@ The Lighthouse CI enforces the following minimum scores:
 
 ### Secrets (If needed)
 
-No secrets are currently required for these workflows, but you can add them in repository Settings → Secrets and variables → Actions if needed for future enhancements.
+No secrets are currently required for these workflows, but you can add them in
+repository Settings → Secrets and variables → Actions if needed for future
+enhancements.
 
 ## Workflow Status
 
-You can monitor workflow status in the "Actions" tab of your repository. Each workflow provides detailed logs and artifact downloads when applicable.
+You can monitor workflow status in the "Actions" tab of your repository. Each
+workflow provides detailed logs and artifact downloads when applicable.
 
 ## Local Development
 
@@ -142,9 +149,12 @@ pnpm audit
 
 ### Common Issues
 
-1. **Build failures:** Check that all dependencies are properly installed and the build passes locally
-2. **Lighthouse failures:** Ensure performance thresholds are met or adjust them in `.lighthouserc.json`
-3. **Security audit failures:** Update vulnerable dependencies or add exceptions if necessary
+1. **Build failures:** Check that all dependencies are properly installed and
+   the build passes locally
+2. **Lighthouse failures:** Ensure performance thresholds are met or adjust them
+   in `.lighthouserc.json`
+3. **Security audit failures:** Update vulnerable dependencies or add exceptions
+   if necessary
 
 ### Getting Help
 

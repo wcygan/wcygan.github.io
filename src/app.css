@@ -177,3 +177,42 @@ pre button.copy {
 		}
 	}
 }
+
+/* Mermaid diagram styles */
+.mermaid-container {
+	@apply my-6;
+}
+
+/* Override Mermaid default styles for better dark theme integration */
+.mermaid {
+	@apply text-zinc-100;
+	font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.mermaid .nodeLabel {
+	@apply text-zinc-100;
+}
+
+.mermaid .edgeLabel {
+	@apply bg-zinc-900 text-zinc-100;
+}
+
+.mermaid .cluster rect {
+	@apply fill-zinc-800 stroke-zinc-600;
+}
+
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon,
+.mermaid .node path {
+	@apply fill-zinc-700 stroke-emerald-400;
+}
+
+.mermaid .flowchart-link {
+	@apply stroke-zinc-500;
+}
+
+.mermaid .marker {
+	@apply fill-zinc-500;
+}

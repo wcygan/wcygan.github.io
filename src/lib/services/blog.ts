@@ -2,7 +2,9 @@ import type { Post, PostFile } from '$lib/types';
 import { calculateReadingTime } from '$lib/utils/readingTime';
 
 // This uses Vite's glob import feature
-const postFiles = import.meta.glob<PostFile>('/src/posts/*.md', { eager: true });
+const postFiles = import.meta.glob<PostFile>('/src/posts/*.md', {
+	eager: true
+});
 
 let _posts: Post[] | null = null;
 

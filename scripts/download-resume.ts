@@ -111,7 +111,9 @@ class ResumeDownloader {
 			const stat = await Deno.stat(this.options.outputPath);
 			if (stat.size !== newSize && newSize > 0) {
 				console.warn(
-					`⚠️  Warning: Downloaded file size (${this.formatBytes(stat.size)}) doesn't match expected size (${this.formatBytes(newSize)})`
+					`⚠️  Warning: Downloaded file size (${this.formatBytes(
+						stat.size
+					)}) doesn't match expected size (${this.formatBytes(newSize)})`
 				);
 			}
 		} catch (error) {

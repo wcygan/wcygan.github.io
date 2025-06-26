@@ -1,6 +1,7 @@
 # GitHub Actions Integration Testing
 
-This document explains how to test GitHub Actions workflows locally using `act` before pushing to GitHub.
+This document explains how to test GitHub Actions workflows locally using `act`
+before pushing to GitHub.
 
 ## Overview
 
@@ -24,7 +25,8 @@ The integration testing setup allows you to:
 
    - **macOS**: `brew install act`
    - **Windows**: `choco install act-cli`
-   - **Linux**: `curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash`
+   - **Linux**:
+     `curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash`
 
 3. **Deno** - For running the test script
    - [Install Deno](https://deno.land/manual/getting_started/installation)
