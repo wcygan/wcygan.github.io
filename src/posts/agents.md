@@ -195,15 +195,16 @@ The Gemini CLI implements the Thought-Action-Observation loop in a sophisticated
 One of the most interesting discoveries in the Gemini CLI codebase is the implementation of "hidden thoughts." The system supports internal reasoning that's never shown to the user:
 
 ```typescript
-// From packages/cli/src/ui/hooks/useGeminiStream.ts
-content.parts.forEach((part) => {
+// From packages/core/src/core/geminiChat.ts (lines 186-197)
+for (const part of parts) {
   if (part.thought) {
-    // These parts are marked as "thoughts" and are hidden from the user
-    // This allows the model to reason internally without cluttering the output
-    return;
+    // Thoughts are captured but not added to history
+    thoughtParts.push(part);
+  } else if (part.text) {
+    // Regular content is shown to user
+    textBuffer += part.text;
   }
-  // Only non-thought parts are displayed
-});
+}
 ```
 
 This means when Gemini is deciding what to do, it can generate internal reasoning like:
@@ -230,53 +231,71 @@ if (response.functionCalls) {
 }
 ```
 
-The CoreToolScheduler then manages the entire lifecycle:
+The CoreToolScheduler then manages the entire lifecycle with a sophisticated state machine:
 
 ```typescript
-// From CoreToolScheduler
-async scheduleToolCalls(toolCalls: ToolCall[]): Promise<void> {
-  for (const toolCall of toolCalls) {
-    // 1. Validate the tool exists
-    const tool = await this.toolRegistry.getTool(toolCall.name);
-    
-    // 2. Check if approval is needed
-    if (tool.requiresApproval) {
-      await this.requestUserApproval(toolCall);
+// Tool execution states (from packages/core/src/types/tool.ts)
+export type ToolCallState =
+  | 'validating'           // Initial validation
+  | 'awaitingApproval'     // Waiting for user confirmation
+  | 'scheduled'            // Ready to execute
+  | 'executing'            // Currently running
+  | 'success'              // Completed successfully
+  | 'error'                // Failed with error
+  | 'cancelled'            // Cancelled by user
+
+// From CoreToolScheduler (lines 128-156)
+async scheduleToolCalls(
+  toolCallRequests: ModelPartToolCallRequest[],
+  options?: ScheduleOptions
+): Promise<ScheduledToolCall[]> {
+  const scheduledToolCalls = toolCallRequests.map(request => ({
+    id: generateId(),
+    state: options?.skipConfirmation ? 'scheduled' : 'validating',
+    request,
+    // ... other fields
+  }));
+  
+  // Validate and potentially request user approval
+  for (const toolCall of scheduledToolCalls) {
+    if (toolCall.state === 'validating') {
+      await this.validateToolCall(toolCall);
     }
-    
-    // 3. Execute the tool
-    const result = await tool.execute(toolCall.parameters);
-    
-    // 4. Store the result for the observation phase
-    this.toolResults.set(toolCall.id, result);
   }
+  
+  return scheduledToolCalls;
 }
 ```
 
 ### The Observation Phase: Processing Results
 
-After tools execute, their results become observations that feed back into the conversation:
+After tools execute, their results become observations that feed back into the conversation automatically:
 
 ```typescript
-// The tool results are formatted as messages
-const toolResultMessages = toolResults.map(result => ({
-  role: 'function',
-  parts: [{
-    functionResponse: {
-      name: result.toolName,
-      response: result.output
-    }
-  }]
-}));
-
-// These observations are added to the conversation history
-messages.push(...toolResultMessages);
-
-// The model then processes these observations to generate its next response
-const nextResponse = await this.model.generateContent({
-  contents: messages
-});
+// From packages/cli/src/ui/hooks/useGeminiStream.ts (lines 516-538)
+useEffect(() => {
+  if (!toolCalls || toolCalls.length === 0) return;
+  
+  const allToolsComplete = toolCalls.every(tool => 
+    ['success', 'error', 'cancelled'].includes(tool.state)
+  );
+  
+  if (allToolsComplete && !isClientInitiated) {
+    // Gather all tool responses
+    const toolResponses = toolCalls.map(tool => ({
+      id: tool.id,
+      response: tool.response || tool.error
+    }));
+    
+    // OBSERVATION: Feed results back into the conversation
+    submitQuery(mergePartListUnions([
+      { functionResponses: toolResponses }
+    ]), { isContinuation: true });
+  }
+}, [toolCalls]);
 ```
+
+This automatic feedback loop is key to the agent's ability to iteratively solve problems—once all tools complete, their observations are immediately fed back to the model for further processing.
 
 ### The Complete Loop in Action
 
@@ -305,6 +324,46 @@ Here's a real example of the loop from the codebase:
 5. **Response**: "There are 3 TypeScript files in the src directory: index.ts, config.ts, and utils.ts"
 
 This cycle continues until the agent has enough information to provide a complete answer.
+
+### Key Architectural Innovations
+
+The Gemini CLI's implementation includes several sophisticated features that make it particularly powerful:
+
+#### Streaming Architecture
+The entire loop operates on a streaming basis, allowing for real-time feedback and long-running operations:
+
+```typescript
+// From geminiChat.ts (lines 174-182)
+const stream = await response.stream;
+for await (const chunk of stream) {
+  const chunkContent = parseChunkContent(chunk);
+  yield {
+    type: 'content',
+    content: chunkContent
+  };
+}
+```
+
+#### Concurrent Tool Execution
+Multiple tools can execute in parallel, dramatically improving performance for complex tasks:
+
+```typescript
+// From coreToolScheduler.ts (lines 210-225)
+const executionPromises = toolCalls.map(async (toolCall) => {
+  try {
+    const result = await this.executeTool(toolCall);
+    toolCall.state = 'success';
+    toolCall.response = result;
+  } catch (error) {
+    toolCall.state = 'error';
+    toolCall.error = error;
+  }
+});
+
+await Promise.all(executionPromises);
+```
+
+This means if an agent needs to check multiple files or run several commands, it can do them all at once rather than sequentially.
 
 ## Code References
 
