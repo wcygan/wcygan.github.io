@@ -9,7 +9,8 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"format": "prettier --config .config/.prettierrc --ignore-path .prettierignore --write .",
+		"format": "deno task fix-mermaid && prettier --config .config/.prettierrc --ignore-path .prettierignore --write .",
+		"format:check": "prettier --config .config/.prettierrc --ignore-path .prettierignore --check .",
 		"lint": "prettier --config .config/.prettierrc --ignore-path .prettierignore --check . && eslint .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
@@ -21,7 +22,8 @@
 		"ci:test:verbose": "deno run --allow-all scripts/test-github-actions.ts --verbose",
 		"ci:check": "deno run --allow-all scripts/test-github-actions.ts --dry-run",
 		"ci:help": "deno run --allow-all scripts/test-github-actions.ts --help",
-		"download": "deno run --allow-read --allow-write --allow-net scripts/download-resume.ts"
+		"download": "deno run --allow-read --allow-write --allow-net scripts/download-resume.ts",
+		"pre-commit": "deno task fix-mermaid && pnpm run format && pnpm run lint && pnpm run check"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.4",
