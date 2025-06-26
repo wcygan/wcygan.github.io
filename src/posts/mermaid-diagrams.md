@@ -40,9 +40,26 @@ diagram={`flowchart TD
 
 ### Sequence Diagram
 
-API authentication flow (temporarily disabled):
+API authentication flow:
 
-<!-- Complex sequence diagram temporarily commented out due to MDsveX parsing issues -->
+<MermaidDiagram height={500} diagram={`sequenceDiagram
+participant User
+participant Client as Client App
+participant Auth as Auth Server
+participant Resource as Resource Server
+
+    User->>Client: Login Request
+    Client->>Auth: Authorization Request
+    Auth->>User: Login Page
+    User->>Auth: Credentials
+    Auth->>Auth: Validate
+    Auth->>Client: Authorization Code
+    Client->>Auth: Exchange Code for Token
+    Auth->>Client: Access Token
+    Client->>Resource: API Request with Token
+    Resource->>Resource: Validate Token
+    Resource->>Client: Protected Data
+    Client->>User: Display Data`} />
 
 ### State Diagram
 

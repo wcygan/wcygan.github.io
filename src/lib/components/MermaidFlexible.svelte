@@ -17,7 +17,7 @@
 	onMount(async () => {
 		// Wait for DOM updates
 		await tick();
-		
+
 		if (!diagram && slotElement) {
 			// Get the text content, trimming whitespace
 			const content = slotElement.textContent?.trim() || '';
@@ -25,7 +25,7 @@
 				slotContent = content;
 			}
 		}
-		
+
 		// Set mounted after content extraction
 		mounted = true;
 	});
