@@ -42,12 +42,13 @@ diagram={`flowchart TD
 
 API authentication flow:
 
-<MermaidDiagram height={500} diagram={`sequenceDiagram
-participant User
-participant Client as Client App
-participant Auth as Auth Server
-participant Resource as Resource Server
-
+<MermaidDiagram height={500}
+diagram={`sequenceDiagram
+    participant User
+    participant Client as Client App
+    participant Auth as Auth Server
+    participant Resource as Resource Server
+    
     User->>Client: Login Request
     Client->>Auth: Authorization Request
     Auth->>User: Login Page
@@ -59,7 +60,8 @@ participant Resource as Resource Server
     Client->>Resource: API Request with Token
     Resource->>Resource: Validate Token
     Resource->>Client: Protected Data
-    Client->>User: Display Data`} />
+    Client->>User: Display Data`}
+/>
 
 ### State Diagram
 
