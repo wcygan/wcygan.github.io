@@ -149,9 +149,9 @@ When you ask "How many files are in the src directory?", the agent doesn't guess
 
 The Gemini CLI implements agents through three core components that orchestrate API calls to Google's LLM:
 
-- **GeminiChat**: Constructs API requests with your messages and available tools, then sends them to Google's servers
-- **CoreToolScheduler**: When the API responds with tool requests, safely executes them locally
-- **ToolRegistry**: Tells the API what tools are available (file reading, shell commands, etc.)
+- **Turn Handler**: Extracts tool calls from the API response and initiates the TAO loop
+- **CoreToolScheduler**: Manages tool state progression and executes tools safely with user approval
+- **ToolRegistry**: Stores and provides access to available tools (file reading, shell commands, etc.)
 
 The key insight: these components don't "think"—they format requests for the external API that does the actual reasoning.
 
@@ -159,19 +159,18 @@ The key insight: these components don't "think"—they format requests for the e
 	height={400}
 	diagram={`graph TD
     subgraph "Core Engine"
-        A["📄 GeminiChat"]
-        B["📄 CoreToolScheduler"]
-        C["📄 ToolRegistry"]
+        A["📄 Turn Handler<br/>Extracts tool calls from API"]
+        B["📄 CoreToolScheduler<br/>Executes tools"]
+        C["📄 ToolRegistry<br/>Stores available tools"]
     end
-    A -- Tool Call Request --> B;
-    B -- "What tool can do this?" --> C;
-    C -- "Here is the tool" --> B;
-    B -- "Run this tool" --> C;
-    C -- "Here is the result" --> B;
-    B -- Tool Output --> A;
-    click A "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L136" _blank
-    click B "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L224" _blank
-    click C "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/tools/tool-registry.ts#L124" _blank`}
+    A -- "Tool Call Request" --> B;
+    B -- "Get tool instance" --> C;
+    C -- "Return tool" --> B;
+    B -- "Execute tool" --> B;
+    B -- "Tool results" --> A;
+    click A "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/turn.ts#L206" _blank
+    click B "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L601" _blank
+    click C "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/tools/tool-registry.ts#L237" _blank`}
 />
 
 ### Safety and Extensibility
@@ -296,17 +295,98 @@ if (!part.thought && part.text !== undefined && part.text === '') {
 
 ### Tool Execution
 
+When the API responds with tool requests, they're extracted and executed:
+
+```typescript
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/turn.ts#L206-L211
+// Handle function calls (requesting tool execution)
+const functionCalls = resp.functionCalls ?? [];
+for (const fnCall of functionCalls) {
+  const event = this.handlePendingFunctionCall(fnCall);
+  if (event) {
+    yield event;
+  }
+}
+```
+
+The actual tool execution happens in the scheduler:
+
+```typescript
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L601-L626
+scheduledCall.tool
+  .execute(scheduledCall.request.args, signal, liveOutputCallback)
+  .then((toolResult: ToolResult) => {
+    if (signal.aborted) {
+      this.setStatusInternal(
+        callId,
+        'cancelled',
+        'User cancelled tool execution.',
+      );
+      return;
+    }
+
+    const response = convertToFunctionResponse(
+      toolName,
+      callId,
+      toolResult.llmContent,
+    );
+
+    const successResponse: ToolCallResponseInfo = {
+      callId,
+      responseParts: response,
+      resultDisplay: toolResult.returnDisplay,
+      error: undefined,
+    };
+    this.setStatusInternal(callId, 'success', successResponse);
+  })
+```
+
+### Tool State Progression
+
 Tools progress through a state machine: `validating → awaitingApproval → scheduled → executing → success/error`:
 
 ```typescript
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L262-L267
-// From sendMessage method - calling the external API
-const apiCall = () =>
-  this.contentGenerator.generateContent({
-    model: this.config.getModel() || DEFAULT_GEMINI_FLASH_MODEL,
-    contents: requestContents,
-    config: { ...this.generationConfig, ...params.config },
-  });
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L301-L343
+switch (newStatus) {
+  case 'success': {
+    const durationMs = existingStartTime
+      ? Date.now() - existingStartTime
+      : undefined;
+    return {
+      request: currentCall.request,
+      tool: toolInstance,
+      status: 'success',
+      response: auxiliaryData as ToolCallResponseInfo,
+      durationMs,
+      outcome,
+    } as SuccessfulToolCall;
+  }
+  case 'awaiting_approval':
+    return {
+      request: currentCall.request,
+      tool: toolInstance,
+      status: 'awaiting_approval',
+      confirmationDetails: auxiliaryData as ToolCallConfirmationDetails,
+      startTime: existingStartTime,
+      outcome,
+    } as WaitingToolCall;
+  case 'scheduled':
+    return {
+      request: currentCall.request,
+      tool: toolInstance,
+      status: 'scheduled',
+      startTime: existingStartTime,
+      outcome,
+    } as ScheduledToolCall;
+  case 'executing':
+    return {
+      request: currentCall.request,
+      tool: toolInstance,
+      status: 'executing',
+      startTime: existingStartTime,
+      outcome,
+    } as ExecutingToolCall;
+}
 ```
 
 ### Automatic Observations
