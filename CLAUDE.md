@@ -320,3 +320,108 @@ This project uses both `deno.json` and `package.json` for different purposes:
 - `pnpm run format` calls `deno task fix-mermaid` automatically
 - Cross-calling between package managers works seamlessly
 - Use `pnpm run <script>` for primary workflow commands
+
+## Mermaid Diagram Styling Guidelines
+
+### Core Design Principles
+
+- **Semantic Colors**: Use consistent colors that convey meaning across all diagrams
+- **Human Readability**: Optimize for comprehension with clear visual hierarchy
+- **Accessibility**: Maintain WCAG AA contrast ratios and 2px minimum stroke widths
+- **Consistency**: Apply the same visual language across all diagram types
+
+### Color Palette System
+
+**Primary Semantic Colors:**
+
+```css
+/* Actions & Processing */
+--action-primary: fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#000  /* Light Yellow + Black Text */
+--processing: fill:#e5e7eb,stroke:#6b7280,stroke-width:2px,color:#000      /* Light Gray + Black Text */
+
+/* Data & States */
+--data-state: fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#000      /* Light Blue + Black Text */
+--neutral: fill:#f9fafb,stroke:#6b7280,stroke-width:2px,color:#000         /* Very Light Gray + Black Text */
+
+/* System Interactions */
+--external: fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#000        /* Light Red + Black Text */
+--success: fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#000         /* Light Green + Black Text */
+
+/* Component Types */
+--storage: fill:#fed7aa,stroke:#f97316,stroke-width:2px,color:#000         /* Light Orange + Black Text */
+--interface: fill:#fef3c7,stroke:#fbbf24,stroke-width:2px,color:#000       /* Light Golden Yellow + Black Text */
+```
+
+### Diagram-Specific Guidelines
+
+#### Flowcharts
+- **Decision nodes**: Use `--processing` (purple) for logic/decisions
+- **Action nodes**: Use `--action-primary` (yellow) for processes
+- **Start/End**: Use `--success` (green) for terminals
+- **External systems**: Use `--external` (red) for outside dependencies
+
+#### Sequence Diagrams
+- **User/Client**: Use `--success` (green) for user-facing participants
+- **Internal Services**: Use `--data-state` (blue) for internal systems
+- **External APIs**: Use `--external` (red) for third-party services
+- **Databases**: Use `--storage` (orange) for data stores
+
+#### State Diagrams
+- **Initial state**: Use `--neutral` (gray)
+- **Processing states**: Use `--action-primary` (yellow)
+- **Success states**: Use `--success` (green)
+- **Error states**: Use `--external` (red)
+
+#### Architecture Diagrams
+- **Core components**: Use `--processing` (purple) for main logic
+- **Data layer**: Use `--storage` (orange) for data components
+- **APIs/Interfaces**: Use `--interface` (golden yellow)
+- **External systems**: Use `--external` (red)
+
+### Style Templates
+
+#### Basic Flowchart Pattern
+```
+style NodeName fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#000
+style DecisionNode fill:#e5e7eb,stroke:#6b7280,stroke-width:2px,color:#000
+style ExternalSystem fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#000
+```
+
+#### Sequence Diagram Pattern
+```
+participant User
+participant System as "Internal System"
+participant API as "External API"
+Note over User: Green for user-facing
+Note over System: Blue for internal
+Note over API: Red for external
+```
+
+#### Multi-Component System Pattern
+```
+style CoreLogic fill:#e5e7eb,stroke:#6b7280,stroke-width:2px,color:#000
+style DataStore fill:#fed7aa,stroke:#f97316,stroke-width:2px,color:#000
+style Interface fill:#fef3c7,stroke:#fbbf24,stroke-width:2px,color:#000
+style External fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#000
+```
+
+### Best Practices
+
+1. **Always specify stroke-width:2px and color:#000** for accessibility and clarity
+2. **Use light backgrounds with dark text** to ensure readability
+3. **Use semantic naming** in style declarations for maintainability
+4. **Group related nodes** with consistent colors within each diagram
+5. **Limit color palette** to 4-5 colors per diagram to avoid confusion
+6. **Test contrast** - ensure black text remains readable on all light background colors
+7. **Document color choices** when deviating from standard patterns
+
+### Quality Checklist
+
+Before publishing any Mermaid diagram, verify:
+- [ ] Uses semantic colors from the defined palette
+- [ ] Uses light backgrounds with dark (black) text
+- [ ] Maintains consistent styling within the diagram
+- [ ] Has adequate contrast for accessibility
+- [ ] Follows diagram-specific color conventions
+- [ ] Includes stroke-width:2px and color:#000 for all styled elements
+- [ ] Limits color palette to avoid visual confusion
