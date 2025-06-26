@@ -40,7 +40,7 @@
 		"prettier-plugin-svelte": "^3.3.2",
 		"prettier-plugin-tailwindcss": "^0.6.9",
 		"puppeteer": "^24.10.2",
-		"shiki": "^1.26.1",
+		"shiki": "^3.7.0",
 		"shiki-transformer-copy-button": "^0.0.3",
 		"svelte": "^5.16.6",
 		"svelte-check": "^4.1.1",
