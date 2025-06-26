@@ -2,6 +2,8 @@
  * Utility functions for integration tests
  */
 
+import type { Page } from 'puppeteer';
+
 // Re-export browser utilities for convenience
 export {
 	launchBrowser,
@@ -48,17 +50,7 @@ export function wait(ms: number): Promise<void> {
  * @param timeout - Timeout in milliseconds (default: 15000)
  */
 export async function waitForMermaidDiagrams(
-	page: {
-		waitForSelector: (
-			selector: string,
-			options?: { timeout?: number; visible?: boolean }
-		) => Promise<unknown>;
-		waitForFunction: (
-			pageFunction: string | ((...args: unknown[]) => unknown),
-			options?: { timeout?: number },
-			...args: unknown[]
-		) => Promise<unknown>;
-	},
+	page: Page,
 	expectedCount?: number,
 	timeout: number = 15000
 ): Promise<void> {
@@ -105,14 +97,7 @@ export async function waitForMermaidDiagrams(
  * @param timeout - Timeout in milliseconds (default: 15000)
  */
 export async function waitForMermaidDiagramType(
-	page: {
-		waitForSelector: (selector: string, options?: { timeout?: number }) => Promise<unknown>;
-		waitForFunction: (
-			pageFunction: string | ((...args: unknown[]) => unknown),
-			options?: { timeout?: number },
-			...args: unknown[]
-		) => Promise<unknown>;
-	},
+	page: Page,
 	diagramType: 'flowchart' | 'sequence' | 'state' | 'git' | 'er' | 'pie',
 	timeout: number = 15000
 ): Promise<void> {
@@ -152,18 +137,7 @@ export async function waitForMermaidDiagramType(
  * @param timeout - Timeout in milliseconds (default: 20000)
  */
 export async function gotoAndWaitForMermaid(
-	page: {
-		goto: (url: string, options?: { waitUntil?: string; timeout?: number }) => Promise<unknown>;
-		waitForSelector: (
-			selector: string,
-			options?: { timeout?: number; visible?: boolean }
-		) => Promise<unknown>;
-		waitForFunction: (
-			pageFunction: string | ((...args: unknown[]) => unknown),
-			options?: { timeout?: number },
-			...args: unknown[]
-		) => Promise<unknown>;
-	},
+	page: Page,
 	url: string,
 	expectedDiagramCount?: number,
 	timeout: number = 20000
