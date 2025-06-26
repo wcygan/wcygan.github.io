@@ -61,60 +61,6 @@ The core pattern is the **Thought-Action-Observation loop**: the LLM reasons abo
 
 ## Agents are Just Programs
 
-Here's the crucial insight: **agents don't contain AI models**. They're regular programs that make API calls to external LLMs, just like any application that calls a weather API or database service.
-
-<MermaidDiagram
-	height={300}
-	diagram={`graph LR
-    subgraph "Your Computer"
-        A[Gemini CLI<br/>TypeScript Program]
-    end
-    subgraph "Google's Servers"
-        C[Gemini LLM API]
-    end
-    A -->|HTTPS Request| C
-    C -->|JSON Response| A
-    D[API Key: GEMINI_API_KEY] -.->|Authenticates| A`}
-/>
-
-The Gemini CLI is a TypeScript application that:
-1. Takes your input from the terminal
-2. Sends it to Google's Gemini API servers
-3. Receives the AI's response
-4. Executes any requested tools locally
-5. Sends results back to the API for further reasoning
-
-### Setting Up the Connection
-
-Just like any API client, you need credentials:
-
-```bash
-# Get an API key from Google AI Studio
-export GEMINI_API_KEY="your-api-key-here"
-
-# Or use Google account authentication
-gemini login
-```
-
-The agent then makes API calls similar to:
-
-```typescript
-// Simplified version of what happens inside Gemini CLI
-const response = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent', {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${API_KEY}`,
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    contents: [{ parts: [{ text: userMessage }] }],
-    tools: availableTools
-  })
-});
-```
-
-## Agents are Just Programs
-
 Here's a crucial insight: **agents don't contain AI models**. The Gemini CLI is simply a TypeScript program that makes API calls to Google's external LLM servers. It's no different from a weather app calling a weather API—the intelligence lives in the cloud, not in your terminal.
 
 ```typescript
