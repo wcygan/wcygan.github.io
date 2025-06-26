@@ -365,50 +365,6 @@ await Promise.all(executionPromises);
 
 This means if an agent needs to check multiple files or run several commands, it can do them all at once rather than sequentially.
 
-## Code References
-
-  1. ToolRegistry
-   * URL: https://github.com/google-gemini/gemini-cli/blob/32c16b75/packages/core/src/tools/tool-registry.ts#L124
-   * Role: The Toolbox.
-   * Why it's important: This component acts as a comprehensive catalog of all the capabilities the agent has beyond generating text. It holds the definitions,
-     parameters, and execution logic for every tool (e.g., read_file, run_shell_command). When the agent needs to perform an action, it consults this registry to know
-     what tools are available and how to use them. Without the ToolRegistry, the agent would be a simple chatbot, unable to interact with the file system, execute
-     commands, or perform any other actions on the user's behalf.
-
-
-  2. GeminiChat
-   * URL: https://github.com/google-gemini/gemini-cli/blob/32c16b75/packages/core/src/core/geminiChat.ts#L136
-   * Role: The Core Brain.
-   * Why it's important: This is the central component that communicates directly with the Gemini Large Language Model. It is responsible for sending the user's prompt,
-     the conversation history, and the list of available tools (from the ToolRegistry) to the LLM. It then receives the LLM's response, which could be a text answer or a
-     request to use a specific tool. This class is the "Gemini" in the Gemini CLI; it's where the model's reasoning and decision-making happen.
-
-
-  3. CoreToolScheduler
-   * URL: https://github.com/google-gemini/gemini-cli/blob/32c16b75/packages/core/src/core/coreToolScheduler.ts#L224
-   * Role: The Safety and Operations Manager.
-   * Why it's important: When the GeminiChat component receives a request from the LLM to use a tool, it doesn't execute it directly. Instead, it hands the request to
-     the CoreToolScheduler. This is a crucial security and orchestration layer. It manages the entire lifecycle of a tool call: validating parameters, asking the user
-     for confirmation before executing potentially dangerous actions (like modifying files), running the tool, and handling success or error states. It ensures that the
-     agent acts safely and predictably.
-
-
-  4. useGeminiStream
-   * URL: https://github.com/google-gemini/gemini-cli/blob/32c16b75/packages/cli/src/ui/hooks/useGeminiStream.ts
-   * Role: The UI-to-Core Bridge.
-   * Why it's important: This is a high-level React hook that orchestrates the entire interactive session from the UI's perspective. It captures user input, sends it to
-     the GeminiChat service, and processes the stream of events that come back—including text chunks for the response, tool call requests, and status updates. It's the
-     primary component that makes the CLI feel "live" and responsive, connecting the user-facing elements to the powerful core logic.
-
-
-  5. useReactToolScheduler
-   * URL: https://github.com/google-gemini/gemini-cli/blob/32c16b75/packages/cli/src/ui/hooks/useReactToolScheduler.ts
-   * Role: The Tool Status Communicator.
-   * Why it's important: This React hook is a specialized wrapper around the CoreToolScheduler. Its job is to take the raw status of tool calls (e.g., executing,
-     awaiting_approval) and translate that information into state that the UI can render. It allows the user to see in real-time that a tool is waiting for their
-     confirmation, is currently running, or has completed with success or an error. This transparency is essential for user trust and a good user experience, as it makes
-     the agent's actions observable.
-
 ## Key Takeaways
 
 The Gemini CLI demonstrates several important principles for building AI agents:
