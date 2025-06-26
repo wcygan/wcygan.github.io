@@ -30,18 +30,9 @@ We can easily have Gemini review the Gemini CLI:
 ```bash
 git clone git@github.com:google-gemini/gemini-cli.git
 
-gemini --prompt 'explore the gemini-cli codebase and TLDR how it looks architecturaly and how it works'
+gemini --prompt 'explore the gemini-cli codebase and TLDR how it looks architecturaly and how it works. Keep your response to a paragraph of summarization.'
 
-I will start by exploring the codebase to understand its architecture and functionality.
-
-First, I'll examine the `package.json` and `tsconfig.json` files to understand the project's structure and build process. Then, I'll look for architecture documentation, such as the `docs/architecture.md` file and any Mermaid diagrams. I'll also explore the `packages` directory, which seems to contain the core and CLI modules.
-
-After gathering this information, I will provide a concise summary of the architecture and how the CLI operates. I'll begin by reading `docs/architecture.md`.I've reviewed the architecture overview. Now, to get a deeper understanding, I'll examine the contents of the `packages/cli` and `packages/core` directories. This will reveal the internal structure of these key components.The Gemini CLI has a modular architecture centered around two main packages: `packages/cli` and `packages/core`.
-
-- **`packages/cli`**: This is the user-facing part of the CLI, which is responsible for handling user input, rendering the user interface, and managing the overall user experience.
-- **`packages/core`**: This is the backend of the CLI, which is responsible for orchestrating interactions with the Gemini API, managing the execution of available tools, and handling the core logic of the application.
-
-The CLI works by taking user input and sending it to the `packages/core` package, which then constructs a prompt for the Gemini API. The API's response, which may include a request to use a tool, is then processed by the `packages/core` package. If a tool is requested, the user is prompted for confirmation, and the tool is executed. The final response is then sent back to the `packages/cli` package and displayed to the user.
+The Gemini CLI is a TypeScript-based, modular application designed for extensibility. It's architecturally split into a user-facing `packages/cli` and a backend `packages/core`. The CLI handles user interaction, rendering, and input, while the core orchestrates communication with the Gemini API, manages conversation state, and executes tools. These tools, located in `packages/core/src/tools`, extend Gemini's functionality by allowing it to interact with the local environment, such as the file system or shell. The workflow involves the CLI capturing user input, passing it to the core, which then constructs and sends a request to the Gemini API. The API's response, which may include a request to use a tool, is processed by the core, and the final result is displayed to the user by the CLI. Security is a key consideration, with user confirmation required for any potentially risky operations.
 ```
 
 ## What is an "Agent"?
