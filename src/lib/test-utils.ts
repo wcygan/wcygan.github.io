@@ -3,14 +3,34 @@ import { vi } from 'vitest';
 
 // Mock IntersectionObserver for viewport tests
 export const mockIntersectionObserver = () => {
-	const mockIntersectionObserver = vi.fn();
-	mockIntersectionObserver.mockReturnValue({
-		observe: vi.fn(),
-		unobserve: vi.fn(),
-		disconnect: vi.fn()
+	const mockObserve = vi.fn();
+	const mockUnobserve = vi.fn();
+	const mockDisconnect = vi.fn();
+	
+	let observerCallback: IntersectionObserverCallback | null = null;
+	
+	const mockIntersectionObserver = vi.fn((callback, options) => {
+		observerCallback = callback;
+		return {
+			observe: mockObserve,
+			unobserve: mockUnobserve,
+			disconnect: mockDisconnect
+		};
 	});
+	
 	window.IntersectionObserver = mockIntersectionObserver as any;
-	return mockIntersectionObserver;
+	
+	return {
+		IntersectionObserver: mockIntersectionObserver,
+		observe: mockObserve,
+		unobserve: mockUnobserve,
+		disconnect: mockDisconnect,
+		trigger: (entries: Partial<IntersectionObserverEntry>[]) => {
+			if (observerCallback) {
+				observerCallback(entries as IntersectionObserverEntry[], {} as IntersectionObserver);
+			}
+		}
+	};
 };
 
 // Mock sessionStorage for cache tests
