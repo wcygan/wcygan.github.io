@@ -1,44 +1,40 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import puppeteer from 'puppeteer';
-import type { Browser, Page } from 'puppeteer';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
+import type { Page } from 'puppeteer';
+import { 
+  launchBrowser, 
+  closeBrowser, 
+  createPage, 
+  closePage, 
+  getTestBaseUrl,
+  waitForMermaidDiagrams,
+  gotoAndWaitForMermaid
+} from './testUtils';
 
 describe('Mermaid Complete Integration Tests', () => {
-  let browser: Browser;
   let page: Page;
-  const baseUrl = 'http://localhost:5173'; // Use dev server instead
+  const baseUrl = getTestBaseUrl();
   
   beforeAll(async () => {
-    console.log('Launching browser...');
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    console.log('Launching shared browser...');
+    await launchBrowser();
   }, 30000);
 
   afterAll(async () => {
-    await browser?.close();
+    await closeBrowser();
   });
 
   beforeEach(async () => {
-    page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 720 });
+    page = await createPage();
   });
 
   afterEach(async () => {
-    await page?.close();
+    await closePage(page);
   });
 
   describe('All Diagram Types', () => {
     it('should render all 6 types of Mermaid diagrams on the blog post', async () => {
-      // Assuming the dev server is already running
-      await page.goto(`${baseUrl}/blog/mermaid-diagrams`, { waitUntil: 'networkidle2' });
-      
-      // Wait for Mermaid diagrams to render
-      await page.waitForSelector('.mermaid-render-container svg', { timeout: 10000 });
+      // Use enhanced navigation and waiting utility
+      await gotoAndWaitForMermaid(page, `${baseUrl}/blog/mermaid-diagrams`, 6, 20000);
       
       // Count all rendered diagrams
       const diagramCount = await page.$$eval('.mermaid-render-container svg', elements => elements.length);

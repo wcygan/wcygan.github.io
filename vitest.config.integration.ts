@@ -7,14 +7,19 @@ export default defineConfig({
 		environment: 'node',
 		globals: true,
 		include: ['tests/integration/**/*.{test,spec}.{js,ts}'],
-		testTimeout: 30000,
-		hookTimeout: 30000,
+		testTimeout: 45000,  // Increased for Mermaid rendering
+		hookTimeout: 60000,  // Increased for server startup and browser launch
 		pool: 'forks',
 		poolOptions: {
 			forks: {
 				singleFork: true
 			}
-		}
+		},
+		globalSetup: ['./tests/integration/globalServer.ts'],
+		setupFiles: ['./tests/integration/globalServer.ts'],
+	},
+	define: {
+		'process.env.BASE_URL': 'global.__BASE_URL__'
 	},
 	resolve: {
 		alias: {

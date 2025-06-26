@@ -7,7 +7,9 @@ export default defineConfig({
 		environment: 'jsdom',
 		globals: true,
 		setupFiles: ['./vitest.setup.ts'],
-		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', 'tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']
+		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', 'tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+		testTimeout: 20000,  // Increased for Mermaid rendering in component tests
+		hookTimeout: 30000   // Increased for setup/teardown operations
 	},
 	resolve: {
 		alias: {

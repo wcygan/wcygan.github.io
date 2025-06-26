@@ -1,30 +1,24 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
-import { preview } from 'vite';
-import type { PreviewServer } from 'vite';
-import puppeteer from 'puppeteer';
-import type { Browser, Page } from 'puppeteer';
+import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
+import type { Page } from 'puppeteer';
+import { 
+  launchBrowser, 
+  closeBrowser, 
+  createPage, 
+  closePage, 
+  getTestBaseUrl,
+  waitForMermaidDiagrams,
+  waitForMermaidDiagramType,
+  gotoAndWaitForMermaid
+} from './testUtils';
 
 describe('Mermaid Diagrams Integration Tests', () => {
-  let server: PreviewServer;
-  let browser: Browser;
   let page: Page;
-  const baseUrl = 'http://localhost:4174';
+  const baseUrl = getTestBaseUrl();
 
   beforeAll(async () => {
     try {
-      // Start the preview server
-      server = await preview({
-        preview: {
-          port: 4174,
-          strictPort: true,
-        },
-      });
-      
-      // Launch browser
-      browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-      });
+      // Launch shared browser instance
+      await launchBrowser();
     } catch (error) {
       console.error('Setup failed:', error);
       throw error;
@@ -32,29 +26,24 @@ describe('Mermaid Diagrams Integration Tests', () => {
   }, 30000);
 
   afterAll(async () => {
-    await browser?.close();
-    if (server?.httpServer) {
-      await new Promise<void>((resolve) => {
-        server.httpServer.close(() => resolve());
-      });
-    }
+    await closeBrowser();
   });
 
   beforeEach(async () => {
-    page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 720 });
+    page = await createPage();
   });
 
   afterEach(async () => {
-    await page?.close();
+    await closePage(page);
   });
 
   describe('Flow Chart Diagrams', () => {
     it('should render flow chart diagram correctly', async () => {
-      await page.goto(`${baseUrl}/blog/mermaid-diagrams`, { waitUntil: 'networkidle2' });
+      // Use enhanced navigation and waiting
+      await gotoAndWaitForMermaid(page, `${baseUrl}/blog/mermaid-diagrams`, 1, 15000);
       
-      // Wait for the first flow chart to render
-      await page.waitForSelector('.mermaid-render-container svg', { timeout: 10000 });
+      // Wait for specific diagram type
+      await waitForMermaidDiagramType(page, 'flowchart', 10000);
       
       // Check if the flow chart contains expected elements
       const flowChartSvg = await page.$eval('.mermaid-render-container svg', (svg) => {
