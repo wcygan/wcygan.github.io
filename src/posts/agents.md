@@ -64,27 +64,43 @@ The core pattern is the **Thought-Action-Observation loop**: the LLM reasons abo
 Here's a crucial insight: **agents don't contain AI models**. The Gemini CLI is simply a TypeScript program that makes API calls to Google's external LLM servers. It's no different from a weather app calling a weather API—the intelligence lives in the cloud, not in your terminal.
 
 ```typescript
-// Conceptual example - simplified for illustration
-const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/modelCheck.ts#L31-L51
+const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelToTest}:generateContent?key=${apiKey}`;
+const body = JSON.stringify({
+  contents: [{ parts: [{ text: 'test' }] }],
+  generationConfig: {
+    maxOutputTokens: 1,
+    temperature: 0,
+    topK: 1,
+    thinkingConfig: { thinkingBudget: 0, includeThoughts: false },
+  },
+});
 
-export class ContentGenerator {
-  constructor(
-    private readonly apiKey: string,  // Your GEMINI_API_KEY
-    private readonly modelId: string  // e.g., "gemini-1.5-flash"
-  ) {}
+try {
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body,
+    signal: controller.signal,
+  });
   
-  async generateContent(request: GenerateContentRequest) {
-    const response = await fetch(`${API_URL}${this.modelId}:generateContent`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': this.apiKey
-      },
-      body: JSON.stringify(request)
-    });
-    return response.json();
+  if (response.status === 429) {
+    console.log(`[INFO] Your configured model was temporarily unavailable.`);
+    return fallbackModel;
   }
-}
+```
+
+The ContentGenerator actually uses the Google GenAI SDK:
+
+```typescript
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/contentGenerator.ts#L120-L127
+const googleGenAI = new GoogleGenAI({
+  apiKey: config.apiKey === '' ? undefined : config.apiKey,
+  vertexai: config.vertexai,
+  httpOptions,
+});
+
+return googleGenAI.models;
 ```
 
 The entire "agent" is just orchestration code that:
@@ -163,24 +179,105 @@ The key insight: these components don't "think"—they format requests for the e
 The system requires user approval for dangerous operations:
 
 ```typescript
-// Simplified from CoreToolScheduler
-if (tool.requiresApproval && this.approvalMode !== ApprovalMode.AUTO_APPROVE) {
-  this.setStatusInternal(toolCall, 'awaiting_approval');
-  await this.waitForApproval(toolCall);
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L458-L486
+if (this.approvalMode === ApprovalMode.YOLO) {
+  this.setStatusInternal(reqInfo.callId, 'scheduled');
+} else {
+  const confirmationDetails = await toolInstance.shouldConfirmExecute(
+    reqInfo.args,
+    signal,
+  );
+
+  if (confirmationDetails) {
+    const originalOnConfirm = confirmationDetails.onConfirm;
+    const wrappedConfirmationDetails: ToolCallConfirmationDetails = {
+      ...confirmationDetails,
+      onConfirm: (outcome: ToolConfirmationOutcome) =>
+        this.handleConfirmationResponse(
+          reqInfo.callId,
+          originalOnConfirm,
+          outcome,
+          signal,
+        ),
+    };
+    this.setStatusInternal(
+      reqInfo.callId,
+      'awaiting_approval',
+      wrappedConfirmationDetails,
+    );
+  } else {
+    this.setStatusInternal(reqInfo.callId, 'scheduled');
+  }
 }
 ```
 
 It also supports dynamic tool discovery from your projects:
 
 ```typescript
-// Conceptual example of tool discovery
-export class DiscoveredTool extends BaseTool<ToolParams, ToolResult> {
-  async execute(params: ToolParams): Promise<ToolResult> {
-    const child = spawn(this.config.getToolCallCommand()!, [this.name]);
-    child.stdin.write(JSON.stringify(params));
-    // ... handle execution and results
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/tools/tool-registry.ts#L124-L145
+export class ToolRegistry {
+  private tools: Map<string, Tool> = new Map();
+  private discovery: Promise<void> | null = null;
+  private config: Config;
+
+  constructor(config: Config) {
+    this.config = config;
+  }
+
+  /**
+   * Registers a tool definition.
+   * @param tool - The tool object containing schema and execution logic.
+   */
+  registerTool(tool: Tool): void {
+    if (this.tools.has(tool.name)) {
+      console.warn(
+        `Tool with name "${tool.name}" is already registered. Overwriting.`,
+      );
+    }
+    this.tools.set(tool.name, tool);
   }
 }
+```
+
+### Real Tool Example: ReadFileTool
+
+Here's how an actual tool is implemented in the Gemini CLI:
+
+```typescript
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/tools/read-file.ts#L42-L77
+export class ReadFileTool extends BaseTool<ReadFileToolParams, ToolResult> {
+  static readonly Name: string = 'read_file';
+
+  constructor(
+    private rootDirectory: string,
+    private config: Config,
+  ) {
+    super(
+      ReadFileTool.Name,
+      'ReadFile',
+      'Reads and returns the content of a specified file from the local filesystem.',
+      {
+        properties: {
+          absolute_path: {
+            description: "The absolute path to the file to read",
+            type: 'string',
+            pattern: '^/',
+          },
+          offset: {
+            description: "Optional: The 0-based line number to start reading from",
+            type: 'number',
+          },
+          limit: {
+            description: "Optional: Maximum number of lines to read",
+            type: 'number',
+          },
+        },
+        required: ['absolute_path'],
+        type: 'object',
+      },
+    );
+    this.rootDirectory = path.resolve(rootDirectory);
+  }
 ```
 
 ## How Gemini Implements Thought-Action-Observation
@@ -190,12 +287,11 @@ export class DiscoveredTool extends BaseTool<ToolParams, ToolResult> {
 The system captures internal reasoning without showing it to users:
 
 ```typescript
-// Simplified thought processing logic
-if (part.thought) {
-  thoughtParts.push(part);  // Hidden from user
-} else if (part.text) {
-  textBuffer += part.text;  // Shown to user
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L61-L63
+if (!part.thought && part.text !== undefined && part.text === '') {
+  return false;
 }
+// Thought parts are validated but not shown to users
 ```
 
 ### Tool Execution
@@ -203,24 +299,20 @@ if (part.thought) {
 Tools progress through a state machine: `validating → awaitingApproval → scheduled → executing → success/error`:
 
 ```typescript
-// Tool scheduling pattern
-if (response.functionCalls) {
-  await this.toolScheduler.scheduleToolCalls(response.functionCalls);
-}
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L220-L224
+// From sendMessage method - handling tool calls
+const response = await this.contentGenerator.generateContent({
+  model: this.model,
+  contents: requestContents,
+  config: this.generationConfig,
+});
 ```
 
 ### Automatic Observations
 
 Tool results automatically feed back into the conversation:
 
-```typescript
-// Auto-feedback mechanism
-if (allToolsComplete && !isClientInitiated) {
-  submitQuery(mergePartListUnions([
-    { functionResponses: toolResponses }
-  ]), { isContinuation: true });
-}
-```
+The feedback loop continues the conversation with tool results, allowing the agent to process observations and decide next steps.
 
 ### Example: Counting TypeScript Files
 
