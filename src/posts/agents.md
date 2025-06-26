@@ -95,9 +95,9 @@ The Gemini CLI implements agents through three core components: **GeminiChat** (
     B -- "Run this tool" --> C;
     C -- "Here is the result" --> B;
     B -- Tool Output --> A;
-    click A "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L246" _blank
-    click B "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L246" _blank
-    click C "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/tools/tool-registry.ts#L86" _blank`}
+    click A "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L136" _blank
+    click B "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L224" _blank
+    click C "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/tools/tool-registry.ts#L124" _blank`}
 />
 
 ### Safety and Extensibility
