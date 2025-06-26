@@ -281,6 +281,16 @@ resolve: {
 3. **Different access patterns reveal different issues**: Always test both direct URL access AND client-side navigation
 4. **Simple fixes are often best**: A one-line config change solved what appeared to be complex component issues
 
+## Best Practices Going Forward
+
+For future Mermaid.js integrations with MDsveX, follow the guidelines documented
+in `CLAUDE.md` under "Important: Avoiding MDsveX Parsing Issues". Key points:
+
+1. **Always use the correct formatting pattern** with props on separate lines
+2. **Verify Vite module aliases** point to the correct file paths
+3. **Test both direct URL access AND client-side navigation**
+4. **Use onMount for browser-only code** instead of `$app/environment`
+
 ## References
 
 - [James Joy's Mermaid + Svelte Article](https://jamesjoy.site/posts/2023-06-26-svelte-mermaidjs)
@@ -289,5 +299,7 @@ resolve: {
   - `bb13005` (working MDsveX pattern)
   - `bd8ecc7` (attempted SSR fix with browser detection)
   - `4a5f6da` (final fix - Vite module resolution)
+  - `5845327` (final MDsveX formatting fix)
 - MDsveX documentation on component usage in Markdown
 - Vite configuration documentation for module aliases
+- Project CLAUDE.md for best practices and formatting guidelines

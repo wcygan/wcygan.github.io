@@ -120,6 +120,56 @@ diagrams, and more.
 - See `/docs/MERMAID_USAGE.md` for comprehensive guide
 - Visit `/mermaid-examples` for live examples
 
+**Important: Avoiding MDsveX Parsing Issues**
+
+When using Mermaid components in MDsveX files, follow these formatting rules to
+prevent parsing errors:
+
+1. **Component Formatting Pattern:**
+
+   ```svelte
+   <!-- ✅ CORRECT: Props on separate lines -->
+   <MermaidDiagram height={500}
+   diagram={`sequenceDiagram
+       participant User
+       participant Server
+       User->>Server: Request
+       Server->>User: Response`}
+   />
+
+   <!-- ❌ WRONG: Can cause MDsveX to inject </p> tags -->
+   <MermaidDiagram height={500} diagram={`sequenceDiagram
+   participant User
+   participant Server
+   User->>Server: Request
+   Server->>User: Response`} />
+   ```
+
+2. **Vite Configuration:**
+
+   Ensure `vite.config.ts` has the correct Mermaid alias:
+
+   ```typescript
+   resolve: {
+     alias: {
+       mermaid: 'mermaid/dist/mermaid.esm.min.mjs' // NOT mermaid.esm.mjs
+     }
+   }
+   ```
+
+3. **Svelte 5 Compatibility:**
+
+   - For components using `bind:textContent`, add `contenteditable="true"`
+   - Use `onMount` with `tick()` for reliable DOM access
+   - Avoid using `$app/environment` for browser detection; use `onMount` instead
+
+4. **Common Issues and Solutions:**
+
+   - **SSR/Hydration failures**: Check Vite module resolution config
+   - **MDsveX paragraph wrapping**: Use the formatting pattern above
+   - **Slot content not working**: Ensure proper `onMount` handling in components
+   - **Direct URL access fails**: Verify module aliases and SSR configuration
+
 #### Modifying Routes
 
 - Page routes in `/src/routes/[route]/+page.svelte`
