@@ -64,10 +64,9 @@ The core pattern is the **Thought-Action-Observation loop**: the LLM reasons abo
 Here's a crucial insight: **agents don't contain AI models**. The Gemini CLI is simply a TypeScript program that makes API calls to Google's external LLM servers. It's no different from a weather app calling a weather API—the intelligence lives in the cloud, not in your terminal.
 
 ```typescript
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/api/content-generator.ts#L30
+// Conceptual example - simplified for illustration
 const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
 
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/api/content-generator.ts#L50
 export class ContentGenerator {
   constructor(
     private readonly apiKey: string,  // Your GEMINI_API_KEY
@@ -164,7 +163,7 @@ The key insight: these components don't "think"—they format requests for the e
 The system requires user approval for dangerous operations:
 
 ```typescript
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L370
+// Simplified from CoreToolScheduler
 if (tool.requiresApproval && this.approvalMode !== ApprovalMode.AUTO_APPROVE) {
   this.setStatusInternal(toolCall, 'awaiting_approval');
   await this.waitForApproval(toolCall);
@@ -174,7 +173,7 @@ if (tool.requiresApproval && this.approvalMode !== ApprovalMode.AUTO_APPROVE) {
 It also supports dynamic tool discovery from your projects:
 
 ```typescript
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/tools/discovered-tool.ts#L16
+// Conceptual example of tool discovery
 export class DiscoveredTool extends BaseTool<ToolParams, ToolResult> {
   async execute(params: ToolParams): Promise<ToolResult> {
     const child = spawn(this.config.getToolCallCommand()!, [this.name]);
@@ -191,7 +190,7 @@ export class DiscoveredTool extends BaseTool<ToolParams, ToolResult> {
 The system captures internal reasoning without showing it to users:
 
 ```typescript
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L190
+// Simplified thought processing logic
 if (part.thought) {
   thoughtParts.push(part);  // Hidden from user
 } else if (part.text) {
@@ -204,7 +203,7 @@ if (part.thought) {
 Tools progress through a state machine: `validating → awaitingApproval → scheduled → executing → success/error`:
 
 ```typescript
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L222
+// Tool scheduling pattern
 if (response.functionCalls) {
   await this.toolScheduler.scheduleToolCalls(response.functionCalls);
 }
@@ -215,7 +214,7 @@ if (response.functionCalls) {
 Tool results automatically feed back into the conversation:
 
 ```typescript
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/cli/src/ui/hooks/useGeminiStream.ts#L528
+// Auto-feedback mechanism
 if (allToolsComplete && !isClientInitiated) {
   submitQuery(mergePartListUnions([
     { functionResponses: toolResponses }
