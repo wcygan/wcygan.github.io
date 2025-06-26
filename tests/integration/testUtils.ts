@@ -153,7 +153,7 @@ export async function waitForMermaidDiagramType(
  */
 export async function gotoAndWaitForMermaid(
 	page: {
-		goto: (url: string, options?: any) => Promise<any>;
+		goto: (url: string, options?: { waitUntil?: string; timeout?: number }) => Promise<unknown>;
 		waitForSelector: (
 			selector: string,
 			options?: { timeout?: number; visible?: boolean }

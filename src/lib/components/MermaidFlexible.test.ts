@@ -224,38 +224,42 @@ describe('MermaidFlexible component logic', () => {
 			const mockImport = vi.fn(() => Promise.resolve({ default: 'MermaidLazy' }));
 
 			// Replace import with mock
-			const originalImport = (globalThis as any).import;
-			(globalThis as any).import = mockImport;
+			const originalImport = (globalThis as typeof globalThis & { import?: unknown }).import;
+			(globalThis as typeof globalThis & { import?: unknown }).import = mockImport;
 
 			const lazy = true;
 			const viewport = false;
 
 			if (!viewport && lazy) {
-				await (globalThis as any).import('./MermaidLazy.svelte');
+				await (globalThis as typeof globalThis & { import: typeof mockImport }).import(
+					'./MermaidLazy.svelte'
+				);
 			}
 
 			expect(mockImport).toHaveBeenCalledWith('./MermaidLazy.svelte');
 
 			// Restore
-			(globalThis as any).import = originalImport;
+			(globalThis as typeof globalThis & { import?: unknown }).import = originalImport;
 		});
 
 		it('should not import MermaidLazy when lazy is false', () => {
 			const mockImport = vi.fn();
-			const originalImport = (globalThis as any).import;
-			(globalThis as any).import = mockImport;
+			const originalImport = (globalThis as typeof globalThis & { import?: unknown }).import;
+			(globalThis as typeof globalThis & { import?: unknown }).import = mockImport;
 
 			const lazy = false;
 			const viewport = false;
 
 			if (!viewport && lazy) {
-				(globalThis as any).import('./MermaidLazy.svelte');
+				(globalThis as typeof globalThis & { import: typeof mockImport }).import(
+					'./MermaidLazy.svelte'
+				);
 			}
 
 			expect(mockImport).not.toHaveBeenCalled();
 
 			// Restore
-			(globalThis as any).import = originalImport;
+			(globalThis as typeof globalThis & { import?: unknown }).import = originalImport;
 		});
 	});
 

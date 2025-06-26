@@ -196,17 +196,17 @@ describe('MermaidDiagram component logic', () => {
 			const mermaidModule = await import('mermaid');
 			const mermaid = mermaidModule.default;
 
-		const expectedConfig = {
-			startOnLoad: false,
-			theme: 'dark' as const,
-			securityLevel: 'loose' as const,
-			logLevel: 'debug' as const,
-			flowchart: {
-				useMaxWidth: true,
-				htmlLabels: true,
-				curve: 'basis' as const
-			}
-		};
+			const expectedConfig = {
+				startOnLoad: false,
+				theme: 'dark' as const,
+				securityLevel: 'loose' as const,
+				logLevel: 'debug' as const,
+				flowchart: {
+					useMaxWidth: true,
+					htmlLabels: true,
+					curve: 'basis' as const
+				}
+			};
 
 			mermaid.initialize(expectedConfig);
 
