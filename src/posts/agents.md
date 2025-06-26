@@ -61,10 +61,7 @@ The CLI works by taking user input and sending it to the `packages/core` package
     User_Input --> A;
     B --> External_World;
     External_World --> C;
-    A --> Final_Response;
-    style A fill:#e3f2fd,stroke:#333,stroke-width:2px
-    style B fill:#e8f5e8,stroke:#333,stroke-width:2px
-    style C fill:#fff3e0,stroke:#333,stroke-width:2px`}
+    A --> Final_Response;`}
 />
 
 <MermaidDiagram
@@ -94,10 +91,7 @@ The CLI works by taking user input and sending it to the `packages/core` package
     C -- "Here is the tool" --> B;
     B -- "Run this tool" --> C;
     C -- "Here is the result" --> B;
-    B -- Tool Output --> A;
-    style A fill:#e3f2fd,stroke:#333,stroke-width:2px
-    style B fill:#e8f5e8,stroke:#333,stroke-width:2px
-    style C fill:#fff3e0,stroke:#333,stroke-width:2px`}
+    B -- Tool Output --> A;`}
 />
 
 

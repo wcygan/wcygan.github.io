@@ -248,42 +248,120 @@ tbody tr:nth-child(even),
 	@apply bg-zinc-800/50;
 }
 
-/* Mermaid Diagram Styles */
+/* Mermaid Diagram Styles - Consistent Dark Theme */
 .mermaid-container {
 	@apply my-6;
 }
 
-.mermaid {
+/* Base text styling */
+.mermaid,
+.mermaid-render-container {
 	@apply text-zinc-100;
 	font-family: 'Inter', system-ui, sans-serif !important;
 }
 
-.mermaid .nodeLabel {
-	@apply text-zinc-100;
+.mermaid text,
+.mermaid-render-container text {
+	fill: rgb(228, 228, 231) !important; /* zinc-100 */
+	font-family: inherit !important;
 }
 
-.mermaid .edgeLabel {
-	@apply bg-zinc-900 text-zinc-100;
-}
-
-.mermaid .cluster rect {
-	@apply fill-zinc-800 stroke-zinc-600;
-}
-
+/* Node styling - Override inline styles */
 .mermaid .node rect,
 .mermaid .node circle,
 .mermaid .node ellipse,
 .mermaid .node polygon,
-.mermaid .node path {
-	@apply fill-zinc-700 stroke-emerald-400;
+.mermaid .node path,
+.mermaid-render-container .node rect,
+.mermaid-render-container .node circle,
+.mermaid-render-container .node ellipse,
+.mermaid-render-container .node polygon,
+.mermaid-render-container .node path {
+	fill: rgb(63, 63, 70) !important; /* zinc-700 */
+	stroke: rgb(52, 211, 153) !important; /* emerald-400 */
+	stroke-width: 2px !important;
 }
 
-.mermaid .flowchart-link {
-	@apply stroke-zinc-500;
+/* Labels */
+.mermaid .nodeLabel,
+.mermaid .label,
+.mermaid-render-container .nodeLabel,
+.mermaid-render-container .label {
+	color: rgb(228, 228, 231) !important; /* zinc-100 */
+	fill: rgb(228, 228, 231) !important;
 }
 
-.mermaid .marker {
-	@apply fill-zinc-500;
+.mermaid .edgeLabel,
+.mermaid-render-container .edgeLabel {
+	background-color: rgb(24, 24, 27) !important; /* zinc-900 */
+	fill: rgb(228, 228, 231) !important;
+}
+
+/* Edges and paths */
+.mermaid .edgePath .path,
+.mermaid .flowchart-link,
+.mermaid-render-container .edgePath .path,
+.mermaid-render-container .flowchart-link {
+	stroke: rgb(113, 113, 122) !important; /* zinc-500 */
+	stroke-width: 2px !important;
+	fill: none !important;
+}
+
+/* Clusters/Subgraphs */
+.mermaid .cluster rect,
+.mermaid-render-container .cluster rect {
+	fill: rgb(39, 39, 42) !important; /* zinc-800 */
+	stroke: rgb(82, 82, 91) !important; /* zinc-600 */
+	stroke-width: 1px !important;
+}
+
+.mermaid .cluster text,
+.mermaid-render-container .cluster text {
+	fill: rgb(161, 161, 170) !important; /* zinc-400 */
+}
+
+/* Markers (arrowheads) */
+.mermaid .marker,
+.mermaid-render-container .marker {
+	fill: rgb(113, 113, 122) !important; /* zinc-500 */
+}
+
+/* Sequence diagram specific */
+.mermaid .actor,
+.mermaid-render-container .actor {
+	fill: rgb(63, 63, 70) !important; /* zinc-700 */
+	stroke: rgb(52, 211, 153) !important; /* emerald-400 */
+}
+
+.mermaid .actor-line,
+.mermaid-render-container .actor-line {
+	stroke: rgb(82, 82, 91) !important; /* zinc-600 */
+}
+
+.mermaid .messageLine0,
+.mermaid .messageLine1,
+.mermaid-render-container .messageLine0,
+.mermaid-render-container .messageLine1 {
+	stroke: rgb(113, 113, 122) !important; /* zinc-500 */
+}
+
+.mermaid .messageText,
+.mermaid-render-container .messageText {
+	fill: rgb(228, 228, 231) !important; /* zinc-100 */
+}
+
+/* State diagram specific */
+.mermaid .statediagram-state rect,
+.mermaid-render-container .statediagram-state rect {
+	fill: rgb(63, 63, 70) !important; /* zinc-700 */
+	stroke: rgb(52, 211, 153) !important; /* emerald-400 */
+}
+
+/* Git graph specific */
+.mermaid .commit,
+.mermaid-render-container .commit {
+	fill: rgb(52, 211, 153) !important; /* emerald-400 */
+	stroke: rgb(16, 185, 129) !important; /* emerald-500 */
 }
 
 /* High Contrast Mode Support */
