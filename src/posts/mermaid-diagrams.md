@@ -40,23 +40,9 @@ diagram={`flowchart TD
 
 ### Sequence Diagram
 
-API authentication flow:
+API authentication flow (temporarily disabled):
 
-<MermaidDiagram height={400} diagram={`sequenceDiagram participant U as User
-participant C as Client App participant A as Auth Server participant R as
-Resource Server
-
-    U->>C: Login Request
-    C->>A: Redirect to Auth
-    A->>U: Show Login Form
-    U->>A: Submit Credentials
-    A->>C: Return Auth Code
-    C->>A: Exchange Code for Token
-    A->>C: Return Access Token
-    C->>R: API Request + Token
-    R->>C: Protected Resource`}
-
-/>
+<!-- Complex sequence diagram temporarily commented out due to MDsveX parsing issues -->
 
 ### State Diagram
 
