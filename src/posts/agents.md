@@ -73,9 +73,9 @@ The Gemini CLI is a TypeScript-based, modular application designed for extensibi
 	height={400}
 	diagram={`graph TD
     subgraph "Core Engine"
-        A["📄 GeminiChat<br/><i>(click for source)</i>"]
-        B["📄 CoreToolScheduler<br/><i>(click for source)</i>"]
-        C["📄 ToolRegistry<br/><i>(click for source)</i>"]
+        A["📄 GeminiChat"]
+        B["📄 CoreToolScheduler"]
+        C["📄 ToolRegistry"]
     end
     A -- Tool Call Request --> B;
     B -- "What tool can do this?" --> C;
@@ -84,8 +84,8 @@ The Gemini CLI is a TypeScript-based, modular application designed for extensibi
     C -- "Here is the result" --> B;
     B -- Tool Output --> A;
     
-    click A "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/gemini/gemini-chat.ts" _blank
-    click B "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/tools/core-tool-scheduler.ts" _blank
+    click A "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/core/geminiChat.ts" _blank
+    click B "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/core/coreToolScheduler.ts" _blank
     click C "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/tools/tool-registry.ts" _blank`}
 />
 
