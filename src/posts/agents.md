@@ -162,9 +162,19 @@ if (allToolsComplete && !isClientInitiated) {
 ### Example: Counting TypeScript Files
 
 **User**: "How many TypeScript files are in src?"
+
 **Thought** (hidden): "Use list_directory tool"
-**Action**: `list_directory(path='src/', pattern='*.ts')`
-**Observation**: `{files: ['a.ts', 'b.ts'], count: 2}`
+
+**Action**: 
+```typescript
+list_directory(path='src/', pattern='*.ts')
+```
+
+**Observation**: 
+```json
+{files: ['a.ts', 'b.ts'], count: 2}
+```
+
 **Response**: "There are 2 TypeScript files in src"
 
 ### Key Features
