@@ -1,8 +1,8 @@
 ---
-title: Visualizing Architecture with Mermaid Diagrams
-date: January 25, 2025
-description: Using Mermaid.js to create beautiful diagrams in markdown blog posts
-tags: [Tutorial, Mermaid, Visualization]
+title: Mermaid
+date: June 25, 2025
+description: Using Mermaid.js to create diagrams in markdown blog posts
+tags: [Mermaid, Visualization, Diagrams]
 ---
 
 <script>
@@ -12,15 +12,6 @@ tags: [Tutorial, Mermaid, Visualization]
 I've integrated [Mermaid.js](https://mermaid.js.org/) into this blog to create
 interactive diagrams directly in markdown. This enables clear visualization of
 architectures, workflows, and processes.
-
-## Why Mermaid?
-
-Mermaid allows you to create diagrams using text-based syntax, which means:
-
-- Diagrams are version controlled alongside your content
-- No external tools needed
-- Consistent styling with your site's theme
-- Dynamic rendering with smooth transitions
 
 ## Examples
 
@@ -148,18 +139,9 @@ diagram={`pie title Technology Stack
     "Tooling" : 5`}
 />
 
-## Implementation Details
-
-The integration uses:
-
-- **Lazy Loading**: Diagrams render after page load
-- **Dark Theme**: Customized to match the site's aesthetic
-- **Loading States**: Smooth transitions while diagrams render
-- **Error Handling**: Graceful fallbacks for syntax errors
-
 ## Usage in Markdown
 
-To use Mermaid in your blog posts:
+In a blog post, I can use Mermaid like this:
 
 ```markdown
 <script>
@@ -170,16 +152,3 @@ To use Mermaid in your blog posts:
 diagram={`flowchart LR
     Start --> Process --> End`} />
 ```
-
-The `height` prop is optional and defaults to 400px. Diagrams are responsive and
-will scroll horizontally if needed.
-
-## Future Enhancements
-
-- Copy diagram as SVG/PNG
-- Interactive tooltips
-- Dynamic theme switching
-- More diagram types
-
-This integration makes it easy to explain complex architectures and flows
-visually, enhancing the technical content on this blog.
