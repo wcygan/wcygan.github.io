@@ -84,9 +84,9 @@ The Gemini CLI is a TypeScript-based, modular application designed for extensibi
     C -- "Here is the result" --> B;
     B -- Tool Output --> A;
     
-    click A "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/core/geminiChat.ts" _blank
-    click B "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/core/coreToolScheduler.ts" _blank
-    click C "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/tools/tool-registry.ts" _blank`}
+    click A "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L136" _blank
+    click B "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L224" _blank
+    click C "https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/tools/tool-registry.ts#L124" _blank`}
 />
 
 
@@ -94,7 +94,7 @@ The Gemini CLI is a TypeScript-based, modular application designed for extensibi
 ## Code References
 
   1. ToolRegistry
-   * URL: https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/tools/tool-registry.ts
+   * URL: https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/tools/tool-registry.ts#L124
    * Role: The Toolbox.
    * Why it's important: This component acts as a comprehensive catalog of all the capabilities the agent has beyond generating text. It holds the definitions,
      parameters, and execution logic for every tool (e.g., read_file, run_shell_command). When the agent needs to perform an action, it consults this registry to know
@@ -103,7 +103,7 @@ The Gemini CLI is a TypeScript-based, modular application designed for extensibi
 
 
   2. GeminiChat
-   * URL: https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/core/geminiChat.ts
+   * URL: https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L136
    * Role: The Core Brain.
    * Why it's important: This is the central component that communicates directly with the Gemini Large Language Model. It is responsible for sending the user's prompt,
      the conversation history, and the list of available tools (from the ToolRegistry) to the LLM. It then receives the LLM's response, which could be a text answer or a
@@ -111,7 +111,7 @@ The Gemini CLI is a TypeScript-based, modular application designed for extensibi
 
 
   3. CoreToolScheduler
-   * URL: https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/core/coreToolScheduler.ts
+   * URL: https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/coreToolScheduler.ts#L224
    * Role: The Safety and Operations Manager.
    * Why it's important: When the GeminiChat component receives a request from the LLM to use a tool, it doesn't execute it directly. Instead, it hands the request to
      the CoreToolScheduler. This is a crucial security and orchestration layer. It manages the entire lifecycle of a tool call: validating parameters, asking the user
