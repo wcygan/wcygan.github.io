@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { browser } from '$app/environment';
 	import Loading from './Loading.svelte';
 	import { getCachedSVG, setCachedSVG } from '$lib/utils/mermaid-cache';
 
@@ -13,6 +12,7 @@
 	let error = false;
 	let errorMessage = '';
 	let status = 'initializing';
+	let isMounted = false;
 
 	async function loadMermaid() {
 		try {
@@ -135,10 +135,8 @@
 	}
 
 	onMount(() => {
-		if (!browser) {
-			status = 'server-side';
-			return;
-		}
+		// onMount only runs in the browser, so we don't need to check $app/environment
+		isMounted = true;
 
 		if (!diagram || diagram.trim() === '') {
 			error = true;
@@ -170,7 +168,7 @@
 	class="mermaid-container relative overflow-x-auto rounded-lg bg-zinc-900 p-4"
 	style="min-height: {height}px"
 >
-	{#if !rendered && browser}
+	{#if !rendered && isMounted}
 		<div class="absolute inset-0 flex items-center justify-center">
 			<div class="text-center">
 				<Loading />
@@ -210,9 +208,9 @@
 		transition:fade={{ duration: 300 }}
 	></div>
 
-	{#if !browser}
+	{#if !isMounted}
 		<div class="flex items-center justify-center" style="height: {height}px">
-			<p class="text-zinc-400">Diagram will render on client side</p>
+			<p class="text-zinc-400">Loading diagram...</p>
 		</div>
 	{/if}
 </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
 
 	export let height = 400;
 	export let diagram = '';
@@ -10,7 +9,7 @@
 	let error: Error | null = null;
 
 	onMount(async () => {
-		if (!browser) return;
+		// onMount only runs in the browser
 
 		try {
 			// Dynamically import the MermaidDiagram component only when needed

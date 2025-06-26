@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
 	import MermaidDiagram from './MermaidDiagram.svelte';
 
 	export let height = 400;
@@ -11,7 +10,7 @@
 	let shouldRender = false;
 
 	onMount(() => {
-		if (!browser || !('IntersectionObserver' in window)) {
+		if (!('IntersectionObserver' in window)) {
 			// Fallback for browsers without IntersectionObserver
 			shouldRender = true;
 			return;
