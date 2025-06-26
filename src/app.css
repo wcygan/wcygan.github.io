@@ -37,7 +37,12 @@ a {
 
 /* Shiki styles */
 .shiki {
-	@apply my-4 rounded-lg p-4;
+	@apply my-4 rounded-lg;
+	position: relative;
+}
+
+.shiki > code {
+	@apply block p-4;
 	overflow-x: auto;
 }
 
@@ -69,7 +74,12 @@ a {
 }
 
 pre {
-	@apply my-3 rounded-lg bg-zinc-700 p-3 md:my-4 md:p-4;
+	@apply my-3 rounded-lg bg-zinc-700 md:my-4;
+	position: relative;
+}
+
+pre > code {
+	@apply block p-3 md:p-4;
 	overflow-x: auto;
 }
 
@@ -136,10 +146,8 @@ code .line:last-child:empty::before {
 	counter-increment: none;
 }
 
-pre:has(code) {
-	position: relative;
-}
-
+/* Copy button styles */
+.shiki button.copy,
 pre button.copy {
 	position: absolute;
 	right: 16px;
@@ -148,8 +156,12 @@ pre button.copy {
 	width: 25px;
 	padding: 0;
 	display: flex;
+	z-index: 10;
+	background: transparent;
+	border: none;
+	cursor: pointer;
 
-	& span {
+	span {
 		width: 100%;
 		aspect-ratio: 1 / 1;
 		background-repeat: no-repeat;
@@ -158,21 +170,21 @@ pre button.copy {
 		filter: invert(100%);
 	}
 
-	& .ready {
+	.ready {
 		background-image: url(/icons/copy.svg);
 	}
 
-	& .success {
+	.success {
 		display: none;
 		background-image: url(/icons/copy-success.svg);
 	}
 
 	&.copied {
-		& .success {
+		.success {
 			display: block;
 		}
 
-		& .ready {
+		.ready {
 			display: none;
 		}
 	}

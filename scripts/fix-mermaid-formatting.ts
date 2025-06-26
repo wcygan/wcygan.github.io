@@ -16,17 +16,16 @@ async function fixMermaidFormatting(content: string): Promise<string> {
 		if (!diagramMatch) return match;
 
 		const diagramContent = diagramMatch[1];
-		
+
 		// Remove empty lines that cause MDsveX parsing issues
 		// Keep the original indentation structure but remove blank lines
 		const cleanedDiagram = diagramContent
 			.split('\n')
-			.filter(line => line.trim() !== '')
+			.filter((line) => line.trim() !== '')
 			.join('\n');
 
 		// Replace the diagram content without changing component structure
-		const fixedMatch = match
-			.replace(/diagram=\{`[\s\S]*?`\}/, `diagram={\`${cleanedDiagram}\`}`);
+		const fixedMatch = match.replace(/diagram=\{`[\s\S]*?`\}/, `diagram={\`${cleanedDiagram}\`}`);
 
 		return fixedMatch;
 	});
@@ -36,7 +35,7 @@ async function processFile(filePath: string): Promise<boolean> {
 	try {
 		const content = await Deno.readTextFile(filePath);
 		const fixedContent = await fixMermaidFormatting(content);
-		
+
 		if (content !== fixedContent) {
 			await Deno.writeTextFile(filePath, fixedContent);
 			console.log(`✅ Fixed Mermaid formatting in: ${filePath}`);
@@ -68,7 +67,7 @@ async function main() {
 	console.log(`\n📊 Summary:`);
 	console.log(`   Files processed: ${filesProcessed}`);
 	console.log(`   Files fixed: ${filesFixed}`);
-	
+
 	if (filesFixed > 0) {
 		console.log('\n💡 Consider running "pnpm run format" to ensure consistent formatting');
 	} else {

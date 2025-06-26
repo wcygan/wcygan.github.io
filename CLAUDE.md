@@ -141,6 +141,7 @@ pnpm run pre-commit
 ```
 
 **How It Works:**
+
 - Scans all `.md` files in `src/posts/`
 - Removes empty lines within Mermaid diagram definitions that cause MDsveX to inject `</p>` tags
 - Integrates seamlessly with existing pnpm workflow
@@ -301,17 +302,20 @@ await mcp__puppeteer__puppeteer_evaluate({
 This project uses both `deno.json` and `package.json` for different purposes:
 
 **`deno.json`:**
+
 - Contains Deno-specific tasks (e.g., `fix-mermaid`)
 - JSR imports for standard library modules
 - Automation scripts that require file system access
 
 **`package.json`:**
+
 - Primary package manager is pnpm
 - Contains SvelteKit, Vitest, and frontend tooling
 - Integrates Deno tasks into pnpm workflow
 - Main development and CI/CD scripts
 
 **Task Resolution:**
+
 - Deno can execute tasks from both files
 - `pnpm run format` calls `deno task fix-mermaid` automatically
 - Cross-calling between package managers works seamlessly
