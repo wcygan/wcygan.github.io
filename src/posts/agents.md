@@ -287,11 +287,11 @@ export class ReadFileTool extends BaseTool<ReadFileToolParams, ToolResult> {
 The system captures internal reasoning without showing it to users:
 
 ```typescript
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L61-L63
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L64-L65
 if (!part.thought && part.text !== undefined && part.text === '') {
   return false;
 }
-// Thought parts are validated but not shown to users
+// The system validates parts - thought parts are handled separately from text
 ```
 
 ### Tool Execution
@@ -299,13 +299,14 @@ if (!part.thought && part.text !== undefined && part.text === '') {
 Tools progress through a state machine: `validating → awaitingApproval → scheduled → executing → success/error`:
 
 ```typescript
-// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L220-L224
-// From sendMessage method - handling tool calls
-const response = await this.contentGenerator.generateContent({
-  model: this.model,
-  contents: requestContents,
-  config: this.generationConfig,
-});
+// https://github.com/google-gemini/gemini-cli/blob/c55b15f705d083e3dadcfb71494dcb0d6043e6c6/packages/core/src/core/geminiChat.ts#L262-L267
+// From sendMessage method - calling the external API
+const apiCall = () =>
+  this.contentGenerator.generateContent({
+    model: this.config.getModel() || DEFAULT_GEMINI_FLASH_MODEL,
+    contents: requestContents,
+    config: { ...this.generationConfig, ...params.config },
+  });
 ```
 
 ### Automatic Observations
