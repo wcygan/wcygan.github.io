@@ -4,10 +4,17 @@ import { sveltekit } from '@sveltejs/kit/vite';
 export default defineConfig({
 	plugins: [sveltekit()],
 	test: {
-		environment: 'jsdom',
+		environment: 'node',
 		globals: true,
-		setupFiles: ['./vitest.setup.ts'],
-		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', 'tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']
+		include: ['tests/integration/**/*.{test,spec}.{js,ts}'],
+		testTimeout: 30000,
+		hookTimeout: 30000,
+		pool: 'forks',
+		poolOptions: {
+			forks: {
+				singleFork: true
+			}
+		}
 	},
 	resolve: {
 		alias: {
