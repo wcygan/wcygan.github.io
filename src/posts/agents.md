@@ -113,6 +113,53 @@ const response = await fetch('https://generativelanguage.googleapis.com/v1/model
 });
 ```
 
+## Agents are Just Programs
+
+Here's a crucial insight: **agents don't contain AI models**. The Gemini CLI is simply a TypeScript program that makes API calls to Google's external LLM servers. It's no different from a weather app calling a weather API—the intelligence lives in the cloud, not in your terminal.
+
+```typescript
+// From packages/core/src/api/content-generator.ts
+const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
+
+export class ContentGenerator {
+  constructor(
+    private readonly apiKey: string,  // Your GEMINI_API_KEY
+    private readonly modelId: string  // e.g., "gemini-1.5-flash"
+  ) {}
+  
+  async generateContent(request: GenerateContentRequest) {
+    const response = await fetch(`${API_URL}${this.modelId}:generateContent`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': this.apiKey
+      },
+      body: JSON.stringify(request)
+    });
+    return response.json();
+  }
+}
+```
+
+The entire "agent" is just orchestration code that:
+1. Takes your input
+2. Constructs a JSON request with available tools
+3. Sends it to Google's API over HTTPS
+4. Processes the response and executes any requested tools
+5. Repeats until done
+
+<MermaidDiagram
+	height={300}
+	diagram={`graph LR
+    A[Your Terminal] --> B[Gemini CLI<br/>TypeScript Program]
+    B --> C[HTTPS API Call]
+    C --> D[Google's Servers<br/>Actual LLM]
+    D --> E[JSON Response]
+    E --> B
+    B --> F[Execute Tools<br/>Locally]
+    F --> B`}
+/>
+
 ### From Theory to Practice
 
 When you ask "How many files are in the src directory?", the agent doesn't guess—it uses the TAO loop to gather real information. The key difference: **agents perform real-world actions**, while chatbots only process training data.
