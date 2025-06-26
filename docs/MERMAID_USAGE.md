@@ -9,12 +9,12 @@ In your MDsveX files (`.md` posts), import and use the MermaidDiagram component:
 
 ```svelte
 <script>
-  import MermaidDiagram from '$lib/components/MermaidDiagram.svelte'
+	import MermaidDiagram from '$lib/components/MermaidDiagram.svelte';
 </script>
 
-<MermaidDiagram 
-  height={300}
-  diagram={`flowchart TD
+<MermaidDiagram
+	height={300}
+	diagram={`flowchart TD
     A[Start] --> B{Decision}
     B -->|Yes| C[Do this]
     B -->|No| D[Do that]`}
@@ -46,13 +46,13 @@ Renders diagrams only when they enter the viewport, improving initial page load.
 
 ```svelte
 <script>
-  import MermaidViewport from '$lib/components/MermaidViewport.svelte'
+	import MermaidViewport from '$lib/components/MermaidViewport.svelte';
 </script>
 
-<MermaidViewport 
-  height={300}
-  rootMargin="100px"
-  diagram={`graph LR
+<MermaidViewport
+	height={300}
+	rootMargin="100px"
+	diagram={`graph LR
     A[Lazy] --> B[Loading]`}
 />
 ```
@@ -70,23 +70,17 @@ loading.
 
 ```svelte
 <script>
-  import MermaidFlexible from '$lib/components/MermaidFlexible.svelte'
+	import MermaidFlexible from '$lib/components/MermaidFlexible.svelte';
 </script>
 
 <!-- Using prop -->
 <MermaidFlexible diagram="graph TD; A-->B" />
 
 <!-- Using slot -->
-<MermaidFlexible>
-  graph TD
-    A[Using] --> B[Slot]
-</MermaidFlexible>
+<MermaidFlexible>graph TD A[Using] --> B[Slot]</MermaidFlexible>
 
 <!-- With viewport loading -->
-<MermaidFlexible viewport>
-  sequenceDiagram
-    A->>B: Message
-</MermaidFlexible>
+<MermaidFlexible viewport>sequenceDiagram A->>B: Message</MermaidFlexible>
 ```
 
 ## Supported Diagram Types
@@ -169,12 +163,12 @@ The components automatically apply dark theme styling. To customize:
 ```css
 /* In your global styles */
 :global(.mermaid-render-container text) {
-  fill: #your-color !important;
+	fill: #your-color !important;
 }
 
 :global(.mermaid-render-container .node rect) {
-  fill: #your-bg-color !important;
-  stroke: #your-border-color !important;
+	fill: #your-bg-color !important;
+	stroke: #your-border-color !important;
 }
 ```
 

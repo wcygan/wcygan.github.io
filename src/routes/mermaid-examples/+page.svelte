@@ -1,37 +1,38 @@
 <script>
-  import MermaidDiagram from '$lib/components/MermaidDiagram.svelte';
-  import MermaidViewport from '$lib/components/MermaidViewport.svelte';
-  import MermaidFlexible from '$lib/components/MermaidFlexible.svelte';
+	import MermaidDiagram from '$lib/components/MermaidDiagram.svelte';
+	import MermaidViewport from '$lib/components/MermaidViewport.svelte';
+	import MermaidFlexible from '$lib/components/MermaidFlexible.svelte';
 </script>
 
-<div class="max-w-4xl mx-auto p-8">
-  <h1 class="text-4xl font-bold mb-4">Mermaid Diagram Examples</h1>
-  
-  <p class="mb-8 text-lg">
-    This page demonstrates all the different ways to use Mermaid diagrams in your SvelteKit application.
-  </p>
+<div class="mx-auto max-w-4xl p-8">
+	<h1 class="mb-4 text-4xl font-bold">Mermaid Diagram Examples</h1>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">Basic Flow Chart</h2>
-    <p class="mb-4">Simple flowchart using MermaidDiagram component:</p>
-    
-    <MermaidDiagram 
-      height={250}
-      diagram={`flowchart LR
+	<p class="mb-8 text-lg">
+		This page demonstrates all the different ways to use Mermaid diagrams in your SvelteKit
+		application.
+	</p>
+
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">Basic Flow Chart</h2>
+		<p class="mb-4">Simple flowchart using MermaidDiagram component:</p>
+
+		<MermaidDiagram
+			height={250}
+			diagram={`flowchart LR
         A[Start] --> B{Is it working?}
         B -->|Yes| C[Great!]
         B -->|No| D[Debug]
         D --> A`}
-    />
-  </section>
+		/>
+	</section>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">Sequence Diagram with Viewport Loading</h2>
-    <p class="mb-4">This diagram loads when you scroll it into view:</p>
-    
-    <MermaidViewport 
-      height={400}
-      diagram={`sequenceDiagram
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">Sequence Diagram with Viewport Loading</h2>
+		<p class="mb-4">This diagram loads when you scroll it into view:</p>
+
+		<MermaidViewport
+			height={400}
+			diagram={`sequenceDiagram
         participant Browser
         participant Server
         participant Database
@@ -41,16 +42,16 @@
         Database-->>Server: Results
         Server-->>Browser: JSON Response
         Note over Browser: Render UI`}
-    />
-  </section>
+		/>
+	</section>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">State Diagram</h2>
-    <p class="mb-4">Application state management flow:</p>
-    
-    <MermaidDiagram 
-      height={350}
-      diagram={`stateDiagram-v2
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">State Diagram</h2>
+		<p class="mb-4">Application state management flow:</p>
+
+		<MermaidDiagram
+			height={350}
+			diagram={`stateDiagram-v2
         [*] --> Idle
         Idle --> Loading: Fetch data
         Loading --> Success: Data received
@@ -58,16 +59,16 @@
         Success --> Idle: Reset
         Error --> Idle: Retry
         Error --> [*]: Give up`}
-    />
-  </section>
+		/>
+	</section>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">Entity Relationship Diagram</h2>
-    <p class="mb-4">Database schema visualization:</p>
-    
-    <MermaidDiagram 
-      height={400}
-      diagram={`erDiagram
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">Entity Relationship Diagram</h2>
+		<p class="mb-4">Database schema visualization:</p>
+
+		<MermaidDiagram
+			height={400}
+			diagram={`erDiagram
         USER ||--o{ POST : writes
         USER ||--o{ COMMENT : writes
         POST ||--o{ COMMENT : has
@@ -91,16 +92,16 @@
           text content
           datetime created_at
         }`}
-    />
-  </section>
+		/>
+	</section>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">Gantt Chart</h2>
-    <p class="mb-4">Project timeline:</p>
-    
-    <MermaidViewport 
-      height={300}
-      diagram={`gantt
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">Gantt Chart</h2>
+		<p class="mb-4">Project timeline:</p>
+
+		<MermaidViewport
+			height={300}
+			diagram={`gantt
         title Mermaid Integration Project
         dateFormat  YYYY-MM-DD
         section Research
@@ -113,16 +114,16 @@
         section Documentation
         Write usage guide    :         doc1, after dev3, 1d
         Create examples     :         doc2, after doc1, 1d`}
-    />
-  </section>
+		/>
+	</section>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">Git Graph</h2>
-    <p class="mb-4">Version control workflow:</p>
-    
-    <MermaidDiagram 
-      height={250}
-      diagram={`gitGraph
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">Git Graph</h2>
+		<p class="mb-4">Version control workflow:</p>
+
+		<MermaidDiagram
+			height={250}
+			diagram={`gitGraph
         commit id: "Initial commit"
         branch feature/mermaid
         checkout feature/mermaid
@@ -132,30 +133,30 @@
         checkout main
         merge feature/mermaid
         commit id: "Update docs"`}
-    />
-  </section>
+		/>
+	</section>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">Pie Chart</h2>
-    <p class="mb-4">Bundle size breakdown:</p>
-    
-    <MermaidDiagram 
-      height={300}
-      diagram={`pie title Bundle Size Analysis
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">Pie Chart</h2>
+		<p class="mb-4">Bundle size breakdown:</p>
+
+		<MermaidDiagram
+			height={300}
+			diagram={`pie title Bundle Size Analysis
         "Application Code" : 386
         "Mermaid Library" : 2100
         "Other Dependencies" : 850
         "Svelte Runtime" : 45`}
-    />
-  </section>
+		/>
+	</section>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">Class Diagram</h2>
-    <p class="mb-4">Component architecture:</p>
-    
-    <MermaidViewport 
-      height={500}
-      diagram={`classDiagram
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">Class Diagram</h2>
+		<p class="mb-4">Component architecture:</p>
+
+		<MermaidViewport
+			height={500}
+			diagram={`classDiagram
         class MermaidDiagram {
           +height: number
           +diagram: string
@@ -180,52 +181,50 @@
         
         MermaidViewport --|> MermaidDiagram : extends
         MermaidDiagram ..> MermaidCache : uses`}
-    />
-  </section>
+		/>
+	</section>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">Using MermaidFlexible</h2>
-    <p class="mb-4">Flexible component with slot support:</p>
-    
-    <div class="space-y-6">
-      <div>
-        <p class="text-sm text-zinc-400 mb-2">With prop:</p>
-        <MermaidFlexible 
-          height={200}
-          diagram="graph LR; A[Prop] --> B[Based]" 
-        />
-      </div>
-      
-      <div>
-        <p class="text-sm text-zinc-400 mb-2">With slot and viewport loading:</p>
-        <MermaidFlexible viewport height={200}>
-          graph TD
-            A[Slot] --> B[Based]
-            B --> C[With Viewport]
-        </MermaidFlexible>
-      </div>
-    </div>
-  </section>
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">Using MermaidFlexible</h2>
+		<p class="mb-4">Flexible component with slot support:</p>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-4">Error Handling Demo</h2>
-    <p class="mb-4">This shows what happens with invalid syntax:</p>
-    
-    <MermaidDiagram 
-      height={200}
-      diagram={`graph LR
+		<div class="space-y-6">
+			<div>
+				<p class="mb-2 text-sm text-zinc-400">With prop:</p>
+				<MermaidFlexible height={200} diagram="graph LR; A[Prop] --> B[Based]" />
+			</div>
+
+			<div>
+				<p class="mb-2 text-sm text-zinc-400">With slot and viewport loading:</p>
+				<MermaidFlexible viewport height={200}>
+					graph TD A[Slot] --> B[Based] B --> C[With Viewport]
+				</MermaidFlexible>
+			</div>
+		</div>
+	</section>
+
+	<section class="mb-12">
+		<h2 class="mb-4 text-2xl font-semibold">Error Handling Demo</h2>
+		<p class="mb-4">This shows what happens with invalid syntax:</p>
+
+		<MermaidDiagram
+			height={200}
+			diagram={`graph LR
         A[This --> B[Will]
         C[Fail`}
-    />
-  </section>
+		/>
+	</section>
 
-  <div class="mt-16 p-6 bg-zinc-900 rounded-lg">
-    <h3 class="text-xl font-semibold mb-4">Performance Tips</h3>
-    <ul class="space-y-2 list-disc list-inside">
-      <li>Use <code class="px-1 py-0.5 bg-zinc-800 rounded">MermaidViewport</code> for diagrams below the fold</li>
-      <li>Diagrams are automatically cached in sessionStorage</li>
-      <li>The Mermaid library is dynamically imported on first use</li>
-      <li>Consider build-time rendering for SEO-critical diagrams</li>
-    </ul>
-  </div>
+	<div class="mt-16 rounded-lg bg-zinc-900 p-6">
+		<h3 class="mb-4 text-xl font-semibold">Performance Tips</h3>
+		<ul class="list-inside list-disc space-y-2">
+			<li>
+				Use <code class="rounded bg-zinc-800 px-1 py-0.5">MermaidViewport</code> for diagrams below the
+				fold
+			</li>
+			<li>Diagrams are automatically cached in sessionStorage</li>
+			<li>The Mermaid library is dynamically imported on first use</li>
+			<li>Consider build-time rendering for SEO-critical diagrams</li>
+		</ul>
+	</div>
 </div>

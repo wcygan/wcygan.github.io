@@ -138,6 +138,7 @@ Resource Server
 ```
 
 **Key formatting elements:**
+
 - Participant declarations on single line with natural wrapping
 - Blank line before the closing `/>`
 - No manual line breaks within the template literal
@@ -155,11 +156,16 @@ The `contenteditable="true"` attribute is now required for `textContent` binding
 #### 3. **Resolved TypeScript Linting Errors**
 
 - **MermaidDiagram.svelte**: Fixed type annotation instead of using `any`:
+
   ```typescript
-  console.log('[MermaidDiagram] Mermaid version:', (mermaid as { version?: string }).version || 'unknown');
+  console.log(
+  	'[MermaidDiagram] Mermaid version:',
+  	(mermaid as { version?: string }).version || 'unknown'
+  );
   ```
 
 - **MermaidLazy.svelte**: Added proper type annotation for dynamic import:
+
   ```typescript
   let MermaidComponent: typeof import('./MermaidDiagram.svelte').default | null = null;
   ```
@@ -178,6 +184,7 @@ The issue was caused by MDsveX's processing pipeline:
 4. **Line breaking sensitivity**: Manual line breaks within template literals trigger unwanted parsing
 
 The working solution avoids these issues by:
+
 - Using natural line wrapping instead of manual breaks
 - Keeping participant declarations compact
 - Adding strategic blank lines to separate content
@@ -185,6 +192,7 @@ The working solution avoids these issues by:
 #### 5. **Verification**
 
 All components are now working correctly:
+
 - ✅ Flowchart diagrams render properly
 - ✅ Sequence diagrams render with complex participant lists
 - ✅ State diagrams work as expected
@@ -195,6 +203,7 @@ All components are now working correctly:
 ### Performance Improvements
 
 The solution also includes several performance enhancements:
+
 - **SessionStorage caching** of rendered SVG diagrams
 - **Viewport loading** with `MermaidViewport` component for below-fold diagrams
 - **Dynamic imports** to reduce initial bundle size
@@ -207,8 +216,9 @@ The solution also includes several performance enhancements:
 After implementing the MDsveX formatting fixes above, a more critical issue was discovered: **Complete SSR/hydration failure when accessing blog posts directly via URL** (vs. client-side navigation).
 
 **Symptoms**:
+
 - ❌ Navbar component failed to render
-- ❌ All Mermaid diagrams stuck on "Loading diagram..." 
+- ❌ All Mermaid diagrams stuck on "Loading diagram..."
 - ❌ Console error: `TypeError: Failed to resolve module specifier 'mermaid'`
 - ✅ Everything worked perfectly when navigating from home page
 
@@ -219,9 +229,9 @@ The actual root cause was a **misconfigured Vite alias** that prevented the Merm
 ```typescript
 // vite.config.ts - BROKEN
 resolve: {
-  alias: {
-    mermaid: 'mermaid/dist/mermaid.esm.mjs'  // This file doesn't exist!
-  }
+	alias: {
+		mermaid: 'mermaid/dist/mermaid.esm.mjs'; // This file doesn't exist!
+	}
 }
 ```
 
@@ -234,9 +244,9 @@ The alias pointed to `mermaid.esm.mjs` but the actual file was `mermaid.esm.min.
 ```typescript
 // vite.config.ts - FIXED
 resolve: {
-  alias: {
-    mermaid: 'mermaid/dist/mermaid.esm.min.mjs'  // Correct file path
-  }
+	alias: {
+		mermaid: 'mermaid/dist/mermaid.esm.min.mjs'; // Correct file path
+	}
 }
 ```
 
@@ -249,15 +259,18 @@ resolve: {
 ### Verification Results
 
 **Direct URL Access** (`http://localhost:5173/blog/mermaid-diagrams`):
+
 - ✅ Navbar renders correctly
 - ✅ All 5 Mermaid diagrams render
 - ✅ No console errors
 - ✅ Proper hydration of all components
 
 **Client-Side Navigation**:
+
 - ✅ Still works perfectly (was never broken)
 
 **Production Build**:
+
 - ✅ Builds successfully
 - ✅ All chunks generated properly
 
@@ -271,7 +284,7 @@ resolve: {
 ## References
 
 - [James Joy's Mermaid + Svelte Article](https://jamesjoy.site/posts/2023-06-26-svelte-mermaidjs)
-- Git commits: 
+- Git commits:
   - `c9aa8af` (broken - MDsveX parsing issues)
   - `bb13005` (working MDsveX pattern)
   - `bd8ecc7` (attempted SSR fix with browser detection)

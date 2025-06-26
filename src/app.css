@@ -1,53 +1,52 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 html {
-  scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 body {
-  @apply bg-zinc-800 text-zinc-100;
+	@apply bg-zinc-800 text-zinc-100;
 }
 
 h1 {
-  @apply mb-4 mt-0 text-3xl font-bold text-emerald-400 md:text-4xl;
+	@apply mb-4 mt-0 text-3xl font-bold text-emerald-400 md:text-4xl;
 }
 
 h2 {
-  @apply mb-3 text-xl font-bold text-emerald-400 md:mb-4 md:text-2xl;
+	@apply mb-3 text-xl font-bold text-emerald-400 md:mb-4 md:text-2xl;
 }
 
 a {
-  @apply text-emerald-400 transition-colors duration-200 hover:text-emerald-300;
+	@apply text-emerald-400 transition-colors duration-200 hover:text-emerald-300;
 }
 
 .section {
-  @apply mx-auto max-w-2xl px-4 md:max-w-3xl
-    md:px-8; /* Added horizontal padding */
+	@apply mx-auto max-w-2xl px-4 md:max-w-3xl md:px-8; /* Added horizontal padding */
 }
 
 /* Add styles for blog post cards */
 .post-card {
-  @apply rounded-lg bg-zinc-700 p-4 transition-all duration-200 md:p-6;
+	@apply rounded-lg bg-zinc-700 p-4 transition-all duration-200 md:p-6;
 }
 
 .post-card:hover {
-  @apply -translate-y-1 transform shadow-lg;
+	@apply -translate-y-1 transform shadow-lg;
 }
 
 /* Shiki styles */
 .shiki {
-  @apply my-4 rounded-lg p-4;
-  overflow-x: auto;
+	@apply my-4 rounded-lg p-4;
+	overflow-x: auto;
 }
 
 .shiki .line {
-  @apply leading-relaxed;
+	@apply leading-relaxed;
 }
 
 :not(pre) > code {
-  @apply rounded bg-zinc-700 px-1.5 py-0.5 text-sm;
+	@apply rounded bg-zinc-700 px-1.5 py-0.5 text-sm;
 }
 
 /* Add this section to style markdown content */
@@ -57,7 +56,7 @@ a {
 :global(.markdown) h4,
 :global(.markdown) h5,
 :global(.markdown) h6 {
-  @apply text-emerald-400;
+	@apply text-emerald-400;
 }
 
 :global(.mdsvex-content) h1,
@@ -66,140 +65,140 @@ a {
 :global(.mdsvex-content) h4,
 :global(.mdsvex-content) h5,
 :global(.mdsvex-content) h6 {
-  @apply text-emerald-400;
+	@apply text-emerald-400;
 }
 
 pre {
-  @apply my-3 rounded-lg bg-zinc-700 p-3 md:my-4 md:p-4;
-  overflow-x: auto;
+	@apply my-3 rounded-lg bg-zinc-700 p-3 md:my-4 md:p-4;
+	overflow-x: auto;
 }
 
 code {
-  @apply rounded bg-zinc-700 px-0.5 py-0.5 text-xs md:text-sm;
-  counter-reset: step;
-  counter-increment: step 0;
+	@apply rounded bg-zinc-700 px-0.5 py-0.5 text-xs md:text-sm;
+	counter-reset: step;
+	counter-increment: step 0;
 }
 
 /* Table styles */
 .mdsvex-content table {
-  @apply my-6 block min-w-full border-collapse overflow-x-auto !important;
-  border-spacing: 0 !important;
+	@apply my-6 block min-w-full border-collapse overflow-x-auto !important;
+	border-spacing: 0 !important;
 }
 
 .mdsvex-content td,
 th {
-  @apply border border-zinc-400 px-4 py-1.5 md:px-6 md:py-2 !important;
-  text-align: left;
+	@apply border border-zinc-400 px-4 py-1.5 md:px-6 md:py-2 !important;
+	text-align: left;
 }
 
 .mdsvex-content th {
-  @apply bg-zinc-700 font-semibold text-emerald-400 !important;
+	@apply bg-zinc-700 font-semibold text-emerald-400 !important;
 }
 
 .mdsvex-content tr:hover {
-  @apply bg-zinc-700/50 transition-colors duration-200 !important;
+	@apply bg-zinc-700/50 transition-colors duration-200 !important;
 }
 
 .mdsvex-content tbody tr:nth-child(even) {
-  @apply bg-zinc-800/50 !important;
+	@apply bg-zinc-800/50 !important;
 }
 
 table {
-  @apply my-4 block min-w-full border-collapse overflow-x-auto;
+	@apply my-4 block min-w-full border-collapse overflow-x-auto;
 }
 
 th,
 td {
-  @apply whitespace-nowrap border border-zinc-400 px-3 py-2 md:px-6 md:py-3;
+	@apply whitespace-nowrap border border-zinc-400 px-3 py-2 md:px-6 md:py-3;
 }
 
 th {
-  @apply bg-zinc-700 font-bold;
+	@apply bg-zinc-700 font-bold;
 }
 
 tr {
-  @apply transition-colors duration-200 hover:bg-zinc-700;
+	@apply transition-colors duration-200 hover:bg-zinc-700;
 }
 
 code .line::before {
-  content: counter(step);
-  counter-increment: step;
-  width: 1.5rem;
-  margin-right: 1rem;
-  display: inline-block;
-  text-align: right;
-  color: rgba(115, 138, 148, 0.3);
+	content: counter(step);
+	counter-increment: step;
+	width: 1.5rem;
+	margin-right: 1rem;
+	display: inline-block;
+	text-align: right;
+	color: rgba(115, 138, 148, 0.3);
 }
 
 /* Hide the empty last line number if present */
 code .line:last-child:empty::before {
-  content: none;
-  counter-increment: none;
+	content: none;
+	counter-increment: none;
 }
 
 pre:has(code) {
-  position: relative;
+	position: relative;
 }
 
 pre button.copy {
-  position: absolute;
-  right: 16px;
-  top: 16px;
-  height: 25px;
-  width: 25px;
-  padding: 0;
-  display: flex;
+	position: absolute;
+	right: 16px;
+	top: 16px;
+	height: 25px;
+	width: 25px;
+	padding: 0;
+	display: flex;
 
-  & span {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    filter: invert(100%);
-  }
+	& span {
+		width: 100%;
+		aspect-ratio: 1 / 1;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		filter: invert(100%);
+	}
 
-  & .ready {
-    background-image: url(/icons/copy.svg);
-  }
+	& .ready {
+		background-image: url(/icons/copy.svg);
+	}
 
-  & .success {
-    display: none;
-    background-image: url(/icons/copy-success.svg);
-  }
+	& .success {
+		display: none;
+		background-image: url(/icons/copy-success.svg);
+	}
 
-  &.copied {
-    & .success {
-      display: block;
-    }
+	&.copied {
+		& .success {
+			display: block;
+		}
 
-    & .ready {
-      display: none;
-    }
-  }
+		& .ready {
+			display: none;
+		}
+	}
 }
 
 /* Mermaid diagram styles */
 .mermaid-container {
-  @apply my-6;
+	@apply my-6;
 }
 
 /* Override Mermaid default styles for better dark theme integration */
 .mermaid {
-  @apply text-zinc-100;
-  font-family: "Inter", system-ui, sans-serif !important;
+	@apply text-zinc-100;
+	font-family: 'Inter', system-ui, sans-serif !important;
 }
 
 .mermaid .nodeLabel {
-  @apply text-zinc-100;
+	@apply text-zinc-100;
 }
 
 .mermaid .edgeLabel {
-  @apply bg-zinc-900 text-zinc-100;
+	@apply bg-zinc-900 text-zinc-100;
 }
 
 .mermaid .cluster rect {
-  @apply fill-zinc-800 stroke-zinc-600;
+	@apply fill-zinc-800 stroke-zinc-600;
 }
 
 .mermaid .node rect,
@@ -207,13 +206,13 @@ pre button.copy {
 .mermaid .node ellipse,
 .mermaid .node polygon,
 .mermaid .node path {
-  @apply fill-zinc-700 stroke-emerald-400;
+	@apply fill-zinc-700 stroke-emerald-400;
 }
 
 .mermaid .flowchart-link {
-  @apply stroke-zinc-500;
+	@apply stroke-zinc-500;
 }
 
 .mermaid .marker {
-  @apply fill-zinc-500;
+	@apply fill-zinc-500;
 }

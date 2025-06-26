@@ -9,9 +9,9 @@ This directory contains Mermaid diagram components for SvelteKit.
 Main component with error handling, caching, and dark theme support.
 
 ```svelte
-<MermaidDiagram 
-  height={300}
-  diagram={`flowchart TD
+<MermaidDiagram
+	height={300}
+	diagram={`flowchart TD
     A[Start] --> B[End]`}
 />
 ```
@@ -21,11 +21,7 @@ Main component with error handling, caching, and dark theme support.
 Lazy-loads diagrams when they enter the viewport.
 
 ```svelte
-<MermaidViewport 
-  height={300}
-  rootMargin="100px"
-  diagram={`graph LR; A-->B`}
-/>
+<MermaidViewport height={300} rootMargin="100px" diagram={`graph LR; A-->B`} />
 ```
 
 ### MermaidFlexible.svelte
@@ -37,10 +33,7 @@ Supports both prop and slot-based diagram definitions.
 <MermaidFlexible diagram="graph TD; A-->B" />
 
 <!-- With slot -->
-<MermaidFlexible>
-  graph TD
-    A --> B
-</MermaidFlexible>
+<MermaidFlexible>graph TD A --> B</MermaidFlexible>
 ```
 
 ### MermaidLazy.svelte

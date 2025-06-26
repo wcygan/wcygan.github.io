@@ -57,7 +57,7 @@
 
 			// Clear the element and add the content back
 			diagramElement.textContent = content;
-			
+
 			// Run mermaid on the specific element
 			await mermaid.run({
 				nodes: [diagramElement]
@@ -92,10 +92,10 @@
 			style="height: {height}px"
 		>
 			<p class="font-bold">Error rendering diagram</p>
-			<p class="text-sm mt-2">{errorMessage}</p>
+			<p class="mt-2 text-sm">{errorMessage}</p>
 		</div>
 	{:else}
-		<div 
+		<div
 			bind:this={diagramElement}
 			class="mermaid"
 			class:opacity-0={!rendered}
@@ -110,7 +110,7 @@
 	.mermaid-container {
 		margin: 1.5rem 0;
 	}
-	
+
 	.opacity-0 {
 		opacity: 0;
 	}

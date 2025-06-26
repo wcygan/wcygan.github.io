@@ -193,7 +193,7 @@
 				<summary class="cursor-pointer">Debug Info</summary>
 				<div class="mt-2 rounded bg-zinc-800 p-2 text-xs">
 					<p>Status: {status}</p>
-					<p>Browser: {browser}</p>
+					<p>Component mounted: {isMounted}</p>
 					<p>Diagram length: {diagram.length}</p>
 				</div>
 			</details>

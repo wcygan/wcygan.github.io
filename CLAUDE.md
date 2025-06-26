@@ -95,12 +95,12 @@ diagrams, and more.
 
 ```svelte
 <script>
-  import MermaidDiagram from '$lib/components/MermaidDiagram.svelte'
+	import MermaidDiagram from '$lib/components/MermaidDiagram.svelte';
 </script>
 
-<MermaidDiagram 
-  height={300}
-  diagram={`flowchart TD
+<MermaidDiagram
+	height={300}
+	diagram={`flowchart TD
     A[Start] --> B{Decision}
     B -->|Yes| C[Do this]
     B -->|No| D[Do that]`}

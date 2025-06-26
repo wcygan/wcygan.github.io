@@ -1,7 +1,6 @@
 # GEMINI.md
 
-This file provides guidance to Gemini when working with
-code in this repository.
+This file provides guidance to Gemini when working with code in this repository.
 
 ## Essential Commands
 
@@ -95,12 +94,12 @@ diagrams, and more.
 
 ```svelte
 <script>
-  import MermaidDiagram from '$lib/components/MermaidDiagram.svelte'
+	import MermaidDiagram from '$lib/components/MermaidDiagram.svelte';
 </script>
 
-<MermaidDiagram 
-  height={300}
-  diagram={`flowchart TD
+<MermaidDiagram
+	height={300}
+	diagram={`flowchart TD
     A[Start] --> B{Decision}
     B -->|Yes| C[Do this]
     B -->|No| D[Do that]`}
