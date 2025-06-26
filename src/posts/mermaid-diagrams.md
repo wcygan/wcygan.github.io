@@ -152,3 +152,7 @@ In a blog post, I can use Mermaid like this:
 diagram={`flowchart LR
     Start --> Process --> End`} />
 ```
+
+---
+
+_See how I did it: https://github.com/wcygan/wcygan.github.io/pull/30_
