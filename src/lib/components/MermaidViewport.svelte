@@ -2,14 +2,13 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import MermaidDiagram from './MermaidDiagram.svelte';
-	
+
 	export let height = 400;
 	export let diagram = '';
 	export let rootMargin = '100px'; // Start loading 100px before viewport
-	
+
 	let containerElement: HTMLDivElement;
 	let shouldRender = false;
-	let isIntersecting = false;
 
 	onMount(() => {
 		if (!browser || !('IntersectionObserver' in window)) {
@@ -20,9 +19,8 @@
 
 		const observer = new IntersectionObserver(
 			(entries) => {
-				entries.forEach(entry => {
+				entries.forEach((entry) => {
 					if (entry.isIntersecting && !shouldRender) {
-						isIntersecting = true;
 						shouldRender = true;
 						observer.disconnect();
 						console.log('[MermaidViewport] Diagram entering viewport, starting render');
@@ -47,13 +45,13 @@
 	{#if shouldRender}
 		<MermaidDiagram {height} {diagram} />
 	{:else}
-		<div 
-			class="rounded-lg bg-zinc-900 p-4 flex items-center justify-center text-zinc-500" 
+		<div
+			class="flex items-center justify-center rounded-lg bg-zinc-900 p-4 text-zinc-500"
 			style="min-height: {height}px"
 		>
 			<div class="text-center">
 				<p class="text-sm">Diagram will load when visible</p>
-				<p class="text-xs mt-1 opacity-50">Scroll to view</p>
+				<p class="mt-1 text-xs opacity-50">Scroll to view</p>
 			</div>
 		</div>
 	{/if}

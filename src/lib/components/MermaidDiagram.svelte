@@ -24,7 +24,9 @@
 			return mermaid;
 		} catch (e) {
 			console.error('[MermaidDiagram] Failed to load Mermaid:', e);
-			throw new Error(`Failed to load Mermaid module: ${e.message}`);
+			throw new Error(
+				`Failed to load Mermaid module: ${e instanceof Error ? e.message : String(e)}`
+			);
 		}
 	}
 
@@ -34,7 +36,7 @@
 			if (!container) {
 				await tick();
 				// Give DOM more time to mount the container
-				await new Promise(resolve => setTimeout(resolve, 100));
+				await new Promise((resolve) => setTimeout(resolve, 100));
 			}
 
 			// Check cache first
@@ -55,7 +57,10 @@
 				throw new Error('Mermaid loaded but missing expected methods');
 			}
 
-			console.log('[MermaidDiagram] Mermaid version:', mermaid.version || 'unknown');
+			console.log(
+				'[MermaidDiagram] Mermaid version:',
+				(mermaid as { version?: string }).version || 'unknown'
+			);
 
 			// Initialize
 			status = 'initializing';
@@ -75,7 +80,7 @@
 			await tick();
 			if (!container) {
 				// Wait a bit more if container isn't ready
-				await new Promise(resolve => setTimeout(resolve, 50));
+				await new Promise((resolve) => setTimeout(resolve, 50));
 				await tick();
 			}
 
@@ -85,16 +90,16 @@
 
 			// Generate unique ID
 			const id = `mermaid-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
-			
+
 			// Clean the diagram text
 			const cleanDiagram = diagram.trim();
-			
+
 			console.log('[MermaidDiagram] Rendering with ID:', id);
 			status = 'rendering';
 
 			// Render the diagram
 			const renderResult = await mermaid.render(id, cleanDiagram);
-			
+
 			if (!renderResult || !renderResult.svg) {
 				throw new Error('No SVG returned from render');
 			}
@@ -108,19 +113,18 @@
 			container.innerHTML = renderResult.svg;
 			rendered = true;
 			status = 'complete';
-			
+
 			console.log('[MermaidDiagram] Render complete!');
 
 			// Clean up any orphaned elements
 			setTimeout(() => {
 				const orphans = document.querySelectorAll(`[id^="d${id}"]`);
-				orphans.forEach(el => {
+				orphans.forEach((el) => {
 					if (!container.contains(el)) {
 						el.remove();
 					}
 				});
 			}, 100);
-
 		} catch (e) {
 			console.error('[MermaidDiagram] Error:', e);
 			error = true;
@@ -145,9 +149,9 @@
 
 		console.log('[MermaidDiagram] Component mounted');
 		console.log('[MermaidDiagram] Diagram preview:', diagram.substring(0, 50) + '...');
-		
+
 		status = 'starting';
-		
+
 		// Add a small delay to ensure DOM is fully ready
 		const timeoutId = setTimeout(async () => {
 			// Double-check container is available
@@ -162,7 +166,10 @@
 	});
 </script>
 
-<div class="mermaid-container relative overflow-x-auto rounded-lg bg-zinc-900 p-4" style="min-height: {height}px">
+<div
+	class="mermaid-container relative overflow-x-auto rounded-lg bg-zinc-900 p-4"
+	style="min-height: {height}px"
+>
 	{#if !rendered && browser}
 		<div class="absolute inset-0 flex items-center justify-center">
 			<div class="text-center">
@@ -179,14 +186,14 @@
 			style="height: {height}px"
 		>
 			<p class="font-bold">Error rendering diagram</p>
-			<p class="text-sm mt-2">{errorMessage}</p>
+			<p class="mt-2 text-sm">{errorMessage}</p>
 			<details class="mt-4 w-full max-w-2xl">
 				<summary class="cursor-pointer">Diagram Source</summary>
-				<pre class="text-xs mt-2 p-2 bg-zinc-800 rounded overflow-x-auto">{diagram}</pre>
+				<pre class="mt-2 overflow-x-auto rounded bg-zinc-800 p-2 text-xs">{diagram}</pre>
 			</details>
 			<details class="mt-2 w-full max-w-2xl">
 				<summary class="cursor-pointer">Debug Info</summary>
-				<div class="text-xs mt-2 p-2 bg-zinc-800 rounded">
+				<div class="mt-2 rounded bg-zinc-800 p-2 text-xs">
 					<p>Status: {status}</p>
 					<p>Browser: {browser}</p>
 					<p>Diagram length: {diagram.length}</p>
@@ -196,7 +203,7 @@
 	{/if}
 
 	<!-- Container for rendered diagram -->
-	<div 
+	<div
 		bind:this={container}
 		class="mermaid-render-container"
 		class:hidden={!rendered || error}
@@ -214,11 +221,11 @@
 	.mermaid-container {
 		margin: 1.5rem 0;
 	}
-	
+
 	.hidden {
 		display: none;
 	}
-	
+
 	:global(.mermaid-render-container svg) {
 		max-width: 100%;
 		height: auto;
@@ -230,12 +237,12 @@
 	:global(.mermaid-render-container) {
 		color: #e4e4e7;
 	}
-	
+
 	:global(.mermaid-render-container text) {
 		fill: #e4e4e7 !important;
 		font-family: 'Inter', system-ui, sans-serif !important;
 	}
-	
+
 	:global(.mermaid-render-container .node rect),
 	:global(.mermaid-render-container .node circle),
 	:global(.mermaid-render-container .node ellipse),
@@ -245,28 +252,28 @@
 		stroke: #52525b !important;
 		stroke-width: 2px;
 	}
-	
+
 	:global(.mermaid-render-container .label) {
 		color: #e4e4e7 !important;
 		fill: #e4e4e7 !important;
 	}
-	
+
 	:global(.mermaid-render-container .edgePath .path) {
 		stroke: #71717a !important;
 		stroke-width: 2px !important;
 		fill: none !important;
 	}
-	
+
 	:global(.mermaid-render-container .edgeLabel) {
 		background-color: #18181b !important;
 		fill: #e4e4e7 !important;
 	}
-	
+
 	:global(.mermaid-render-container .cluster rect) {
 		fill: #18181b !important;
 		stroke: #3f3f46 !important;
 	}
-	
+
 	:global(.mermaid-render-container .cluster text) {
 		fill: #a1a1aa !important;
 	}
@@ -282,16 +289,16 @@
 		fill: #27272a !important;
 		stroke: #52525b !important;
 	}
-	
+
 	:global(.mermaid-render-container .actor-line) {
 		stroke: #52525b !important;
 	}
-	
+
 	:global(.mermaid-render-container .messageLine0),
 	:global(.mermaid-render-container .messageLine1) {
 		stroke: #71717a !important;
 	}
-	
+
 	:global(.mermaid-render-container .messageText) {
 		fill: #e4e4e7 !important;
 	}
