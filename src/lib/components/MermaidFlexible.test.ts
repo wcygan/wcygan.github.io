@@ -221,7 +221,7 @@ describe('MermaidFlexible component logic', () => {
 
 	describe('lazy loading behavior', () => {
 		it('should dynamically import MermaidLazy when lazy is true', async () => {
-			const mockImport = vi.fn((_path: string) => Promise.resolve({ default: 'MermaidLazy' }));
+			const mockImport = vi.fn(() => Promise.resolve({ default: 'MermaidLazy' }));
 
 			// Replace import with mock
 			const originalImport = (globalThis as typeof globalThis & { import?: unknown }).import;
