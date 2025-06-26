@@ -19,17 +19,14 @@ describe('MermaidViewport component logic', () => {
 			const rootMargin = '100px';
 			const threshold = 0;
 
-			const observer = new IntersectionObserver(
-				vi.fn(),
-				{ rootMargin, threshold }
-			);
+			const observer = new IntersectionObserver(vi.fn(), { rootMargin, threshold });
 
 			observer.observe(element);
 
-			expect(mockObserver.IntersectionObserver).toHaveBeenCalledWith(
-				expect.any(Function),
-				{ rootMargin, threshold }
-			);
+			expect(mockObserver.IntersectionObserver).toHaveBeenCalledWith(expect.any(Function), {
+				rootMargin,
+				threshold
+			});
 			expect(mockObserver.observe).toHaveBeenCalledWith(element);
 		});
 
@@ -170,11 +167,8 @@ describe('MermaidViewport component logic', () => {
 	describe('configuration options', () => {
 		it('should accept custom rootMargin', () => {
 			const customRootMargin = '200px';
-			
-			const observer = new IntersectionObserver(
-				vi.fn(),
-				{ rootMargin: customRootMargin }
-			);
+
+			const observer = new IntersectionObserver(vi.fn(), { rootMargin: customRootMargin });
 
 			expect(mockObserver.IntersectionObserver).toHaveBeenCalledWith(
 				expect.any(Function),
@@ -184,11 +178,8 @@ describe('MermaidViewport component logic', () => {
 
 		it('should use default rootMargin of 100px', () => {
 			const defaultRootMargin = '100px';
-			
-			const observer = new IntersectionObserver(
-				vi.fn(),
-				{ rootMargin: defaultRootMargin }
-			);
+
+			const observer = new IntersectionObserver(vi.fn(), { rootMargin: defaultRootMargin });
 
 			expect(mockObserver.IntersectionObserver).toHaveBeenCalledWith(
 				expect.any(Function),
@@ -197,10 +188,7 @@ describe('MermaidViewport component logic', () => {
 		});
 
 		it('should use threshold of 0', () => {
-			const observer = new IntersectionObserver(
-				vi.fn(),
-				{ threshold: 0 }
-			);
+			const observer = new IntersectionObserver(vi.fn(), { threshold: 0 });
 
 			expect(mockObserver.IntersectionObserver).toHaveBeenCalledWith(
 				expect.any(Function),

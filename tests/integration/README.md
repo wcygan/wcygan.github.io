@@ -5,7 +5,7 @@ Comprehensive E2E tests for all Mermaid diagram types used in the blog.
 ## Test Coverage
 
 - **Flow Chart** - Deployment pipeline diagrams
-- **Sequence** - API authentication flows  
+- **Sequence** - API authentication flows
 - **State** - Order processing states
 - **Git Graph** - Branch and commit visualization
 - **Entity Relationship** - Database schemas
@@ -46,11 +46,13 @@ NODE_OPTIONS="" pnpm run test:integration tests/integration/mermaid-complete.tes
 ## Test Files
 
 ### Core Infrastructure
+
 - `globalServer.ts` - Global setup/teardown for Vite preview server
 - `testUtils.ts` - Helper utilities for getting base URL and common configs
 - `global.d.ts` - TypeScript declarations for environment variables
 
 ### Test Suites
+
 - `example-global-server.test.ts` - Example using global server setup
 - `mermaid-diagrams.test.ts` - Comprehensive tests with preview server
 - `mermaid-complete.test.ts` - Simplified tests using dev server
@@ -84,6 +86,7 @@ The integration test system uses the following environment variables:
 ### Manual Override Options
 
 - **`BASE_URL`**: Alternative base URL for manual testing
+
   - Example: `BASE_URL="http://localhost:5173"` for dev server
   - Fallback when `VITE_TEST_BASE_URL` is not set
 
@@ -94,6 +97,7 @@ The integration test system uses the following environment variables:
 ### Configuration Priority
 
 The `getTestBaseUrl()` function checks environment variables in this order:
+
 1. `process.env.VITE_TEST_BASE_URL` (global server setup)
 2. `process.env.BASE_URL` (manual override)
 3. `global.__BASE_URL__` (legacy global variable)

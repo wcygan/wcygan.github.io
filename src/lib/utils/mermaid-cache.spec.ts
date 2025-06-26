@@ -75,7 +75,7 @@ describe('mermaid-cache', () => {
 			expect(sessionStorageMock.setItem).toHaveBeenCalled();
 			const [[key, value]] = sessionStorageMock.setItem.mock.calls;
 			expect(key).toContain('mermaid-cache-');
-			
+
 			const stored = JSON.parse(value);
 			expect(stored.svg).toBe(svg);
 			expect(stored.timestamp).toBeCloseTo(Date.now(), -2);
@@ -110,11 +110,11 @@ describe('mermaid-cache', () => {
 			// Mock sessionStorage with multiple entries
 			const mockLength = 3;
 			const mockKeys = ['mermaid-cache-123', 'other-key', 'mermaid-cache-456'];
-			
+
 			Object.defineProperty(sessionStorageMock, 'length', {
 				get: () => mockLength
 			});
-			
+
 			sessionStorageMock.key.mockImplementation((index: number) => mockKeys[index] || null);
 
 			clearAllCache();
@@ -137,12 +137,12 @@ describe('mermaid-cache', () => {
 	describe('hash function', () => {
 		it('should generate consistent hashes for same input', () => {
 			const diagram = 'flowchart TD\n  A --> B';
-			
+
 			// Since we can't directly test the private hash function,
 			// we verify it works by checking cache keys are consistent
 			setCachedSVG(diagram, '<svg>1</svg>');
 			setCachedSVG(diagram, '<svg>2</svg>');
-			
+
 			// Should have called setItem twice with the same key
 			const calls = sessionStorageMock.setItem.mock.calls;
 			expect(calls[0][0]).toBe(calls[1][0]);
@@ -151,7 +151,7 @@ describe('mermaid-cache', () => {
 		it('should generate different hashes for different inputs', () => {
 			setCachedSVG('diagram1', '<svg>1</svg>');
 			setCachedSVG('diagram2', '<svg>2</svg>');
-			
+
 			const calls = sessionStorageMock.setItem.mock.calls;
 			expect(calls[0][0]).not.toBe(calls[1][0]);
 		});

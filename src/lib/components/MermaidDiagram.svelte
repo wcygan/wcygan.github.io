@@ -44,14 +44,17 @@
 			if (cachedSVG && container) {
 				console.log('[MermaidDiagram] Using cached SVG');
 				container.innerHTML = cachedSVG;
-				
+
 				// Add accessibility attributes to cached SVG as well
 				const svgElement = container.querySelector('svg');
 				if (svgElement) {
 					svgElement.setAttribute('role', 'img');
-					svgElement.setAttribute('aria-label', `Mermaid diagram: ${diagram.split('\n')[0].trim()}`);
+					svgElement.setAttribute(
+						'aria-label',
+						`Mermaid diagram: ${diagram.split('\n')[0].trim()}`
+					);
 				}
-				
+
 				rendered = true;
 				status = 'complete';
 				return;
@@ -119,14 +122,14 @@
 
 			// Insert SVG
 			container.innerHTML = renderResult.svg;
-			
+
 			// Add accessibility attributes to the SVG
 			const svgElement = container.querySelector('svg');
 			if (svgElement) {
 				svgElement.setAttribute('role', 'img');
 				svgElement.setAttribute('aria-label', `Mermaid diagram: ${diagram.split('\n')[0].trim()}`);
 			}
-			
+
 			rendered = true;
 			status = 'complete';
 

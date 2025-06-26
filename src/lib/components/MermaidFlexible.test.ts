@@ -21,40 +21,40 @@ describe('MermaidFlexible component logic', () => {
 		it('should prefer diagram prop over slot content', () => {
 			const diagramProp = 'flowchart TD\n  A --> B';
 			const slotContent = 'graph LR\n  C --> D';
-			
+
 			// Simulate the reactive statement
 			const finalDiagram = diagramProp || slotContent;
-			
+
 			expect(finalDiagram).toBe(diagramProp);
 		});
 
 		it('should use slot content when diagram prop is undefined', () => {
 			const diagramProp = undefined;
 			const slotContent = 'graph LR\n  C --> D';
-			
+
 			// Simulate the reactive statement
 			const finalDiagram = diagramProp || slotContent;
-			
+
 			expect(finalDiagram).toBe(slotContent);
 		});
 
 		it('should use slot content when diagram prop is empty string', () => {
 			const diagramProp = '';
 			const slotContent = 'graph LR\n  C --> D';
-			
+
 			// Simulate the reactive statement
 			const finalDiagram = diagramProp || slotContent;
-			
+
 			expect(finalDiagram).toBe(slotContent);
 		});
 
 		it('should handle both prop and slot being empty', () => {
 			const diagramProp = '';
 			const slotContent = '';
-			
+
 			// Simulate the reactive statement
 			const finalDiagram = diagramProp || slotContent;
-			
+
 			expect(finalDiagram).toBe('');
 		});
 	});
@@ -69,7 +69,7 @@ describe('MermaidFlexible component logic', () => {
 
 			// Simulate content extraction
 			const content = slotElement.textContent?.trim() || '';
-			
+
 			expect(content).toBe('flowchart TD\n  A --> B');
 		});
 
@@ -82,7 +82,7 @@ describe('MermaidFlexible component logic', () => {
 
 			// Simulate content extraction
 			const content = slotElement.textContent?.trim() || '';
-			
+
 			expect(content).toBe('');
 		});
 
@@ -95,7 +95,7 @@ describe('MermaidFlexible component logic', () => {
 
 			// Simulate content extraction
 			const content = slotElement.textContent?.trim() || '';
-			
+
 			expect(content).toBe('');
 		});
 
@@ -110,7 +110,7 @@ describe('MermaidFlexible component logic', () => {
 
 			// Simulate content extraction
 			const content = slotElement.textContent?.trim() || '';
-			
+
 			expect(content).toBe('');
 		});
 	});
@@ -119,9 +119,9 @@ describe('MermaidFlexible component logic', () => {
 		it('should select viewport component when viewport is true', () => {
 			const viewport = true;
 			const lazy = false;
-			
+
 			let selectedComponent = '';
-			
+
 			if (viewport) {
 				selectedComponent = 'MermaidViewport';
 			} else if (lazy) {
@@ -129,16 +129,16 @@ describe('MermaidFlexible component logic', () => {
 			} else {
 				selectedComponent = 'MermaidDiagram';
 			}
-			
+
 			expect(selectedComponent).toBe('MermaidViewport');
 		});
 
 		it('should select lazy component when lazy is true and viewport is false', () => {
 			const viewport = false;
 			const lazy = true;
-			
+
 			let selectedComponent = '';
-			
+
 			if (viewport) {
 				selectedComponent = 'MermaidViewport';
 			} else if (lazy) {
@@ -146,16 +146,16 @@ describe('MermaidFlexible component logic', () => {
 			} else {
 				selectedComponent = 'MermaidDiagram';
 			}
-			
+
 			expect(selectedComponent).toBe('MermaidLazy');
 		});
 
 		it('should select default component when both viewport and lazy are false', () => {
 			const viewport = false;
 			const lazy = false;
-			
+
 			let selectedComponent = '';
-			
+
 			if (viewport) {
 				selectedComponent = 'MermaidViewport';
 			} else if (lazy) {
@@ -163,16 +163,16 @@ describe('MermaidFlexible component logic', () => {
 			} else {
 				selectedComponent = 'MermaidDiagram';
 			}
-			
+
 			expect(selectedComponent).toBe('MermaidDiagram');
 		});
 
 		it('should prioritize viewport over lazy when both are true', () => {
 			const viewport = true;
 			const lazy = true;
-			
+
 			let selectedComponent = '';
-			
+
 			if (viewport) {
 				selectedComponent = 'MermaidViewport';
 			} else if (lazy) {
@@ -180,7 +180,7 @@ describe('MermaidFlexible component logic', () => {
 			} else {
 				selectedComponent = 'MermaidDiagram';
 			}
-			
+
 			expect(selectedComponent).toBe('MermaidViewport');
 		});
 	});
@@ -193,7 +193,7 @@ describe('MermaidFlexible component logic', () => {
 
 			// Before mount
 			expect(mounted).toBe(false);
-			
+
 			// Simulate onMount
 			await tick();
 			mounted = true;
@@ -209,7 +209,7 @@ describe('MermaidFlexible component logic', () => {
 
 			// Before mount
 			expect(mounted).toBe(false);
-			
+
 			// Simulate onMount
 			await tick();
 			mounted = true;
@@ -221,9 +221,7 @@ describe('MermaidFlexible component logic', () => {
 
 	describe('lazy loading behavior', () => {
 		it('should dynamically import MermaidLazy when lazy is true', async () => {
-			const mockImport = vi.fn(() => 
-				Promise.resolve({ default: 'MermaidLazy' })
-			);
+			const mockImport = vi.fn(() => Promise.resolve({ default: 'MermaidLazy' }));
 
 			// Replace import with mock
 			const originalImport = (globalThis as any).import;
@@ -265,18 +263,18 @@ describe('MermaidFlexible component logic', () => {
 		it('should use default height of 400', () => {
 			const height = undefined;
 			const defaultHeight = 400;
-			
+
 			const finalHeight = height || defaultHeight;
-			
+
 			expect(finalHeight).toBe(400);
 		});
 
 		it('should use custom height when provided', () => {
 			const height = 600;
 			const defaultHeight = 400;
-			
+
 			const finalHeight = height || defaultHeight;
-			
+
 			expect(finalHeight).toBe(600);
 		});
 	});

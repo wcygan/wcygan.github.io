@@ -6,9 +6,9 @@ export const mockIntersectionObserver = () => {
 	const mockObserve = vi.fn();
 	const mockUnobserve = vi.fn();
 	const mockDisconnect = vi.fn();
-	
+
 	let observerCallback: IntersectionObserverCallback | null = null;
-	
+
 	const mockIntersectionObserver = vi.fn((callback, options) => {
 		observerCallback = callback;
 		return {
@@ -17,9 +17,9 @@ export const mockIntersectionObserver = () => {
 			disconnect: mockDisconnect
 		};
 	});
-	
+
 	window.IntersectionObserver = mockIntersectionObserver as any;
-	
+
 	return {
 		IntersectionObserver: mockIntersectionObserver,
 		observe: mockObserve,
@@ -36,7 +36,7 @@ export const mockIntersectionObserver = () => {
 // Mock sessionStorage for cache tests
 export const mockSessionStorage = () => {
 	let store: Record<string, string> = {};
-	
+
 	const sessionStorageMock = {
 		getItem: vi.fn((key: string) => store[key] || null),
 		setItem: vi.fn((key: string, value: string) => {
@@ -56,17 +56,17 @@ export const mockSessionStorage = () => {
 			return Object.keys(store).length;
 		}
 	};
-	
+
 	Object.defineProperty(window, 'sessionStorage', {
 		value: sessionStorageMock,
 		writable: true
 	});
-	
+
 	return sessionStorageMock;
 };
 
 // Helper to wait for async updates
-export const waitFor = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+export const waitFor = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Mock Mermaid module
 export const createMockMermaid = () => {

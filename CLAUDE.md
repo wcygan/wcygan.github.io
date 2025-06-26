@@ -129,8 +129,9 @@ prevent parsing errors:
 
    ```svelte
    <!-- ✅ CORRECT: Props on separate lines -->
-   <MermaidDiagram height={500}
-   diagram={`sequenceDiagram
+   <MermaidDiagram
+   	height={500}
+   	diagram={`sequenceDiagram
        participant User
        participant Server
        User->>Server: Request
@@ -138,11 +139,14 @@ prevent parsing errors:
    />
 
    <!-- ❌ WRONG: Can cause MDsveX to inject </p> tags -->
-   <MermaidDiagram height={500} diagram={`sequenceDiagram
+   <MermaidDiagram
+   	height={500}
+   	diagram={`sequenceDiagram
    participant User
    participant Server
    User->>Server: Request
-   Server->>User: Response`} />
+   Server->>User: Response`}
+   />
    ```
 
 2. **Vite Configuration:**
@@ -151,9 +155,9 @@ prevent parsing errors:
 
    ```typescript
    resolve: {
-     alias: {
-       mermaid: 'mermaid/dist/mermaid.esm.min.mjs' // NOT mermaid.esm.mjs
-     }
+   	alias: {
+   		mermaid: 'mermaid/dist/mermaid.esm.min.mjs'; // NOT mermaid.esm.mjs
+   	}
    }
    ```
 
@@ -196,24 +200,26 @@ Due to Svelte 5 compatibility issues with @testing-library/svelte, we use a logi
 ```typescript
 // Test component logic without full mounting
 describe('MermaidDiagram component logic', () => {
-  it('should use cached SVG when available', async () => {
-    const cachedSVG = '<svg>cached diagram</svg>';
-    const mockGetCachedSVG = getCachedSVG as ReturnType<typeof vi.fn>;
-    mockGetCachedSVG.mockReturnValue(cachedSVG);
-    
-    // Test caching behavior
-    const svg = getCachedSVG(diagram);
-    expect(svg).toBe(cachedSVG);
-  });
+	it('should use cached SVG when available', async () => {
+		const cachedSVG = '<svg>cached diagram</svg>';
+		const mockGetCachedSVG = getCachedSVG as ReturnType<typeof vi.fn>;
+		mockGetCachedSVG.mockReturnValue(cachedSVG);
+
+		// Test caching behavior
+		const svg = getCachedSVG(diagram);
+		expect(svg).toBe(cachedSVG);
+	});
 });
 ```
 
 **Test Coverage:**
+
 - `src/lib/utils/*.spec.ts` - Utility functions (mermaid-cache, readingTime)
 - `src/lib/services/*.spec.ts` - Service layer (blog filtering, sorting)
 - `src/lib/components/*.test.ts` - Component logic (no full mounting)
 
 **Key Testing Utilities:**
+
 - Mock IntersectionObserver for viewport tests
 - Mock sessionStorage for caching tests
 - Mock Mermaid module for rendering tests
@@ -225,30 +231,31 @@ The Puppeteer MCP tool can be used for end-to-end testing of Mermaid diagrams an
 ```typescript
 // Example: Testing Mermaid diagram rendering
 // 1. Navigate to a blog post with Mermaid diagrams
-await mcp__puppeteer__puppeteer_navigate({ 
-  url: 'http://localhost:5173/blog/mermaid-diagrams' 
+await mcp__puppeteer__puppeteer_navigate({
+	url: 'http://localhost:5173/blog/mermaid-diagrams'
 });
 
 // 2. Wait for diagram to render and take screenshot
-await mcp__puppeteer__puppeteer_screenshot({ 
-  name: 'mermaid-diagram-rendered',
-  selector: '.mermaid-render-container',
-  width: 800,
-  height: 600
+await mcp__puppeteer__puppeteer_screenshot({
+	name: 'mermaid-diagram-rendered',
+	selector: '.mermaid-render-container',
+	width: 800,
+	height: 600
 });
 
 // 3. Test viewport lazy loading
 await mcp__puppeteer__puppeteer_evaluate({
-  script: `window.scrollTo(0, document.querySelector('.mermaid-viewport').offsetTop)`
+	script: `window.scrollTo(0, document.querySelector('.mermaid-viewport').offsetTop)`
 });
 
 // 4. Verify diagram loads when in viewport
 await mcp__puppeteer__puppeteer_evaluate({
-  script: `document.querySelector('.mermaid-render-container svg') !== null`
+	script: `document.querySelector('.mermaid-render-container svg') !== null`
 });
 ```
 
 **Common E2E Test Scenarios:**
+
 - Verify Mermaid diagrams render correctly
 - Test lazy loading behavior with viewport scrolling
 - Validate dark theme styling is applied

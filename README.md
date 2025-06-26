@@ -106,6 +106,7 @@ The integration tests cover:
 ### Troubleshooting
 
 **Build directory missing:**
+
 ```bash
 pnpm run build
 ```

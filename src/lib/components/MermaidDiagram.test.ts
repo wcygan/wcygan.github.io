@@ -53,7 +53,7 @@ describe('MermaidDiagram component logic', () => {
 			document.body.appendChild(container);
 
 			const diagram = 'flowchart TD\n  A --> B';
-			
+
 			// Simulate cache hit
 			const svg = getCachedSVG(diagram);
 			if (svg) {
@@ -71,7 +71,7 @@ describe('MermaidDiagram component logic', () => {
 
 			const mermaidModule = await import('mermaid');
 			const mermaid = mermaidModule.default;
-			
+
 			const renderedSVG = '<svg>new diagram</svg>';
 			(mermaid.render as ReturnType<typeof vi.fn>).mockResolvedValue({
 				svg: renderedSVG,
@@ -95,7 +95,7 @@ describe('MermaidDiagram component logic', () => {
 			});
 
 			const result = await mermaid.render(id, diagram);
-			
+
 			expect(mermaid.initialize).toHaveBeenCalled();
 			expect(mermaid.render).toHaveBeenCalledWith(id, diagram);
 			expect(result.svg).toBe(renderedSVG);
@@ -108,7 +108,7 @@ describe('MermaidDiagram component logic', () => {
 		it('should handle render errors gracefully', async () => {
 			const mermaidModule = await import('mermaid');
 			const mermaid = mermaidModule.default;
-			
+
 			const errorMessage = 'Invalid diagram syntax';
 			(mermaid.render as ReturnType<typeof vi.fn>).mockRejectedValue(new Error(errorMessage));
 
@@ -135,7 +135,7 @@ describe('MermaidDiagram component logic', () => {
 			orphan1.id = 'dmermaid-test-orphan1';
 			const orphan2 = document.createElement('div');
 			orphan2.id = 'dmermaid-test-orphan2';
-			
+
 			document.body.appendChild(orphan1);
 			document.body.appendChild(orphan2);
 
@@ -175,7 +175,7 @@ describe('MermaidDiagram component logic', () => {
 	describe('unique ID generation', () => {
 		it('should generate unique IDs for diagrams', () => {
 			const ids = new Set<string>();
-			
+
 			for (let i = 0; i < 100; i++) {
 				const id = `mermaid-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
 				ids.add(id);

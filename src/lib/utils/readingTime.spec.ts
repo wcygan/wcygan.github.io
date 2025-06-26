@@ -33,7 +33,7 @@ describe('calculateReadingTime', () => {
 	});
 
 	it('should handle text with special characters', () => {
-		const text = 'Hello! How are you? I\'m fine, thanks. #hashtag @mention';
+		const text = "Hello! How are you? I'm fine, thanks. #hashtag @mention";
 		const minutes = calculateReadingTime(text);
 		expect(minutes).toBe(1);
 	});

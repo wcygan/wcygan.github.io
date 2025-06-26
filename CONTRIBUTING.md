@@ -6,24 +6,27 @@ Thank you for your interest in contributing to this project! This guide will hel
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - pnpm (package manager)
 - Git
 
 ### Getting Started
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/wcygan/wcygan.github.io.git
    cd wcygan.github.io
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Start development server**
+
    ```bash
    pnpm run dev
    ```
@@ -69,6 +72,7 @@ NODE_OPTIONS="" pnpm run test:integration
 #### Test Architecture
 
 The integration tests use:
+
 - **Vitest** as the test runner
 - **Puppeteer** for browser automation
 - **Global server setup** that automatically starts/stops a Vite preview server
@@ -144,6 +148,7 @@ pnpm run post
 ```
 
 This will prompt you for:
+
 - Post title
 - URL slug
 - Brief description
@@ -159,10 +164,11 @@ When adding new Mermaid diagrams to posts:
 4. Verify caching behavior
 
 Example:
+
 ```svelte
-<MermaidDiagram 
-  height={400}
-  diagram={`
+<MermaidDiagram
+	height={400}
+	diagram={`
     graph TD
       A[Start] --> B[Process]
       B --> C[End]
@@ -175,6 +181,7 @@ Example:
 ### When to Write Integration Tests
 
 Write integration tests when:
+
 - Adding new Mermaid diagram types
 - Modifying diagram rendering behavior
 - Changing responsive design implementations
@@ -187,41 +194,41 @@ Follow this pattern for new integration tests:
 ```typescript
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import type { Page } from 'puppeteer';
-import { 
-  launchBrowser, 
-  closeBrowser, 
-  createPage, 
-  closePage, 
-  getTestBaseUrl,
-  waitForMermaidDiagrams
+import {
+	launchBrowser,
+	closeBrowser,
+	createPage,
+	closePage,
+	getTestBaseUrl,
+	waitForMermaidDiagrams
 } from './testUtils';
 
 describe('Feature Tests', () => {
-  let page: Page;
-  const baseUrl = getTestBaseUrl();
+	let page: Page;
+	const baseUrl = getTestBaseUrl();
 
-  beforeAll(async () => {
-    await launchBrowser();
-  });
+	beforeAll(async () => {
+		await launchBrowser();
+	});
 
-  afterAll(async () => {
-    await closeBrowser();
-  });
+	afterAll(async () => {
+		await closeBrowser();
+	});
 
-  beforeEach(async () => {
-    page = await createPage();
-  });
+	beforeEach(async () => {
+		page = await createPage();
+	});
 
-  afterEach(async () => {
-    await closePage(page);
-  });
+	afterEach(async () => {
+		await closePage(page);
+	});
 
-  it('should test feature', async () => {
-    await page.goto(`${baseUrl}/test-page`);
-    await waitForMermaidDiagrams(page, 2, 15000);
-    
-    // Test assertions here
-  });
+	it('should test feature', async () => {
+		await page.goto(`${baseUrl}/test-page`);
+		await waitForMermaidDiagrams(page, 2, 15000);
+
+		// Test assertions here
+	});
 });
 ```
 
@@ -230,21 +237,25 @@ describe('Feature Tests', () => {
 ### Common Issues
 
 **Integration tests failing with port errors:**
+
 - Ensure port 4173 is available
 - Stop any existing Vite preview servers
 - The global setup uses `strictPort: true`
 
 **Browser launch failures:**
+
 - Check system resources
 - Ensure no conflicting Puppeteer processes
 - Try clearing browser cache/data
 
 **Mermaid rendering timeouts:**
+
 - Diagrams can take time to render complex layouts
 - Use `waitForMermaidDiagrams()` utility
 - Increase timeout if necessary for complex diagrams
 
 **Build directory missing:**
+
 ```bash
 pnpm run build
 ```
@@ -258,16 +269,19 @@ pnpm run build
 ## Pull Request Process
 
 1. **Create a feature branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 2. **Make your changes**
+
    - Follow existing code patterns
    - Add tests for new functionality
    - Update documentation as needed
 
 3. **Test your changes**
+
    ```bash
    pnpm run lint
    pnpm run test:unit
@@ -276,11 +290,13 @@ pnpm run build
    ```
 
 4. **Commit your changes**
+
    ```bash
    git commit -m "feat: add new feature"
    ```
 
 5. **Push and create PR**
+
    ```bash
    git push origin feature/your-feature-name
    ```

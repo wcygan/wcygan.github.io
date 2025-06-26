@@ -11,7 +11,7 @@ The browser utilities provide a shared browser instance that can be reused acros
 ### Core Files
 
 - `browserUtils.ts` - Main browser utility functions
-- `testUtils.ts` - Re-exports browser utilities for convenience  
+- `testUtils.ts` - Re-exports browser utilities for convenience
 - `global.d.ts` - TypeScript declarations for global browser instance
 - `globalServer.ts` - Optional global browser setup (currently disabled)
 
@@ -21,7 +21,7 @@ The browser utilities provide a shared browser instance that can be reused acros
 // Launch shared browser instance
 await launchBrowser(config?: BrowserConfig): Promise<Browser>
 
-// Close shared browser instance  
+// Close shared browser instance
 await closeBrowser(browser?: Browser): Promise<void>
 
 // Create new page from shared browser
@@ -49,33 +49,33 @@ import type { Page } from 'puppeteer';
 import { launchBrowser, closeBrowser, createPage, closePage, getTestBaseUrl } from './testUtils';
 
 describe('My Integration Tests', () => {
-  let page: Page;
-  const baseUrl = getTestBaseUrl();
+	let page: Page;
+	const baseUrl = getTestBaseUrl();
 
-  beforeAll(async () => {
-    // Launch shared browser instance for this test suite
-    await launchBrowser();
-  });
+	beforeAll(async () => {
+		// Launch shared browser instance for this test suite
+		await launchBrowser();
+	});
 
-  afterAll(async () => {
-    // Close shared browser instance
-    await closeBrowser();
-  });
+	afterAll(async () => {
+		// Close shared browser instance
+		await closeBrowser();
+	});
 
-  beforeEach(async () => {
-    // Create new page from shared browser
-    page = await createPage();
-  });
+	beforeEach(async () => {
+		// Create new page from shared browser
+		page = await createPage();
+	});
 
-  afterEach(async () => {
-    // Close page
-    await closePage(page);
-  });
+	afterEach(async () => {
+		// Close page
+		await closePage(page);
+	});
 
-  it('should work', async () => {
-    await page.goto(baseUrl);
-    // ... test logic
-  });
+	it('should work', async () => {
+		await page.goto(baseUrl);
+		// ... test logic
+	});
 });
 ```
 
@@ -85,13 +85,13 @@ For tests that need isolated pages:
 
 ```typescript
 it('should work with isolated page', async () => {
-  const page = await createPage();
-  try {
-    await page.goto(baseUrl);
-    // ... test logic
-  } finally {
-    await closePage(page);
-  }
+	const page = await createPage();
+	try {
+		await page.goto(baseUrl);
+		// ... test logic
+	} finally {
+		await closePage(page);
+	}
 });
 ```
 
@@ -103,13 +103,13 @@ For tests that need direct browser access:
 import { getBrowser } from './testUtils';
 
 it('should access browser directly', async () => {
-  const browser = getBrowser();
-  if (!browser) throw new Error('No browser available');
-  
-  const context = await browser.createIncognitoBrowserContext();
-  const page = await context.newPage();
-  // ... test logic
-  await context.close();
+	const browser = getBrowser();
+	if (!browser) throw new Error('No browser available');
+
+	const context = await browser.createIncognitoBrowserContext();
+	const page = await context.newPage();
+	// ... test logic
+	await context.close();
 });
 ```
 
@@ -120,7 +120,7 @@ The shared browser instance is available globally:
 ```typescript
 // TypeScript support
 declare global {
-  var __BROWSER__: Browser | undefined;
+	var __BROWSER__: Browser | undefined;
 }
 
 // Access in tests
@@ -133,8 +133,8 @@ const browser = global.__BROWSER__;
 
 ```typescript
 export const defaultBrowserConfig = {
-  headless: true,
-  args: ['--no-sandbox', '--disable-setuid-sandbox']
+	headless: true,
+	args: ['--no-sandbox', '--disable-setuid-sandbox']
 };
 ```
 
@@ -142,8 +142,8 @@ export const defaultBrowserConfig = {
 
 ```typescript
 export const defaultViewport = {
-  width: 1280,
-  height: 720
+	width: 1280,
+	height: 720
 };
 ```
 
@@ -152,15 +152,15 @@ export const defaultViewport = {
 ```typescript
 // Custom browser config
 await launchBrowser({
-  headless: false,
-  args: ['--no-sandbox'],
-  devtools: true
+	headless: false,
+	args: ['--no-sandbox'],
+	devtools: true
 });
 
 // Custom viewport
-const page = await createPage({ 
-  width: 375, 
-  height: 667 
+const page = await createPage({
+	width: 375,
+	height: 667
 });
 ```
 
@@ -173,28 +173,28 @@ import puppeteer from 'puppeteer';
 import type { Browser, Page } from 'puppeteer';
 
 describe('Old Pattern', () => {
-  let browser: Browser;
-  let page: Page;
+	let browser: Browser;
+	let page: Page;
 
-  beforeAll(async () => {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-  });
+	beforeAll(async () => {
+		browser = await puppeteer.launch({
+			headless: true,
+			args: ['--no-sandbox', '--disable-setuid-sandbox']
+		});
+	});
 
-  afterAll(async () => {
-    await browser?.close();
-  });
+	afterAll(async () => {
+		await browser?.close();
+	});
 
-  beforeEach(async () => {
-    page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 720 });
-  });
+	beforeEach(async () => {
+		page = await browser.newPage();
+		await page.setViewport({ width: 1280, height: 720 });
+	});
 
-  afterEach(async () => {
-    await page?.close();
-  });
+	afterEach(async () => {
+		await page?.close();
+	});
 });
 ```
 
@@ -205,23 +205,23 @@ import type { Page } from 'puppeteer';
 import { launchBrowser, closeBrowser, createPage, closePage } from './testUtils';
 
 describe('New Pattern', () => {
-  let page: Page;
+	let page: Page;
 
-  beforeAll(async () => {
-    await launchBrowser();
-  });
+	beforeAll(async () => {
+		await launchBrowser();
+	});
 
-  afterAll(async () => {
-    await closeBrowser();
-  });
+	afterAll(async () => {
+		await closeBrowser();
+	});
 
-  beforeEach(async () => {
-    page = await createPage();
-  });
+	beforeEach(async () => {
+		page = await createPage();
+	});
 
-  afterEach(async () => {
-    await closePage(page);
-  });
+	afterEach(async () => {
+		await closePage(page);
+	});
 });
 ```
 
@@ -254,6 +254,7 @@ The utilities include comprehensive error handling:
 ## Examples
 
 See the updated test files for complete examples:
+
 - `example-global-server.test.ts` - Basic usage pattern
 - `mermaid-diagrams.test.ts` - Complex test suite with multiple describe blocks
 - `mermaid-complete.test.ts` - Comprehensive testing with beforeEach/afterEach
@@ -263,7 +264,7 @@ See the updated test files for complete examples:
 Potential future improvements:
 
 1. **Global Browser Pool** - Share browser across all test files
-2. **Browser Recycling** - Reuse browser instances between test runs  
+2. **Browser Recycling** - Reuse browser instances between test runs
 3. **Parallel Testing** - Multiple browser instances for parallel execution
 4. **Configuration Profiles** - Predefined configs for different test types
 5. **Performance Monitoring** - Track browser launch/page creation times
