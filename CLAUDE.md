@@ -125,6 +125,13 @@ diagrams, and more.
 - See `/docs/MERMAID_USAGE.md` for comprehensive guide
 - Visit `/mermaid-examples` for live examples
 
+**Styling Guidelines:**
+
+- Follow the style guide in `/docs/MERMAID_STYLE_GUIDE.md`
+- Quick implementation reference in `/docs/MERMAID_IMPLEMENTATION.md`
+- Dark theme with zinc/emerald color palette
+- Consistent 2px borders and Inter font family
+
 **Automated Mermaid Formatting Fix**
 
 The project includes an automated solution to prevent MDsveX parsing issues with Mermaid diagrams:
@@ -198,6 +205,35 @@ pnpm run pre-commit
    - **MDsveX paragraph wrapping**: Use the formatting pattern above
    - **Slot content not working**: Ensure proper `onMount` handling in components
    - **Direct URL access fails**: Verify module aliases and SSR configuration
+
+#### Mermaid Diagram Styling
+
+The application uses a consistent dark theme for all Mermaid diagrams:
+
+**Color Palette:**
+- Background: `zinc-900` (#18181b)
+- Node fills: `zinc-700` (#3f3f46)
+- Node borders: `emerald-400` (#34d399)
+- Text: `zinc-100` (#e4e4e7)
+- Edges/Lines: `zinc-500` (#71717a)
+
+**Height Recommendations:**
+- Simple flowcharts: 300-400px
+- Sequence diagrams: 500-600px
+- Complex diagrams: 500-800px
+- Git graphs: 250-300px
+
+**Quick Reference:**
+```svelte
+<MermaidDiagram
+  height={400}
+  diagram={`flowchart TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[End]`}
+/>
+```
+
+See `/docs/MERMAID_STYLE_GUIDE.md` for complete styling specifications and `/docs/MERMAID_IMPLEMENTATION.md` for implementation patterns.
 
 #### Modifying Routes
 
