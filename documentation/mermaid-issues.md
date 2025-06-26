@@ -200,9 +200,81 @@ The solution also includes several performance enhancements:
 - **Dynamic imports** to reduce initial bundle size
 - **Error boundaries** with detailed debugging information
 
+## Critical SSR/Hydration Issue (Resolved)
+
+### The Hidden Problem
+
+After implementing the MDsveX formatting fixes above, a more critical issue was discovered: **Complete SSR/hydration failure when accessing blog posts directly via URL** (vs. client-side navigation).
+
+**Symptoms**:
+- ❌ Navbar component failed to render
+- ❌ All Mermaid diagrams stuck on "Loading diagram..." 
+- ❌ Console error: `TypeError: Failed to resolve module specifier 'mermaid'`
+- ✅ Everything worked perfectly when navigating from home page
+
+### Root Cause: Vite Module Resolution
+
+The actual root cause was a **misconfigured Vite alias** that prevented the Mermaid module from loading during hydration:
+
+```typescript
+// vite.config.ts - BROKEN
+resolve: {
+  alias: {
+    mermaid: 'mermaid/dist/mermaid.esm.mjs'  // This file doesn't exist!
+  }
+}
+```
+
+The alias pointed to `mermaid.esm.mjs` but the actual file was `mermaid.esm.min.mjs`.
+
+### The Permanent Fix
+
+**Simple one-line change in `vite.config.ts`**:
+
+```typescript
+// vite.config.ts - FIXED
+resolve: {
+  alias: {
+    mermaid: 'mermaid/dist/mermaid.esm.min.mjs'  // Correct file path
+  }
+}
+```
+
+### Why This Fixes Everything
+
+1. **Module Resolution**: Vite can now properly resolve the Mermaid import during SSR/hydration
+2. **JavaScript Execution**: Client-side JavaScript executes correctly, allowing components to mount
+3. **Cascading Fix**: Once JavaScript works, both navbar and Mermaid components render properly
+
+### Verification Results
+
+**Direct URL Access** (`http://localhost:5173/blog/mermaid-diagrams`):
+- ✅ Navbar renders correctly
+- ✅ All 5 Mermaid diagrams render
+- ✅ No console errors
+- ✅ Proper hydration of all components
+
+**Client-Side Navigation**:
+- ✅ Still works perfectly (was never broken)
+
+**Production Build**:
+- ✅ Builds successfully
+- ✅ All chunks generated properly
+
+### Key Lessons
+
+1. **SSR/Hydration failures can cascade**: One module resolution error can break all client-side JavaScript
+2. **Check infrastructure first**: Before modifying components, verify module resolution and build configuration
+3. **Different access patterns reveal different issues**: Always test both direct URL access AND client-side navigation
+4. **Simple fixes are often best**: A one-line config change solved what appeared to be complex component issues
+
 ## References
 
 - [James Joy's Mermaid + Svelte Article](https://jamesjoy.site/posts/2023-06-26-svelte-mermaidjs)
-- Git commits: `c9aa8af` (broken), `bb13005` (working pattern restored)
+- Git commits: 
+  - `c9aa8af` (broken - MDsveX parsing issues)
+  - `bb13005` (working MDsveX pattern)
+  - `bd8ecc7` (attempted SSR fix with browser detection)
+  - `4a5f6da` (final fix - Vite module resolution)
 - MDsveX documentation on component usage in Markdown
-- Working commit: Current implementation (January 2025)
+- Vite configuration documentation for module aliases
