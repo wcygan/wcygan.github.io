@@ -11,29 +11,47 @@ This guide documents reusable styling patterns for creating engaging and readabl
 
 ## Component Patterns
 
-### 1. Key Concept Box (Emerald Accent)
+### 1. Info Boxes (Key Concept & Key Insight)
 
-Use for highlighting primary concepts or important takeaways. This is for the most important information that readers should remember.
+#### Using the InfoBox Component (Recommended)
 
 ```html
+<script>
+  import InfoBox from '$lib/components/InfoBox.svelte';
+</script>
+
+<!-- Key Concept (Emerald) - for primary takeaways -->
+<InfoBox type="concept" title="Key Concept">
+  {#snippet children()}
+    <p>Your important concept or insight goes here.</p>
+  {/snippet}
+</InfoBox>
+
+<!-- Key Insight (Zinc) - for secondary information -->
+<InfoBox type="insight" title="Key Insight">
+  {#snippet children()}
+    <p>Your technical insight or note goes here.</p>
+  {/snippet}
+</InfoBox>
+```
+
+#### Manual HTML (Legacy)
+
+```html
+<!-- Key Concept Box (Emerald Accent) -->
 <div class="rounded-lg bg-emerald-900/20 border border-emerald-400/30 p-4 my-6">
   <h4 class="text-emerald-400 font-semibold mb-2">✨ Key Concept</h4>
   <p class="text-zinc-100">Your important concept or insight goes here.</p>
 </div>
-```
 
-### 2. Key Insight Box (Zinc Accent)
-
-Use for secondary insights, technical notes, or supporting information. This provides additional context without competing with primary concepts.
-
-```html
+<!-- Key Insight Box (Zinc Accent) -->
 <div class="rounded-lg bg-zinc-700/50 border border-zinc-600 p-4 my-6">
   <h4 class="text-zinc-100 font-semibold mb-2">💡 Key Insight</h4>
   <p class="text-zinc-300">Your technical insight or note goes here.</p>
 </div>
 ```
 
-### 3. Collapsible Code Sections
+### 2. Collapsible Code Sections
 
 Use for lengthy code examples that would otherwise dominate the visual space.
 
@@ -49,7 +67,7 @@ const example = "This is hidden by default";
 </details>
 ```
 
-### 4. Feature Grid (2-4 columns)
+### 3. Feature Grid (2-4 columns)
 
 Use for listing features, benefits, or related items.
 

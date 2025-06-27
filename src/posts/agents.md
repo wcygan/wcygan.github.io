@@ -7,6 +7,7 @@ tags: [AI, Agents, LLMs]
 
 <script>
   import MermaidDiagram from '$lib/components/MermaidDiagram.svelte';
+  import InfoBox from '$lib/components/InfoBox.svelte';
 </script>
 
 ## Quick Start
@@ -29,10 +30,11 @@ gemini
 
 ## What is an "Agent"?
 
-<div class="rounded-lg bg-emerald-900/20 border border-emerald-400/30 p-4 my-6">
-  <h4 class="text-emerald-400 font-semibold mb-2">✨ Key Concept</h4>
-  <p class="text-zinc-100">AI agents are systems that can <strong>think</strong>, <strong>act</strong>, and <strong>learn</strong> from results. Unlike chatbots that only generate text, agents interact with the world through tools and APIs to complete real tasks.</p>
-</div>
+<InfoBox type="concept" title="Key Concept">
+  {#snippet children()}
+    <p>AI agents are systems that can <strong>think</strong>, <strong>act</strong>, and <strong>learn</strong> from results. Unlike chatbots that only generate text, agents interact with the world through tools and APIs to complete real tasks.</p>
+  {/snippet}
+</InfoBox>
 
 The core pattern is the **Thought-Action-Observation (TAO) loop**:
 
@@ -58,10 +60,11 @@ The core pattern is the **Thought-Action-Observation (TAO) loop**:
 
 ## Agents are Just Programs
 
-<div class="rounded-lg bg-zinc-700/50 border border-zinc-600 p-4 my-6">
-  <h4 class="text-zinc-100 font-semibold mb-2">💡 Key Insight</h4>
-  <p class="text-zinc-300"><strong>Agents don't contain AI models!</strong> The Gemini CLI is simply a TypeScript program that makes API calls to Google's external LLM servers. It's no different from a weather app calling a weather API—the intelligence lives in the cloud, not in your terminal.</p>
-</div>
+<InfoBox type="insight" title="Key Insight">
+  {#snippet children()}
+    <p><strong>Agents don't contain AI models!</strong> The Gemini CLI is simply a TypeScript program that makes API calls to Google's external LLM servers. It's no different from a weather app calling a weather API—the intelligence lives in the cloud, not in your terminal.</p>
+  {/snippet}
+</InfoBox>
 
 <details>
 <summary><strong>📋 See the API Calls</strong></summary>
