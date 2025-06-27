@@ -103,7 +103,7 @@ When you ask "How many files are in the src directory?", the agent doesn't guess
     U->>C: "How many files in src?"
     Note over C: Parse & prepare request
     
-    C->>A: POST {tools: [list_dir]}
+    C->>A: POST {query: "How many files in src?", tools: [list_dir]}
     Note over A: LLM thinks:<br/>"I need to list files"
     
     A-->>C: {tool: "list_dir", path: "src/"}
@@ -130,11 +130,11 @@ The Gemini CLI implements agents through three core components that orchestrate 
     <p class="text-zinc-300 text-sm">Extracts tool calls from API responses and initiates the TAO loop</p>
   </div>
   <div class="rounded-lg bg-zinc-700/50 border border-zinc-600 p-4">
-    <h4 class="text-emerald-400 font-semibold mb-2">⚙️ CoreToolScheduler</h4>
+    <h4 class="text-emerald-400 font-semibold mb-2">⚙️ Tool Scheduler</h4>
     <p class="text-zinc-300 text-sm">Manages tool state progression and executes tools safely with user approval</p>
   </div>
   <div class="rounded-lg bg-zinc-700/50 border border-zinc-600 p-4">
-    <h4 class="text-emerald-400 font-semibold mb-2">🔧 ToolRegistry</h4>
+    <h4 class="text-emerald-400 font-semibold mb-2">🔧 Tool Registry</h4>
     <p class="text-zinc-300 text-sm">Stores and provides access to available tools (file reading, shell commands, etc.)</p>
   </div>
 </div>
