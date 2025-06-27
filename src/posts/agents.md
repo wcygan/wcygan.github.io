@@ -30,7 +30,7 @@ gemini
 
 ## What is an "Agent"?
 
-<InfoBox type="concept" title="Key Concept">
+<InfoBox title="Insight">
   {#snippet children()}
     <p>AI agents are systems that can <strong>think</strong>, <strong>act</strong>, and <strong>learn</strong> from results. Unlike chatbots that only generate text, agents interact with the world through tools and APIs to complete real tasks.</p>
   {/snippet}
@@ -60,41 +60,16 @@ The core pattern is the **Thought-Action-Observation (TAO) loop**:
 
 ## Agents are Just Programs
 
-<InfoBox type="insight" title="Key Insight">
+<InfoBox title="Insight">
   {#snippet children()}
-    <p><strong>Agents don't contain AI models!</strong> The Gemini CLI is simply a TypeScript program that makes API calls to Google's external LLM servers. It's no different from a weather app calling a weather API—the intelligence lives in the cloud, not in your terminal.</p>
+    <p><strong>Agents don't contain AI models!</strong> The Gemini CLI is simply a TypeScript program that makes API calls to Google's external LLM servers. It's no different from a weather app calling a weather API—the intelligence lives in the "cloud", not in your terminal.</p>
   {/snippet}
 </InfoBox>
 
-<details>
-<summary><strong>📋 See the API Calls</strong></summary>
-
-```typescript
-// Making the API call
-const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelToTest}:generateContent?key=${apiKey}`;
-const response = await fetch(endpoint, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    contents: [{ parts: [{ text: 'test' }] }],
-    generationConfig: { maxOutputTokens: 1, temperature: 0 }
-  })
-});
-
-// Using Google's SDK
-const googleGenAI = new GoogleGenAI({
-  apiKey: config.apiKey,
-  vertexai: config.vertexai,
-  httpOptions,
-});
-```
-
-</details>
-
-The entire "agent" is just orchestration code that:
+The entire "agent" is just orchestration code that looks like this:
 
 <MermaidDiagram
-	height={400}
+	height={200}
 	diagram={`graph LR
     A[💻 Terminal] --> B[📦 Gemini CLI]
     B --> C[🔒 HTTPS]
@@ -103,12 +78,12 @@ The entire "agent" is just orchestration code that:
     E --> B
     B --> F[🔧 Tools]
     F --> B
-    style A fill:#52525b,stroke:#71717a
+    style A fill:#3f3f46,stroke:#34d399,stroke-width:3px
     style B fill:#3f3f46,stroke:#34d399,stroke-width:3px
-    style C fill:#52525b,stroke:#71717a
+    style C fill:#3f3f46,stroke:#34d399,stroke-width:3px
     style D fill:#3f3f46,stroke:#34d399,stroke-width:3px
-    style E fill:#52525b,stroke:#71717a
-    style F fill:#3f3f46,stroke:#34d399`}
+    style E fill:#3f3f46,stroke:#34d399,stroke-width:3px
+    style F fill:#3f3f46,stroke:#34d399,stroke-width:3px`}
 />
 
 ---
