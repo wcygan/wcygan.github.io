@@ -5,6 +5,7 @@ Quick reference for implementing consistent Mermaid diagrams across the applicat
 ## Quick Start
 
 ### 1. Import Component
+
 ```svelte
 <script>
   import MermaidDiagram from '$lib/components/MermaidDiagram.svelte';
@@ -12,6 +13,7 @@ Quick reference for implementing consistent Mermaid diagrams across the applicat
 ```
 
 ### 2. Basic Usage
+
 ```svelte
 <MermaidDiagram
   height={400}
@@ -25,6 +27,7 @@ Quick reference for implementing consistent Mermaid diagrams across the applicat
 ## Diagram Templates
 
 ### Flow Chart
+
 ```javascript
 diagram={`flowchart TD
     subgraph "System"
@@ -35,6 +38,7 @@ diagram={`flowchart TD
 ```
 
 ### Sequence Diagram
+
 ```javascript
 diagram={`sequenceDiagram
     participant User
@@ -44,6 +48,7 @@ diagram={`sequenceDiagram
 ```
 
 ### State Diagram
+
 ```javascript
 diagram={`stateDiagram-v2
     [*] --> Active
@@ -53,6 +58,7 @@ diagram={`stateDiagram-v2
 ```
 
 ### Git Graph
+
 ```javascript
 diagram={`gitGraph
     commit
@@ -65,6 +71,7 @@ diagram={`gitGraph
 ```
 
 ### Entity Relationship
+
 ```javascript
 diagram={`erDiagram
     USER ||--o{ POST : creates
@@ -74,28 +81,31 @@ diagram={`erDiagram
 
 ## Height Guidelines
 
-| Diagram Type | Recommended Height | Use Case |
-|-------------|-------------------|----------|
-| Simple Flow | 300px | 3-5 nodes |
-| Complex Flow | 400-500px | 6-10 nodes with branches |
-| Sequence | 500-600px | 4-6 participants |
-| State | 350-400px | 4-6 states |
-| ER Diagram | 300-400px | 3-5 entities |
-| Git Graph | 250-300px | Simple branch/merge |
+| Diagram Type | Recommended Height | Use Case                 |
+| ------------ | ------------------ | ------------------------ |
+| Simple Flow  | 300px              | 3-5 nodes                |
+| Complex Flow | 400-500px          | 6-10 nodes with branches |
+| Sequence     | 500-600px          | 4-6 participants         |
+| State        | 350-400px          | 4-6 states               |
+| ER Diagram   | 300-400px          | 3-5 entities             |
+| Git Graph    | 250-300px          | Simple branch/merge      |
 
 ## Style Consistency Checklist
 
 - [ ] Using dark theme (`theme: 'dark'` in config)
 - [ ] Container has `bg-zinc-900` background
 - [ ] Text is readable (`zinc-100` color)
-- [ ] Nodes use `zinc-700` fill with `emerald-400` borders
+- [ ] Nodes use `zinc-700` fill with `emerald-400` borders (NEVER emerald fill)
 - [ ] Edges use `zinc-500` color
+- [ ] Emphasis uses `stroke-width:3px` not fill color
+- [ ] External nodes use `zinc-600` fill for differentiation
 - [ ] Minimum height set appropriately
 - [ ] Responsive overflow handling enabled
 
 ## Common Patterns
 
 ### Clickable Nodes
+
 ```javascript
 diagram={`flowchart TD
     A[Start] --> B[Process]
@@ -105,13 +115,18 @@ diagram={`flowchart TD
 ```
 
 ### Styled Nodes
+
 ```javascript
 diagram={`flowchart TD
-    A[Normal] --> B[Important]:::highlight
-    classDef highlight fill:#34d399,stroke:#10b981,color:#000`}
+    A[Normal] --> B[Important]
+    C[External System]
+    style A fill:#3f3f46,stroke:#34d399
+    style B fill:#3f3f46,stroke:#34d399,stroke-width:3px
+    style C fill:#52525b,stroke:#71717a`}
 ```
 
 ### Complex Labels
+
 ```javascript
 diagram={`flowchart TD
     A["Multi-line<br/>Label"] --> B["Label with<br/>Details"]`}
@@ -127,6 +142,7 @@ diagram={`flowchart TD
 ## Debugging
 
 ### Check Console
+
 ```javascript
 // Component logs status updates
 [MermaidDiagram] Loading Mermaid module...
@@ -137,16 +153,19 @@ diagram={`flowchart TD
 ### Common Issues
 
 **Diagram Not Rendering**
+
 - Check for syntax errors in diagram definition
 - Ensure no empty lines within the diagram string
 - Verify Mermaid module loads correctly
 
 **Styling Not Applied**
+
 - CSS overrides need `!important` flag
 - Check specificity of selectors
 - Verify theme is set to 'dark'
 
 **Text Not Visible**
+
 - Ensure text fill color is set
 - Check contrast against background
 - Verify font family is loaded
@@ -154,6 +173,7 @@ diagram={`flowchart TD
 ## Accessibility
 
 Always include descriptive context:
+
 ```svelte
 <!-- Good -->
 <p>The following diagram shows the user authentication flow:</p>

@@ -211,19 +211,23 @@ pnpm run pre-commit
 The application uses a consistent dark theme for all Mermaid diagrams:
 
 **Color Palette:**
+
 - Background: `zinc-900` (#18181b)
-- Node fills: `zinc-700` (#3f3f46)
+- Node fills: `zinc-700` (#3f3f46) - NEVER use emerald fill alone
 - Node borders: `emerald-400` (#34d399)
 - Text: `zinc-100` (#e4e4e7)
 - Edges/Lines: `zinc-500` (#71717a)
+- Emphasis: Use `stroke-width:3px` instead of fill color
 
 **Height Recommendations:**
+
 - Simple flowcharts: 300-400px
 - Sequence diagrams: 500-600px
 - Complex diagrams: 500-800px
 - Git graphs: 250-300px
 
 **Quick Reference:**
+
 ```svelte
 <MermaidDiagram
   height={400}
@@ -234,6 +238,58 @@ The application uses a consistent dark theme for all Mermaid diagrams:
 ```
 
 See `/docs/MERMAID_STYLE_GUIDE.md` for complete styling specifications and `/docs/MERMAID_IMPLEMENTATION.md` for implementation patterns.
+
+#### Blog Post Styling Patterns
+
+The project includes reusable styling components for creating engaging blog posts with consistent visual design:
+
+**Available Patterns:**
+
+- **Info Boxes**: Two types for content hierarchy
+  - **Key Concept** (Emerald): Primary takeaways and most important information
+  - **Key Insight** (Zinc): Secondary information and technical notes
+- **Collapsible Sections**: Progressive disclosure using `<details>` tags
+- **Feature Grids**: Icon-based grids for listing features or concepts
+- **Component Cards**: Descriptive cards for explaining multiple related items
+- **Example Boxes**: Structured conversation/process flows
+- **Visual Separators**: Using `---` for clear section breaks
+
+**Quick Examples:**
+
+```html
+<!-- Key Concept Box -->
+<div class="rounded-lg bg-emerald-900/20 border border-emerald-400/30 p-4 my-6">
+  <h4 class="text-emerald-400 font-semibold mb-2">✨ Key Concept</h4>
+  <p class="text-zinc-100">Important insight or concept here.</p>
+</div>
+
+<!-- Collapsible Code -->
+<details>
+<summary><strong>📋 View Code</strong></summary>
+
+```typescript
+// Hidden by default
+const code = "example";
+```
+
+</details>
+
+<!-- Feature Icons -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+  <div class="text-center">
+    <div class="text-2xl mb-1">🚀</div>
+    <div class="text-sm text-zinc-300">Fast</div>
+  </div>
+</div>
+```
+
+**MDsveX Considerations:**
+
+- Escape curly braces in HTML: `&#123;` and `&#125;`
+- Avoid empty lines in component props
+- Use semantic HTML for better accessibility
+
+See `/docs/BLOG_POST_STYLING.md` for complete patterns, templates, and best practices.
 
 #### Modifying Routes
 

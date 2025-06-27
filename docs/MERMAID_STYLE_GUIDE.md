@@ -13,6 +13,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ## Color Palette
 
 ### Base Colors
+
 - **Background**: `zinc-900` (#18181b) - Container background
 - **Surface**: `zinc-700` (#3f3f46) - Node fills
 - **Border**: `zinc-600` (#52525b) - Subtle borders
@@ -20,6 +21,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 - **Muted Text**: `zinc-400` (#a1a1aa) - Secondary text
 
 ### Accent Colors
+
 - **Primary**: `emerald-400` (#34d399) - Node borders, emphasis
 - **Primary Dark**: `emerald-500` (#10b981) - Hover states
 - **Secondary**: `zinc-500` (#71717a) - Edges, lines
@@ -27,6 +29,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ## Component-Specific Styles
 
 ### Container Styling
+
 ```css
 .mermaid-container {
   margin: 1.5rem 0;
@@ -39,11 +42,12 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ```
 
 ### Flow Charts
+
 ```css
 /* Nodes */
-- Fill: zinc-700
+- Fill: zinc-700 (NEVER use emerald as fill)
 - Stroke: emerald-400
-- Stroke Width: 2px
+- Stroke Width: 2px (3px for emphasis)
 - Text: zinc-100
 
 /* Edges */
@@ -55,9 +59,14 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 - Fill: zinc-800
 - Stroke: zinc-600
 - Label: zinc-400
+
+/* Emphasis */
+- Use stroke-width: 3px instead of changing fill color
+- External/system nodes can use fill: zinc-600
 ```
 
 ### Sequence Diagrams
+
 ```css
 /* Actors */
 - Fill: zinc-700
@@ -75,6 +84,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ```
 
 ### State Diagrams
+
 ```css
 /* States */
 - Fill: zinc-700
@@ -87,6 +97,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ```
 
 ### Git Graphs
+
 ```css
 /* Commits */
 - Fill: emerald-400
@@ -99,6 +110,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ```
 
 ### Entity Relationship Diagrams
+
 ```css
 /* Entities */
 - Fill: zinc-700
@@ -111,6 +123,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ```
 
 ### Pie Charts
+
 ```css
 /* Segments */
 - Use emerald/zinc gradient
@@ -121,6 +134,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ## Implementation Guidelines
 
 ### 1. Component Usage
+
 ```svelte
 <MermaidDiagram
   height={400}
@@ -132,24 +146,28 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ```
 
 ### 2. Height Recommendations
+
 - Simple flow charts: 300-400px
 - Sequence diagrams: 400-600px
 - Complex diagrams: 500-800px
 - Allow content to determine final height
 
 ### 3. Diagram Content Guidelines
+
 - Keep node labels concise (2-4 words)
 - Use meaningful IDs for clickable elements
 - Include descriptive edge labels where helpful
 - Limit subgraph nesting to 2 levels
 
 ### 4. Accessibility
+
 - All diagrams must have `role="img"`
 - Include descriptive `aria-label`
 - Provide text alternatives for complex diagrams
 - Ensure color contrast meets WCAG AA standards
 
 ### 5. Performance
+
 - Leverage caching via `mermaid-cache` utility
 - Use viewport-based loading for below-fold diagrams
 - Keep diagram complexity reasonable
@@ -158,6 +176,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ## CSS Override Patterns
 
 ### Global Overrides (app.css)
+
 ```css
 /* Override Mermaid's inline styles */
 .mermaid-render-container .node rect {
@@ -173,6 +192,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ```
 
 ### Component-Level Styling
+
 ```css
 /* Container responsive behavior */
 .mermaid-container {
@@ -191,6 +211,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 ## Diagram Type Examples
 
 ### 1. Architecture Diagram
+
 ```mermaid
 graph TD
     subgraph "Frontend"
@@ -204,6 +225,7 @@ graph TD
 ```
 
 ### 2. Process Flow
+
 ```mermaid
 flowchart LR
     A[Input] --> B{Valid?}
@@ -214,6 +236,7 @@ flowchart LR
 ```
 
 ### 3. Sequence Interaction
+
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -228,6 +251,7 @@ sequenceDiagram
 ## Mermaid Configuration
 
 ### Initialize Settings
+
 ```javascript
 mermaid.initialize({
   startOnLoad: false,
@@ -243,7 +267,9 @@ mermaid.initialize({
 ```
 
 ### Theme Variables
+
 Ensure these are set in the Mermaid initialization:
+
 - `darkMode: true`
 - `background: transparent`
 - `primaryColor: #34d399`
@@ -254,13 +280,16 @@ Ensure these are set in the Mermaid initialization:
 ## Troubleshooting
 
 ### Common Issues
+
 1. **Text not visible**: Check fill color overrides
 2. **Overflow on mobile**: Ensure container has `overflow-x-auto`
 3. **Blurry rendering**: SVG might need explicit dimensions
 4. **Style conflicts**: Use `!important` in global overrides
 
 ### Debug Mode
+
 Enable debug logging in component:
+
 ```javascript
 logLevel: 'debug' // in mermaid.initialize
 console.log('[MermaidDiagram]', status); // Component status
