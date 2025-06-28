@@ -2,42 +2,29 @@ import type { Experience } from '$lib/types.js';
 
 export const experiences: Experience[] = [
 	{
+		id: 'linkedin-sr-swe',
+		company: 'LinkedIn',
+		title: 'Senior Software Engineer',
+		period: 'March 2024 – Present',
+		summary: 'Architected alerting system processing 50,000+ QPS using Kafka/Samza/Venice.',
+		location: 'Chicago, IL',
+		technologies: ['Kafka', 'Samza', 'Venice', 'Oracle', 'MySQL', 'gRPC', 'Rest.li', 'JVM', 'Airflow'],
+		achievements: [
+			'Built global alerts system processing 50,000+ QPS',
+			'Created MySQL migration framework adopted by 12 teams'
+		]
+	},
+	{
 		id: 'linkedin-swe',
 		company: 'LinkedIn',
 		title: 'Software Engineer',
-		period: '2022 – Present',
-		summary: 'Building scalable e-commerce infrastructure powering millions of daily transactions.',
+		period: 'Feb 2022 – March 2024',
+		summary: 'Scaled LinkedIn Learning\'s VYMBII recommendation service to 3,000 QPS.',
 		location: 'San Francisco, CA',
-		technologies: ['Go', 'Rust', 'Kubernetes', 'PostgreSQL', 'Redis'],
+		technologies: ['Spark', 'TikTok', 'ML Pipelines', 'Learning Recommendation Engine'],
 		achievements: [
-			'Reduced API latency by 40% through query optimization',
-			'Led migration of legacy services to microservices architecture'
-		]
-	},
-	{
-		id: 'previous-company',
-		company: 'Tech Startup',
-		title: 'Backend Developer',
-		period: '2020 – 2022',
-		summary: 'Developed distributed systems handling high-throughput data processing workloads.',
-		location: 'Remote',
-		technologies: ['Java', 'Spring Boot', 'Apache Kafka', 'MongoDB'],
-		achievements: [
-			'Architected event-driven processing pipeline handling 1M+ events/day',
-			'Improved system reliability from 99.5% to 99.9% uptime'
-		]
-	},
-	{
-		id: 'internship',
-		company: 'Fortune 500 Corp',
-		title: 'Software Engineering Intern',
-		period: '2019 – 2020',
-		summary: 'Built internal tools and automation scripts to improve developer productivity.',
-		location: 'Chicago, IL',
-		technologies: ['Python', 'Docker', 'Jenkins', 'AWS'],
-		achievements: [
-			'Created CI/CD pipeline reducing deployment time by 60%',
-			'Automated manual processes saving 20 hours/week of developer time'
+			'Built Spark pipelines processing 50+TB weekly',
+			'Scaled VYMBII recommendation service to 3,000 QPS'
 		]
 	}
 ];
