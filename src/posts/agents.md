@@ -255,7 +255,6 @@ databases, GitHub APIs, or development environments through MCP protocol.
       <li>They can actually DO things, not just talk</li>
       <li>They use real-time reasoning and feedback loops</li>
       <li>They're just programs that coordinate AI with tools</li>
-      <li>Anyone can build one with the right architecture</li>
     </ul>
   </div>
   <div class="rounded-lg bg-emerald-900/20 border border-emerald-400/30 p-4">
@@ -278,3 +277,7 @@ databases, GitHub APIs, or development environments through MCP protocol.
 </InfoBox>
 
 The patterns from Gemini CLI—streaming responses, safety controls, extensible tools, and transparent reasoning—are the blueprint for the next generation of AI interfaces. We're moving from "AI that talks" to "AI that works."
+
+---
+
+_This post was written with assistance from [Gemini CLI](https://github.com/google-gemini/gemini-cli) and [Claude Code](https://github.com/anthropics/claude-code) (mainly Claude) for research tasks on the Gemini CLI Codebase and helping with blog writing + styling_
