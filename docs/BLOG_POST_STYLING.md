@@ -55,14 +55,14 @@ This guide documents reusable styling patterns for creating engaging and readabl
 
 Use for lengthy code examples that would otherwise dominate the visual space.
 
-```html
+````html
 <details>
 <summary><strong>📋 See the Implementation</strong></summary>
 
 ```typescript
 // Your code here
 const example = "This is hidden by default";
-```
+````
 
 </details>
 ```
@@ -167,11 +167,13 @@ Use for comparing features, pros/cons, or different approaches.
 ## Color Palette Reference
 
 ### Primary Colors
+
 - **Emerald-400**: `#34d399` - Primary accent, emphasis
 - **Emerald-900/20**: Translucent background for primary boxes
 - **Emerald-400/30**: Translucent border for primary boxes
 
 ### Neutral Colors
+
 - **Zinc-100**: `#e4e4e7` - Primary text on dark backgrounds
 - **Zinc-300**: `#a1a1aa` - Secondary text
 - **Zinc-400**: `#71717a` - Muted text
@@ -225,6 +227,7 @@ Keep diagram content compact to prevent MDsveX from injecting `</p>` tags:
 ## Quick Copy Templates
 
 ### Standard Info Box
+
 ```html
 <div class="rounded-lg bg-emerald-900/20 border border-emerald-400/30 p-4 my-6">
   <h4 class="text-emerald-400 font-semibold mb-2">✨ Title</h4>
@@ -233,6 +236,7 @@ Keep diagram content compact to prevent MDsveX from injecting `</p>` tags:
 ```
 
 ### Collapsible Section
+
 ```html
 <details>
 <summary><strong>🔍 Click to Expand</strong></summary>
@@ -243,6 +247,7 @@ Your hidden content here
 ```
 
 ### Feature Icons
+
 ```html
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
   <div class="text-center">

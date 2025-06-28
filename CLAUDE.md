@@ -256,7 +256,7 @@ The project includes reusable styling components for creating engaging blog post
 
 **Quick Examples:**
 
-```html
+````html
 <!-- Key Concept Box -->
 <div class="rounded-lg bg-emerald-900/20 border border-emerald-400/30 p-4 my-6">
   <h4 class="text-emerald-400 font-semibold mb-2">✨ Key Concept</h4>
@@ -270,11 +270,12 @@ The project includes reusable styling components for creating engaging blog post
 ```typescript
 // Hidden by default
 const code = "example";
-```
+````
 
 </details>
 
 <!-- Feature Icons -->
+
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
   <div class="text-center">
     <div class="text-2xl mb-1">🚀</div>
@@ -294,12 +295,13 @@ const code = "example";
 - **NEVER mix HTML `<li>` with manual bullet points (`•`)** - HTML handles bullets automatically
 - **Use HTML `<strong>` instead of Markdown `**bold**` inside HTML contexts** - Markdown doesn't process inside HTML tags
 - **Examples:**
+
   ```html
   <!-- ✅ CORRECT: HTML list with HTML bold -->
   <ul>
     <li><strong>Key Point</strong>: Description here</li>
   </ul>
-  
+
   <!-- ❌ WRONG: Double bullets and broken bold -->
   <ul>
     <li>• **Key Point**: Description here</li>
@@ -307,6 +309,7 @@ const code = "example";
   ```
 
 See `/docs/BLOG_POST_STYLING.md` for complete patterns, templates, and best practices.
+
 #### Modifying Routes
 
 - Page routes in `/src/routes/[route]/+page.svelte`

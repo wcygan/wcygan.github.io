@@ -155,7 +155,6 @@ Google built Gemini CLI around a **streaming-first design** that processes event
         D -->|thinking| E[🤔 Show Thoughts]
         D -->|text| F[💬 Show Content]
         D -->|tool_request| G[⚡ Schedule Tools]
-        
         G --> H[<a href="https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/core/coreToolScheduler.ts#L224">Tool Scheduler</a>]
         H --> I{Safe to Run?}
         I -->|Yes| J[✅ Execute]
@@ -165,7 +164,6 @@ Google built Gemini CLI around a **streaming-first design** that processes event
         J --> M[📊 Get Results]
         M --> N[🔄 Feed Back to AI]
         N --> B
-        
         E --> O[Terminal Display]
         F --> O
         G --> O
@@ -225,21 +223,17 @@ databases, GitHub APIs, or development environments through MCP protocol.
         C[⚡ Shell Commands]
         D[🧠 Memory/Notes]
     end
-    
     subgraph "Extensions"
         E[🔌 MCP Servers]
         G[🛠️ Project Tools]
     end
-    
     A --> H[<a href="https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/tools/tool-registry.ts#L124">Tool Registry</a>]
     B --> H
     C --> H
     D --> H
     E --> H
     G --> H
-    
     H --> I[AI can use any tool]
-    
     style H fill:#3f3f46,stroke:#34d399,stroke-width:3px
     style I fill:#3f3f46,stroke:#34d399,stroke-width:2px`}
 />
