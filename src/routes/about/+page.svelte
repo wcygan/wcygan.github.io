@@ -4,7 +4,7 @@
 </script>
 
 <div class="mx-auto max-w-2xl">
-	<h1 class="mb-6 text-4xl font-bold">About Me</h1>
+	<h1 class="mb-6 text-4xl font-bold">About</h1>
 	<div class="prose prose-emerald prose-invert max-w-none">
 		<div class="mb-8">
 			<img
@@ -14,18 +14,9 @@
 			/>
 		</div>
 
-		<p class="mb-6 text-lg">
-			I'm a Software Engineer at LinkedIn working on the LinkedIn Business Platform (E-Commerce)
-			team, with a passion for distributed systems, web applications, and system design.
+		<p class="mb-6 text-lg text-center">
+		Software Engineer from Chicago, Illinois
 		</p>
-
-		<h2>Technical Interests</h2>
-		<ul>
-			<li>Distributed Systems Architecture</li>
-			<li>System Design & Performance</li>
-			<li>E-Commerce Platforms</li>
-			<li>Modern Web Development</li>
-		</ul>
 
 		<h2>Experience</h2>
 		<section id="experience" aria-labelledby="exp-heading" class="not-prose mb-8">
