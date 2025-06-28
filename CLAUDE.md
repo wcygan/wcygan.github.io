@@ -15,13 +15,17 @@ pnpm run preview      # Preview production build locally
 ### Code Quality & Testing
 
 ```bash
-pnpm run format       # Format code with Prettier
+pnpm run format       # Format code with Prettier (includes Mermaid formatting fix)
+pnpm run format:check # Check formatting without writing changes
 pnpm run lint         # Run ESLint checks
 pnpm run check        # Type check with svelte-check
 pnpm run test         # Run Vitest unit tests
 
-# Run all checks before committing
-pnpm run format && pnpm run lint && pnpm run check && pnpm run test
+# Automated Mermaid formatting fix (prevents MDsveX parsing issues)
+deno task fix-mermaid # Fix Mermaid diagram formatting automatically
+
+# Complete pre-commit workflow
+pnpm run pre-commit   # Fix Mermaid + format + lint + typecheck
 ```
 
 ### Building & Deployment
@@ -53,6 +57,7 @@ pnpm ci:test:quick    # Quick CI workflow test
 - **Tailwind CSS** for styling with Typography plugin
 - **TypeScript** with strict mode enabled
 - **Vitest** for testing (minimal coverage currently)
+- **Dual Package Management**: `deno.json` for Deno scripts + `package.json` for pnpm workflow
 
 ### Key Architectural Decisions
 
@@ -120,15 +125,41 @@ diagrams, and more.
 - See `/docs/MERMAID_USAGE.md` for comprehensive guide
 - Visit `/mermaid-examples` for live examples
 
-**Important: Avoiding MDsveX Parsing Issues**
+**Styling Guidelines:**
 
-When using Mermaid components in MDsveX files, follow these formatting rules to
-prevent parsing errors:
+- Follow the style guide in `/docs/MERMAID_STYLE_GUIDE.md`
+- Quick implementation reference in `/docs/MERMAID_IMPLEMENTATION.md`
+- Dark theme with zinc/emerald color palette
+- Consistent 2px borders and Inter font family
+
+**Automated Mermaid Formatting Fix**
+
+The project includes an automated solution to prevent MDsveX parsing issues with Mermaid diagrams:
+
+```bash
+# Automatically fix Mermaid formatting issues
+deno task fix-mermaid
+
+# Integrated into formatting workflow
+pnpm run format  # Now includes automatic Mermaid fix
+
+# Complete pre-commit check (recommended)
+pnpm run pre-commit
+```
+
+**How It Works:**
+
+- Scans all `.md` files in `src/posts/`
+- Removes empty lines within Mermaid diagram definitions that cause MDsveX to inject `</p>` tags
+- Integrates seamlessly with existing pnpm workflow
+- Prevents build failures from Mermaid parsing errors
+
+**Manual Formatting Rules (if needed):**
 
 1. **Component Formatting Pattern:**
 
    ```svelte
-   <!-- ✅ CORRECT: Props on separate lines -->
+   <!-- ✅ CORRECT: No empty lines in diagram content -->
    <MermaidDiagram
    	height={500}
    	diagram={`sequenceDiagram
@@ -138,10 +169,11 @@ prevent parsing errors:
        Server->>User: Response`}
    />
 
-   <!-- ❌ WRONG: Can cause MDsveX to inject </p> tags -->
+   <!-- ❌ WRONG: Empty lines cause MDsveX to inject </p> tags -->
    <MermaidDiagram
    	height={500}
    	diagram={`sequenceDiagram
+
    participant User
    participant Server
    User->>Server: Request
@@ -173,6 +205,110 @@ prevent parsing errors:
    - **MDsveX paragraph wrapping**: Use the formatting pattern above
    - **Slot content not working**: Ensure proper `onMount` handling in components
    - **Direct URL access fails**: Verify module aliases and SSR configuration
+
+#### Mermaid Diagram Styling
+
+The application uses a consistent dark theme for all Mermaid diagrams:
+
+**Color Palette:**
+
+- Background: `zinc-900` (#18181b)
+- Node fills: `zinc-700` (#3f3f46) - NEVER use emerald fill alone
+- Node borders: `emerald-400` (#34d399)
+- Text: `zinc-100` (#e4e4e7)
+- Edges/Lines: `zinc-500` (#71717a)
+- Emphasis: Use `stroke-width:3px` instead of fill color
+
+**Height Recommendations:**
+
+- Simple flowcharts: 300-400px
+- Sequence diagrams: 500-600px
+- Complex diagrams: 500-800px
+- Git graphs: 250-300px
+
+**Quick Reference:**
+
+```svelte
+<MermaidDiagram
+  height={400}
+  diagram={`flowchart TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[End]`}
+/>
+```
+
+See `/docs/MERMAID_STYLE_GUIDE.md` for complete styling specifications and `/docs/MERMAID_IMPLEMENTATION.md` for implementation patterns.
+
+#### Blog Post Styling Patterns
+
+The project includes reusable styling components for creating engaging blog posts with consistent visual design:
+
+**Available Patterns:**
+
+- **Info Boxes**: Two types for content hierarchy
+  - **Key Concept** (Emerald): Primary takeaways and most important information
+  - **Key Insight** (Zinc): Secondary information and technical notes
+- **Collapsible Sections**: Progressive disclosure using `<details>` tags
+- **Feature Grids**: Icon-based grids for listing features or concepts
+- **Component Cards**: Descriptive cards for explaining multiple related items
+- **Example Boxes**: Structured conversation/process flows
+- **Visual Separators**: Using `---` for clear section breaks
+
+**Quick Examples:**
+
+````html
+<!-- Key Concept Box -->
+<div class="rounded-lg bg-emerald-900/20 border border-emerald-400/30 p-4 my-6">
+  <h4 class="text-emerald-400 font-semibold mb-2">✨ Key Concept</h4>
+  <p class="text-zinc-100">Important insight or concept here.</p>
+</div>
+
+<!-- Collapsible Code -->
+<details>
+<summary><strong>📋 View Code</strong></summary>
+
+```typescript
+// Hidden by default
+const code = "example";
+````
+
+</details>
+
+<!-- Feature Icons -->
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+  <div class="text-center">
+    <div class="text-2xl mb-1">🚀</div>
+    <div class="text-sm text-zinc-300">Fast</div>
+  </div>
+</div>
+```
+
+**MDsveX Considerations:**
+
+- Escape curly braces in HTML: `&#123;` and `&#125;`
+- Avoid empty lines in component props
+- Use semantic HTML for better accessibility
+
+**HTML/Markdown Mixing Rules:**
+
+- **NEVER mix HTML `<li>` with manual bullet points (`•`)** - HTML handles bullets automatically
+- **Use HTML `<strong>` instead of Markdown `**bold**` inside HTML contexts** - Markdown doesn't process inside HTML tags
+- **Examples:**
+
+  ```html
+  <!-- ✅ CORRECT: HTML list with HTML bold -->
+  <ul>
+    <li><strong>Key Point</strong>: Description here</li>
+  </ul>
+
+  <!-- ❌ WRONG: Double bullets and broken bold -->
+  <ul>
+    <li>• **Key Point**: Description here</li>
+  </ul>
+  ```
+
+See `/docs/BLOG_POST_STYLING.md` for complete patterns, templates, and best practices.
 
 #### Modifying Routes
 
@@ -269,3 +405,29 @@ await mcp__puppeteer__puppeteer_evaluate({
 - `vite.config.ts` - Build configuration
 - `tailwind.config.ts` - Tailwind customization
 - `mdsvex.config.js` - Markdown processing and syntax highlighting
+- `deno.json` - Deno task definitions and JSR imports
+- `package.json` - pnpm scripts and dependencies
+
+### Dual Package Management
+
+This project uses both `deno.json` and `package.json` for different purposes:
+
+**`deno.json`:**
+
+- Contains Deno-specific tasks (e.g., `fix-mermaid`)
+- JSR imports for standard library modules
+- Automation scripts that require file system access
+
+**`package.json`:**
+
+- Primary package manager is pnpm
+- Contains SvelteKit, Vitest, and frontend tooling
+- Integrates Deno tasks into pnpm workflow
+- Main development and CI/CD scripts
+
+**Task Resolution:**
+
+- Deno can execute tasks from both files
+- `pnpm run format` calls `deno task fix-mermaid` automatically
+- Cross-calling between package managers works seamlessly
+- Use `pnpm run <script>` for primary workflow commands

@@ -11,6 +11,7 @@
     "jsr:@std/fmt@1": "1.0.8",
     "jsr:@std/fs@*": "1.0.17",
     "jsr:@std/fs@1": "1.0.17",
+    "jsr:@std/fs@^1.0.17": "1.0.17",
     "jsr:@std/io@0.221": "0.221.0",
     "jsr:@std/path@*": "1.0.9",
     "jsr:@std/path@1": "1.0.9",
@@ -79,6 +80,11 @@
     }
   },
   "workspace": {
+    "dependencies": [
+      "jsr:@std/cli@^1.0.9",
+      "jsr:@std/fs@^1.0.17",
+      "jsr:@std/path@^1.0.9"
+    ],
     "packageJson": {
       "dependencies": [
         "npm:@eslint/compat@^1.2.4",

@@ -2,63 +2,108 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-html {
-	scroll-behavior: smooth;
+/* Design System - CSS Custom Properties */
+@layer base {
+	:root {
+		/* Colors */
+		--color-primary: theme('colors.emerald.400');
+		--color-primary-hover: theme('colors.emerald.300');
+		--color-bg-base: theme('colors.zinc.800');
+		--color-bg-surface: theme('colors.zinc.700');
+		--color-bg-surface-dark: theme('colors.zinc.900');
+		--color-text-base: theme('colors.zinc.100');
+		--color-text-muted: theme('colors.zinc.400');
+		--color-border: theme('colors.zinc.600');
+
+		/* Spacing */
+		--spacing-section: theme('spacing.6');
+
+		/* Transitions */
+		--transition-default: 200ms;
+
+		/* Borders */
+		--radius-default: theme('borderRadius.lg');
+	}
+
+	/* Base elements */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		@apply bg-zinc-800 text-zinc-100;
+	}
+
+	h1 {
+		@apply mb-4 mt-0 text-3xl font-bold text-emerald-400 md:text-4xl;
+	}
+
+	h2 {
+		@apply mb-3 text-xl font-bold text-emerald-400 md:mb-4 md:text-2xl;
+	}
+
+	a {
+		@apply text-emerald-400 transition-colors duration-200 hover:text-emerald-300;
+	}
+
+	/* Focus styles for accessibility */
+	:focus-visible {
+		@apply outline-2 outline-offset-2 outline-emerald-400;
+	}
 }
 
-body {
-	@apply bg-zinc-800 text-zinc-100;
+/* Component Classes */
+@layer components {
+	/* Layout components */
+	.section {
+		@apply mx-auto max-w-2xl px-4 md:max-w-3xl md:px-8;
+	}
+
+	/* Card component */
+	.card-base {
+		@apply rounded-lg bg-zinc-700 p-4 transition-all duration-200 md:p-6;
+		will-change: transform;
+	}
+
+	.card-hover {
+		@apply hover:-translate-y-1 hover:shadow-lg;
+	}
+
+	/* Legacy class support */
+	.post-card {
+		@apply card-base card-hover;
+	}
+
+	/* Form inputs */
+	.input-base {
+		@apply w-full rounded-lg border border-zinc-600 bg-zinc-700 px-4 py-2 text-zinc-100 transition-colors focus:border-emerald-400 focus:outline-none;
+	}
+
+	/* Buttons */
+	.btn-primary {
+		@apply rounded-md bg-emerald-500 px-4 py-2 font-medium text-white transition-colors hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-zinc-800;
+	}
+
+	.btn-secondary {
+		@apply rounded-md border border-zinc-600 bg-zinc-700 px-4 py-2 font-medium text-zinc-100 transition-colors hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-800;
+	}
 }
 
-h1 {
-	@apply mb-4 mt-0 text-3xl font-bold text-emerald-400 md:text-4xl;
+/* Utilities */
+@layer utilities {
+	/* Dynamic height utility */
+	.min-h-dynamic {
+		min-height: var(--dynamic-height, 300px);
+	}
 }
 
-h2 {
-	@apply mb-3 text-xl font-bold text-emerald-400 md:mb-4 md:text-2xl;
-}
-
-a {
-	@apply text-emerald-400 transition-colors duration-200 hover:text-emerald-300;
-}
-
-.section {
-	@apply mx-auto max-w-2xl px-4 md:max-w-3xl md:px-8; /* Added horizontal padding */
-}
-
-/* Add styles for blog post cards */
-.post-card {
-	@apply rounded-lg bg-zinc-700 p-4 transition-all duration-200 md:p-6;
-}
-
-.post-card:hover {
-	@apply -translate-y-1 transform shadow-lg;
-}
-
-/* Shiki styles */
-.shiki {
-	@apply my-4 rounded-lg p-4;
-	overflow-x: auto;
-}
-
-.shiki .line {
-	@apply leading-relaxed;
-}
-
-:not(pre) > code {
-	@apply rounded bg-zinc-700 px-1.5 py-0.5 text-sm;
-}
-
-/* Add this section to style markdown content */
+/* Markdown & MDsveX Content Styles */
 :global(.markdown) h1,
 :global(.markdown) h2,
 :global(.markdown) h3,
 :global(.markdown) h4,
 :global(.markdown) h5,
-:global(.markdown) h6 {
-	@apply text-emerald-400;
-}
-
+:global(.markdown) h6,
 :global(.mdsvex-content) h1,
 :global(.mdsvex-content) h2,
 :global(.mdsvex-content) h3,
@@ -68,8 +113,18 @@ a {
 	@apply text-emerald-400;
 }
 
+/* Code Block Styles */
+:not(pre) > code {
+	@apply rounded bg-zinc-700 px-1.5 py-0.5 text-sm;
+}
+
 pre {
-	@apply my-3 rounded-lg bg-zinc-700 p-3 md:my-4 md:p-4;
+	@apply my-3 rounded-lg bg-zinc-700 md:my-4;
+	position: relative;
+}
+
+pre > code {
+	@apply block py-3 pl-1 pr-3 md:py-4 md:pl-1 md:pr-4;
 	overflow-x: auto;
 }
 
@@ -79,67 +134,39 @@ code {
 	counter-increment: step 0;
 }
 
-/* Table styles */
-.mdsvex-content table {
-	@apply my-6 block min-w-full border-collapse overflow-x-auto !important;
-	border-spacing: 0 !important;
+/* Shiki specific styles */
+.shiki {
+	@apply my-4 rounded-lg;
+	position: relative;
 }
 
-.mdsvex-content td,
-th {
-	@apply border border-zinc-400 px-4 py-1.5 md:px-6 md:py-2 !important;
-	text-align: left;
+.shiki > code {
+	@apply block py-4 pl-1 pr-4;
+	overflow-x: auto;
 }
 
-.mdsvex-content th {
-	@apply bg-zinc-700 font-semibold text-emerald-400 !important;
+.shiki .line {
+	@apply leading-relaxed;
 }
 
-.mdsvex-content tr:hover {
-	@apply bg-zinc-700/50 transition-colors duration-200 !important;
-}
-
-.mdsvex-content tbody tr:nth-child(even) {
-	@apply bg-zinc-800/50 !important;
-}
-
-table {
-	@apply my-4 block min-w-full border-collapse overflow-x-auto;
-}
-
-th,
-td {
-	@apply whitespace-nowrap border border-zinc-400 px-3 py-2 md:px-6 md:py-3;
-}
-
-th {
-	@apply bg-zinc-700 font-bold;
-}
-
-tr {
-	@apply transition-colors duration-200 hover:bg-zinc-700;
-}
-
+/* Line numbers */
 code .line::before {
 	content: counter(step);
 	counter-increment: step;
-	width: 1.5rem;
+	width: 1rem;
 	margin-right: 1rem;
 	display: inline-block;
 	text-align: right;
 	color: rgba(115, 138, 148, 0.3);
 }
 
-/* Hide the empty last line number if present */
 code .line:last-child:empty::before {
 	content: none;
 	counter-increment: none;
 }
 
-pre:has(code) {
-	position: relative;
-}
-
+/* Copy button styles */
+.shiki button.copy,
 pre button.copy {
 	position: absolute;
 	right: 16px;
@@ -148,8 +175,12 @@ pre button.copy {
 	width: 25px;
 	padding: 0;
 	display: flex;
+	z-index: 10;
+	background: transparent;
+	border: none;
+	cursor: pointer;
 
-	& span {
+	span {
 		width: 100%;
 		aspect-ratio: 1 / 1;
 		background-repeat: no-repeat;
@@ -158,37 +189,85 @@ pre button.copy {
 		filter: invert(100%);
 	}
 
-	& .ready {
+	.ready {
 		background-image: url(/icons/copy.svg);
 	}
 
-	& .success {
+	.success {
 		display: none;
 		background-image: url(/icons/copy-success.svg);
 	}
 
 	&.copied {
-		& .success {
+		.success {
 			display: block;
 		}
 
-		& .ready {
+		.ready {
 			display: none;
 		}
 	}
 }
 
+/* Table Styles - Consolidated */
+table,
+.mdsvex-content table {
+	@apply my-6 block min-w-full border-collapse overflow-x-auto;
+	border-spacing: 0;
+}
+
+th,
+td,
+.mdsvex-content th,
+.mdsvex-content td {
+	@apply border border-zinc-400 px-4 py-2 md:px-6 md:py-3;
+	text-align: left;
+}
+
+th,
+.mdsvex-content th {
+	@apply bg-zinc-700 font-semibold text-emerald-400;
+}
+
+td {
+	@apply whitespace-nowrap;
+}
+
+tr,
+.mdsvex-content tr {
+	@apply transition-colors duration-200;
+}
+
+tr:hover,
+.mdsvex-content tr:hover {
+	@apply bg-zinc-700/50;
+}
+
+tbody tr:nth-child(even),
+.mdsvex-content tbody tr:nth-child(even) {
+	@apply bg-zinc-800/50;
+}
+
+/* Mermaid Diagram Styles - Consistent Dark Theme */
 /* Mermaid diagram styles */
 .mermaid-container {
 	@apply my-6;
 }
 
-/* Override Mermaid default styles for better dark theme integration */
-.mermaid {
+/* Base text styling */
+.mermaid,
+.mermaid-render-container {
 	@apply text-zinc-100;
 	font-family: 'Inter', system-ui, sans-serif !important;
 }
 
+.mermaid text,
+.mermaid-render-container text {
+	fill: rgb(228, 228, 231) !important; /* zinc-100 */
+	font-family: inherit !important;
+}
+
+/* Node styling - Override inline styles */
 .mermaid .nodeLabel {
 	@apply text-zinc-100;
 }
@@ -205,14 +284,104 @@ pre button.copy {
 .mermaid .node circle,
 .mermaid .node ellipse,
 .mermaid .node polygon,
-.mermaid .node path {
-	@apply fill-zinc-700 stroke-emerald-400;
+.mermaid .node path,
+.mermaid-render-container .node rect,
+.mermaid-render-container .node circle,
+.mermaid-render-container .node ellipse,
+.mermaid-render-container .node polygon,
+.mermaid-render-container .node path {
+	fill: rgb(63, 63, 70) !important; /* zinc-700 */
+	stroke: rgb(52, 211, 153) !important; /* emerald-400 */
+	stroke-width: 2px !important;
 }
 
-.mermaid .flowchart-link {
-	@apply stroke-zinc-500;
+/* Labels */
+.mermaid .nodeLabel,
+.mermaid .label,
+.mermaid-render-container .nodeLabel,
+.mermaid-render-container .label {
+	color: rgb(228, 228, 231) !important; /* zinc-100 */
+	fill: rgb(228, 228, 231) !important;
 }
 
-.mermaid .marker {
-	@apply fill-zinc-500;
+.mermaid .edgeLabel,
+.mermaid-render-container .edgeLabel {
+	background-color: rgb(24, 24, 27) !important; /* zinc-900 */
+	fill: rgb(228, 228, 231) !important;
+}
+
+/* Edges and paths */
+.mermaid .edgePath .path,
+.mermaid .flowchart-link,
+.mermaid-render-container .edgePath .path,
+.mermaid-render-container .flowchart-link {
+	stroke: rgb(113, 113, 122) !important; /* zinc-500 */
+	stroke-width: 2px !important;
+	fill: none !important;
+}
+
+/* Clusters/Subgraphs */
+.mermaid .cluster rect,
+.mermaid-render-container .cluster rect {
+	fill: rgb(39, 39, 42) !important; /* zinc-800 */
+	stroke: rgb(82, 82, 91) !important; /* zinc-600 */
+	stroke-width: 1px !important;
+}
+
+.mermaid .cluster text,
+.mermaid-render-container .cluster text {
+	fill: rgb(161, 161, 170) !important; /* zinc-400 */
+}
+
+/* Markers (arrowheads) */
+.mermaid .marker,
+.mermaid-render-container .marker {
+	fill: rgb(113, 113, 122) !important; /* zinc-500 */
+}
+
+/* Sequence diagram specific */
+.mermaid .actor,
+.mermaid-render-container .actor {
+	fill: rgb(63, 63, 70) !important; /* zinc-700 */
+	stroke: rgb(52, 211, 153) !important; /* emerald-400 */
+}
+
+.mermaid .actor-line,
+.mermaid-render-container .actor-line {
+	stroke: rgb(82, 82, 91) !important; /* zinc-600 */
+}
+
+.mermaid .messageLine0,
+.mermaid .messageLine1,
+.mermaid-render-container .messageLine0,
+.mermaid-render-container .messageLine1 {
+	stroke: rgb(113, 113, 122) !important; /* zinc-500 */
+}
+
+.mermaid .messageText,
+.mermaid-render-container .messageText {
+	fill: rgb(228, 228, 231) !important; /* zinc-100 */
+}
+
+/* State diagram specific */
+.mermaid .statediagram-state rect,
+.mermaid-render-container .statediagram-state rect {
+	fill: rgb(63, 63, 70) !important; /* zinc-700 */
+	stroke: rgb(52, 211, 153) !important; /* emerald-400 */
+}
+
+/* Git graph specific */
+.mermaid .commit,
+.mermaid-render-container .commit {
+	fill: rgb(52, 211, 153) !important; /* emerald-400 */
+	stroke: rgb(16, 185, 129) !important; /* emerald-500 */
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+	:root {
+		--color-primary: theme('colors.emerald.300');
+		--color-bg-surface: theme('colors.zinc.900');
+		--color-border: theme('colors.zinc.400');
+	}
 }
