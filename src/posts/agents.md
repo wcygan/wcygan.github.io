@@ -208,12 +208,11 @@ When you ask "Find all TypeScript files and analyze their imports", here's what 
 ## Extensible Tools
 
 The [Tool Registry](https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/tools/tool-registry.ts#L124)
-automatically discovers and loads tools from multiple sources—built-in capabilities, project configurations, MCP servers, and
-custom plugins. This means the AI's abilities expand dynamically based on your project's needs, whether that's company APIs,
-specialized dev tools, or domain-specific utilities, all without modifying the core system.
+automatically discovers and loads tools from multiple sources—built-in capabilities, project-specific discovery commands, and
+MCP servers. This means the AI's abilities expand dynamically based on your project's needs, whether that's connecting to
+databases, GitHub APIs, or development environments through MCP protocol.
 
 - Built-in tools for files, web, commands
-- Plugin system for custom tools
 - MCP (Model Context Protocol) server support
 - Project-specific tool discovery
 
@@ -229,7 +228,6 @@ specialized dev tools, or domain-specific utilities, all without modifying the c
     
     subgraph "Extensions"
         E[🔌 MCP Servers]
-        F[📦 Custom Plugins]
         G[🛠️ Project Tools]
     end
     
@@ -238,7 +236,6 @@ specialized dev tools, or domain-specific utilities, all without modifying the c
     C --> H
     D --> H
     E --> H
-    F --> H
     G --> H
     
     H --> I[AI can use any tool]
