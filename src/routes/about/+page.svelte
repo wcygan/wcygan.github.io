@@ -1,3 +1,8 @@
+<script lang="ts">
+	import ExperienceCard from '$lib/components/ExperienceCard.svelte';
+	import { experiences } from '$lib/data/experiences.js';
+</script>
+
 <div class="mx-auto max-w-2xl">
 	<h1 class="mb-6 text-4xl font-bold">About Me</h1>
 	<div class="prose prose-emerald prose-invert max-w-none">
@@ -23,11 +28,13 @@
 		</ul>
 
 		<h2>Experience</h2>
-		<div class="mb-6 rounded-lg bg-zinc-700 p-6">
-			<h3 class="mb-2 text-xl font-bold">Software Engineer - LinkedIn</h3>
-			<p class="mb-2 text-zinc-400">LinkedIn Business Platform (E-Commerce)</p>
-			<p>Working on scalable e-commerce solutions and business platform infrastructure.</p>
-		</div>
+		<section id="experience" aria-labelledby="exp-heading" class="not-prose mb-8">
+			<ul class="grid gap-6 md:grid-cols-1">
+				{#each experiences as experience (experience.id)}
+					<ExperienceCard {experience} />
+				{/each}
+			</ul>
+		</section>
 
 		<h2>Connect</h2>
 		<p>

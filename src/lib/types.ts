@@ -27,3 +27,14 @@ export interface BlogPost {
 	content: string;
 	readingTime: number;
 }
+
+export interface Experience {
+	id: string;
+	company: string;
+	title: string;
+	period: string;
+	summary: string;
+	location?: string;
+	technologies?: string[];
+	achievements?: string[];
+}
