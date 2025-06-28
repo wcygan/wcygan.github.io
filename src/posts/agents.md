@@ -255,19 +255,19 @@ specialized dev tools, or domain-specific utilities, all without modifying the c
   <div class="rounded-lg bg-emerald-900/20 border border-emerald-400/30 p-4">
     <h4 class="text-emerald-400 font-semibold mb-2">🎯 What Makes Agents Special</h4>
     <ul class="text-zinc-300 space-y-1 text-sm">
-      <li>• They can actually DO things, not just talk</li>
-      <li>• They use real-time reasoning and feedback loops</li>
-      <li>• They're just programs that coordinate AI with tools</li>
-      <li>• Anyone can build one with the right architecture</li>
+      <li>They can actually DO things, not just talk</li>
+      <li>They use real-time reasoning and feedback loops</li>
+      <li>They're just programs that coordinate AI with tools</li>
+      <li>Anyone can build one with the right architecture</li>
     </ul>
   </div>
   <div class="rounded-lg bg-emerald-900/20 border border-emerald-400/30 p-4">
     <h4 class="text-emerald-400 font-semibold mb-2">🚀 Why This Matters</h4>
     <ul class="text-zinc-300 space-y-1 text-sm">
-      <li>• Agents will become our main AI interface</li>
-      <li>• The patterns here work for any domain</li>
-      <li>• Safety and control are built-in from the start</li>
-      <li>• Real-time streaming makes everything feel natural</li>
+      <li>Agents will become our main AI interface</li>
+      <li>The patterns here work for any domain</li>
+      <li>Safety and control are built-in from the start</li>
+      <li>Real-time streaming makes everything feel natural</li>
     </ul>
   </div>
 </div>
