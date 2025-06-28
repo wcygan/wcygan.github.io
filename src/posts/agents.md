@@ -177,49 +177,9 @@ Google built Gemini CLI around a **streaming-first design** that processes event
     style J fill:#3f3f46,stroke:#34d399,stroke-width:2px`}
 />
 
-## The TAO Loop in Action
-
-Here's how Gemini actually implements each phase:
-
-### 🤔 THOUGHT: Hidden Reasoning
-- The AI thinks through problems step-by-step
-- These thoughts are shown to you but not saved to conversation history
-- Enables complex reasoning without using up context space
-- You see the AI's "internal monologue" in real-time
-
-### ⚡ ACTION: Smart Tool Execution  
-- AI requests specific tools (like `list_files`, `read_file`, `run_command`)
-- Tools run through a **state machine** with safety checks:
-  - **Validating** → checking if the request is safe
-  - **Awaiting Approval** → asking user permission if needed  
-  - **Executing** → actually running the tool
-  - **Success/Error** → reporting results
-- Multiple tools can run at the same time for efficiency
-
-### 👁️ OBSERVATION: Automatic Feedback
-- Tool results are automatically fed back to the AI
-- No need to manually copy-paste results
-- Creates a continuous loop of reasoning and action
-- AI can chain multiple actions together to solve complex problems
-
-<MermaidDiagram
-    height={400}
-    diagram={`stateDiagram-v2
-    [*] --> Validating: Tool requested
-    Validating --> AwaitingApproval: Dangerous operation
-    Validating --> Executing: Safe operation
-    AwaitingApproval --> Executing: User approves
-    AwaitingApproval --> Cancelled: User denies
-    Executing --> Success: Tool completes
-    Executing --> Error: Tool fails
-    Success --> [*]: Results sent to AI
-    Error --> [*]: Error sent to AI
-    Cancelled --> [*]: Cancellation sent to AI`}
-/>
-
 ## Safety and Control
 
-Gemini CLI has three safety modes:
+Gemini CLI has [three safety modes](https://github.com/google-gemini/gemini-cli/blob/221b0669000b8292795267cbf71a95ad39c5fb08/packages/core/src/config/config.ts#L44-L48):
 
 - **🛡️ DEFAULT**: Ask permission for dangerous operations (delete files, run commands)
 - **⚡ AUTO_EDIT**: Auto-approve file edits, but ask for everything else  
@@ -245,21 +205,13 @@ When you ask "Find all TypeScript files and analyze their imports", here's what 
   </div>
 </div>
 
-## Advanced Features
+## Extensible Tools
 
-### Real-time Streaming
-- See the AI thinking in real-time
-- Watch tools execute with live output  
-- Cancel long-running operations
-- Multiple tools run in parallel
+The [Tool Registry](https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/tools/tool-registry.ts#L124)
+automatically discovers and loads tools from multiple sources—built-in capabilities, project configurations, MCP servers, and
+custom plugins. This means the AI's abilities expand dynamically based on your project's needs, whether that's company APIs,
+specialized dev tools, or domain-specific utilities, all without modifying the core system.
 
-### Smart Context Management
-- Handles conversations up to 1 million tokens
-- Automatically compresses old conversation history
-- Thoughts don't clutter the conversation
-- Efficient memory usage
-
-### Extensible Tools
 - Built-in tools for files, web, commands
 - Plugin system for custom tools
 - MCP (Model Context Protocol) server support
