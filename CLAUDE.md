@@ -289,6 +289,23 @@ const code = "example";
 - Avoid empty lines in component props
 - Use semantic HTML for better accessibility
 
+**HTML/Markdown Mixing Rules:**
+
+- **NEVER mix HTML `<li>` with manual bullet points (`•`)** - HTML handles bullets automatically
+- **Use HTML `<strong>` instead of Markdown `**bold**` inside HTML contexts** - Markdown doesn't process inside HTML tags
+- **Examples:**
+  ```html
+  <!-- ✅ CORRECT: HTML list with HTML bold -->
+  <ul>
+    <li><strong>Key Point</strong>: Description here</li>
+  </ul>
+  
+  <!-- ❌ WRONG: Double bullets and broken bold -->
+  <ul>
+    <li>• **Key Point**: Description here</li>
+  </ul>
+  ```
+
 See `/docs/BLOG_POST_STYLING.md` for complete patterns, templates, and best practices.
 
 #### Modifying Routes
