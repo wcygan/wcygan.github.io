@@ -249,6 +249,7 @@ tbody tr:nth-child(even),
 }
 
 /* Mermaid Diagram Styles - Consistent Dark Theme */
+/* Mermaid diagram styles */
 .mermaid-container {
 	@apply my-6;
 }
@@ -267,6 +268,18 @@ tbody tr:nth-child(even),
 }
 
 /* Node styling - Override inline styles */
+.mermaid .nodeLabel {
+	@apply text-zinc-100;
+}
+
+.mermaid .edgeLabel {
+	@apply bg-zinc-900 text-zinc-100;
+}
+
+.mermaid .cluster rect {
+	@apply fill-zinc-800 stroke-zinc-600;
+}
+
 .mermaid .node rect,
 .mermaid .node circle,
 .mermaid .node ellipse,

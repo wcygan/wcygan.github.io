@@ -251,7 +251,6 @@
 	}
 
 	/* Styles moved to app.css for consistency */
-
 	/* Error styles */
 	details {
 		cursor: pointer;

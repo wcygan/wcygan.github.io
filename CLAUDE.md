@@ -307,7 +307,6 @@ const code = "example";
   ```
 
 See `/docs/BLOG_POST_STYLING.md` for complete patterns, templates, and best practices.
-
 #### Modifying Routes
 
 - Page routes in `/src/routes/[route]/+page.svelte`
