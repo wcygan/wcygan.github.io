@@ -7,7 +7,7 @@
 
 <a
 	href="/blog/{post.slug}"
-	class="post-card not-prose block rounded-lg border border-zinc-700 bg-zinc-800 p-6 text-zinc-100 no-underline transition-all duration-200 hover:border-emerald-400 hover:text-emerald-300"
+	class="not-prose block rounded-lg border border-zinc-700 bg-zinc-700 p-6 text-zinc-100 no-underline transition-all duration-200 hover:-translate-y-1 hover:border-emerald-400 hover:text-emerald-300 hover:shadow-lg"
 	aria-labelledby="post-{post.slug}-title"
 >
 	<article>

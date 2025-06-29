@@ -310,6 +310,111 @@ const code = "example";
 
 See `/docs/BLOG_POST_STYLING.md` for complete patterns, templates, and best practices.
 
+#### Component Styling Guidelines
+
+The project follows a consistent design system with established patterns for card components and UI elements:
+
+**Design System Foundations:**
+
+- **Color Palette**: Dark theme with zinc backgrounds and emerald accents
+- **Primary Background**: `bg-zinc-700` for all card components
+- **Border Colors**: `border-zinc-700` with `hover:border-emerald-400`
+- **Text Hierarchy**: `text-zinc-100` (primary), `text-zinc-300` (body), `text-zinc-400` (muted)
+- **Accent Color**: `text-emerald-400` for headings and highlights
+
+**Card Component Standards:**
+
+All card components should follow these consistent patterns:
+
+```svelte
+<!-- Standard card structure -->
+<li class="card-base card-hover border border-zinc-700 hover:border-emerald-400">
+  <header class="mb-3 flex items-baseline justify-between">
+    <span class="text-lg font-semibold tracking-wide text-zinc-100">
+      Primary Title
+    </span>
+    <time class="text-sm text-zinc-400">Time/Date</time>
+  </header>
+
+  <h3 class="mb-2 text-base font-medium text-emerald-400">
+    Secondary Title
+  </h3>
+
+  <p class="mb-4 text-sm leading-relaxed text-zinc-300">
+    Description content
+  </p>
+
+  <!-- Technology tags or metadata -->
+  <div class="flex flex-wrap gap-2">
+    <span class="rounded bg-emerald-600/20 px-2 py-1 text-sm text-emerald-300">
+      Tag
+    </span>
+  </div>
+</li>
+```
+
+**CSS Class System:**
+
+Use the established CSS classes from `app.css`:
+
+- `.card-base` - Provides `bg-zinc-700`, rounded corners, padding, transitions
+- `.card-hover` - Adds subtle lift effect (`hover:-translate-y-1 hover:shadow-lg`)
+- Avoid inline `bg-zinc-800` - always use `bg-zinc-700` for consistency
+
+**Component Data Patterns:**
+
+Structure data files following the established interface patterns:
+
+```typescript
+// Example interface structure
+export interface ComponentData {
+  id: string;           // Unique identifier
+  title: string;        // Primary display text
+  period?: string;      // Time period (ISO-like format)
+  summary: string;      // ≤ 25 words description
+  location?: string;    // Optional location
+  technologies?: string[]; // Technology tags
+  achievements?: string[]; // Key accomplishments
+}
+```
+
+**File Organization:**
+
+- Component files: `/src/lib/components/ComponentName.svelte`
+- Data files: `/src/lib/data/componentData.ts`
+- Type definitions: Add interfaces to `/src/lib/types.ts`
+
+**Accessibility Requirements:**
+
+- Use semantic HTML (`<header>`, `<time>`, proper heading hierarchy)
+- Include `role="listitem"` for list-based cards
+- Proper `datetime` attributes for time elements
+- Maintain focus management with existing CSS patterns
+
+**Responsive Design:**
+
+- Grid layouts: `grid gap-6 md:grid-cols-1 lg:grid-cols-2`
+- Mobile-first approach with `md:` and `lg:` breakpoints
+- Consistent spacing: `mb-3`, `mb-4`, `mb-6` for vertical rhythm
+
+**Technology Tag Styling:**
+
+Always use the established tag pattern for consistency:
+
+```svelte
+<span class="rounded bg-emerald-600/20 px-2 py-1 text-sm text-emerald-300">
+  {technology}
+</span>
+```
+
+**Common Anti-Patterns to Avoid:**
+
+- ❌ Using `bg-zinc-800` instead of `bg-zinc-700`
+- ❌ Mixing custom CSS with Tailwind classes unnecessarily
+- ❌ Inconsistent text color hierarchy
+- ❌ Different hover effects across components
+- ❌ Inline styles instead of established CSS classes
+
 #### Modifying Routes
 
 - Page routes in `/src/routes/[route]/+page.svelte`
