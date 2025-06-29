@@ -9,7 +9,6 @@
 	const navItems: NavItem[] = [
 		{ href: '/', label: 'Home' },
 		{ href: '/about', label: 'About' },
-		{ href: '/blog', label: 'Blog' },
 		{ href: '/will_cygan_resume.pdf', label: 'Resume', external: true },
 		{
 			href: 'https://github.com/wcygan',
