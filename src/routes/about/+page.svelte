@@ -14,13 +14,11 @@
 			/>
 		</div>
 
-		<p class="mb-6 text-lg text-center">
-		Software Engineer from Chicago, Illinois
-		</p>
+		<p class="mb-6 text-center text-lg">Software Engineer from Chicago, Illinois</p>
 
 		<h2>Experience</h2>
 		<section id="experience" aria-labelledby="exp-heading" class="not-prose mb-8">
-			<ul class="grid gap-6 md:grid-cols-1">
+			<ul class="grid gap-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2">
 				{#each experiences as experience (experience.id)}
 					<ExperienceCard {experience} />
 				{/each}

@@ -6,18 +6,30 @@ export const experiences: Experience[] = [
 		company: 'LinkedIn',
 		title: 'Senior Software Engineer',
 		period: 'March 2024 – Present',
-		summary: 'Building next-generation E-Commerce infrastructure to power LinkedIn\'s Business Platform',
+		summary:
+			"Building next-generation E-Commerce infrastructure to power LinkedIn's Business Platform",
 		location: 'Chicago, IL (Remote)',
-		technologies: ['gRPC', 'Temporal', 'Kafka', 'Beam', 'Flink', 'MySQL', 'Spark', 'Airflow', 'Venice']
+		technologies: [
+			'gRPC',
+			'Temporal',
+			'Kafka',
+			'Beam',
+			'Flink',
+			'MySQL',
+			'Spark',
+			'Airflow',
+			'Venice'
+		]
 	},
 	{
 		id: 'linkedin-swe',
 		company: 'LinkedIn',
 		title: 'Software Engineer',
 		period: 'Feb 2022 – March 2024',
-		summary: 'Growth hacking on high-visibility features (e.g., LinkedIn Feed) for LinkedIn Learning',
+		summary:
+			'Growth hacking on high-visibility features (e.g., LinkedIn Feed) for LinkedIn Learning',
 		location: 'San Francisco, CA',
-		technologies: ['Kafka', 'Rest.li', 'Spark', 'HDFS', 'JVM',]
+		technologies: ['Kafka', 'Rest.li', 'Spark', 'HDFS', 'JVM']
 	},
 	{
 		id: 'linkedin-swe-intern-2',
@@ -34,7 +46,8 @@ export const experiences: Experience[] = [
 		title: 'Software Engineer Intern',
 		period: 'May 2020 – August 2020',
 		location: 'Chicago, IL (Remote)',
-  		summary: 'Improved the Deployment Pipelines for Machine Learning Models that power Shopping Recommendations on Amazon.com',
+		summary:
+			'Improved the Deployment Pipelines for Machine Learning Models that power Shopping Recommendations on Amazon.com',
 		technologies: ['Java', 'Spring Boot']
 	},
 	{
@@ -52,7 +65,8 @@ export const experiences: Experience[] = [
 		title: 'Software Engineer Intern',
 		period: 'May 2019 – July 2019',
 		location: 'Bangalore, India',
-		summary: 'Experimental Computer Vision Projects (e.g., counting open spots in a parking garage)',
+		summary:
+			'Experimental Computer Vision Projects (e.g., counting open spots in a parking garage)',
 		technologies: ['Python', 'OpenCV']
 	}
 ];

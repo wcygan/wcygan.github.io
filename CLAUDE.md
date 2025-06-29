@@ -318,7 +318,7 @@ The project follows a consistent design system with established patterns for car
 
 - **Color Palette**: Dark theme with zinc backgrounds and emerald accents
 - **Primary Background**: `bg-zinc-700` for all card components
-- **Border Colors**: `border-zinc-700` with `hover:border-emerald-400` 
+- **Border Colors**: `border-zinc-700` with `hover:border-emerald-400`
 - **Text Hierarchy**: `text-zinc-100` (primary), `text-zinc-300` (body), `text-zinc-400` (muted)
 - **Accent Color**: `text-emerald-400` for headings and highlights
 
@@ -335,15 +335,15 @@ All card components should follow these consistent patterns:
     </span>
     <time class="text-sm text-zinc-400">Time/Date</time>
   </header>
-  
+
   <h3 class="mb-2 text-base font-medium text-emerald-400">
     Secondary Title
   </h3>
-  
+
   <p class="mb-4 text-sm leading-relaxed text-zinc-300">
     Description content
   </p>
-  
+
   <!-- Technology tags or metadata -->
   <div class="flex flex-wrap gap-2">
     <span class="rounded bg-emerald-600/20 px-2 py-1 text-sm text-emerald-300">
@@ -410,7 +410,7 @@ Always use the established tag pattern for consistency:
 **Common Anti-Patterns to Avoid:**
 
 - ❌ Using `bg-zinc-800` instead of `bg-zinc-700`
-- ❌ Mixing custom CSS with Tailwind classes unnecessarily  
+- ❌ Mixing custom CSS with Tailwind classes unnecessarily
 - ❌ Inconsistent text color hierarchy
 - ❌ Different hover effects across components
 - ❌ Inline styles instead of established CSS classes
