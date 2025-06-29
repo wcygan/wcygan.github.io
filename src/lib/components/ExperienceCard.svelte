@@ -10,50 +10,6 @@
 	// Detect current role (contains "Present" in period)
 	const isCurrent = $derived(experience.period.toLowerCase().includes('present'));
 
-	// Categorize technologies by type for better visual organization
-	function getTechCategory(
-		tech: string
-	): 'language' | 'framework' | 'database' | 'tool' | 'platform' {
-		const techLower = tech.toLowerCase();
-
-		// Languages
-		if (['java', 'python', 'javascript', 'typescript'].includes(techLower)) {
-			return 'language';
-		}
-
-		// Frameworks/Libraries
-		if (['spring boot', 'rest.li', 'ember.js', 'opencv'].includes(techLower)) {
-			return 'framework';
-		}
-
-		// Databases
-		if (['mysql', 'hdfs', 'venice'].includes(techLower)) {
-			return 'database';
-		}
-
-		// Big Data/Streaming Tools
-		if (['kafka', 'spark', 'beam', 'flink', 'airflow', 'temporal', 'grpc'].includes(techLower)) {
-			return 'tool';
-		}
-
-		// Default to platform/tool
-		return 'platform';
-	}
-
-	function getTechStyles(category: string): string {
-		switch (category) {
-			case 'language':
-				return 'bg-blue-600/20 text-blue-300 ring-1 ring-blue-500/30 hover:bg-blue-600/30';
-			case 'framework':
-				return 'bg-purple-600/20 text-purple-300 ring-1 ring-purple-500/30 hover:bg-purple-600/30';
-			case 'database':
-				return 'bg-orange-600/20 text-orange-300 ring-1 ring-orange-500/30 hover:bg-orange-600/30';
-			case 'tool':
-				return 'bg-green-600/20 text-green-300 ring-1 ring-green-500/30 hover:bg-green-600/30';
-			default:
-				return 'bg-emerald-600/20 text-emerald-300 ring-1 ring-emerald-500/30 hover:bg-emerald-600/30';
-		}
-	}
 </script>
 
 <li
@@ -106,12 +62,8 @@
 	{#if experience.technologies && experience.technologies.length > 0}
 		<div class="flex flex-wrap gap-2.5">
 			{#each experience.technologies as tech}
-				{@const category = getTechCategory(tech)}
 				<span
-					class="rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-sm {getTechStyles(
-						category
-					)}"
-					title="Category: {category}"
+					class="rounded-full bg-emerald-600/20 px-3 py-1.5 text-sm font-medium text-emerald-300 transition-all duration-200 hover:scale-105 hover:shadow-sm hover:bg-emerald-600/30"
 				>
 					{tech}
 				</span>

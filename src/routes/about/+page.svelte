@@ -18,7 +18,7 @@
 
 		<h2>Experience</h2>
 		<section id="experience" aria-labelledby="exp-heading" class="not-prose mb-8">
-			<ul class="grid gap-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2">
+			<ul class="grid gap-6 md:grid-cols-1">
 				{#each experiences as experience (experience.id)}
 					<ExperienceCard {experience} />
 				{/each}

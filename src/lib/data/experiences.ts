@@ -18,7 +18,13 @@ export const experiences: Experience[] = [
 			'MySQL',
 			'Spark',
 			'Airflow',
-			'Venice'
+			'Venice',
+			'Oracle',
+			'Kubernetes',
+			'Samza',
+			'Trino',
+			'HDFS',
+			'Kusto',
 		]
 	},
 	{
@@ -29,7 +35,7 @@ export const experiences: Experience[] = [
 		summary:
 			'Growth hacking on high-visibility features (e.g., LinkedIn Feed) for LinkedIn Learning',
 		location: 'San Francisco, CA',
-		technologies: ['Kafka', 'Rest.li', 'Spark', 'HDFS', 'JVM']
+		technologies: ['Java', 'Rest.li', 'Kafka', 'Spark', 'HDFS', 'JVM']
 	},
 	{
 		id: 'linkedin-swe-intern-2',
