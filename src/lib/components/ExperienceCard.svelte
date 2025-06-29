@@ -9,7 +9,6 @@
 
 	// Detect current role (contains "Present" in period)
 	const isCurrent = $derived(experience.period.toLowerCase().includes('present'));
-
 </script>
 
 <li
@@ -63,7 +62,7 @@
 		<div class="flex flex-wrap gap-2.5">
 			{#each experience.technologies as tech}
 				<span
-					class="rounded-full bg-emerald-600/20 px-3 py-1.5 text-sm font-medium text-emerald-300 transition-all duration-200 hover:scale-105 hover:shadow-sm hover:bg-emerald-600/30"
+					class="rounded-full bg-emerald-600/20 px-3 py-1.5 text-sm font-medium text-emerald-300 transition-all duration-200 hover:scale-105 hover:bg-emerald-600/30 hover:shadow-sm"
 				>
 					{tech}
 				</span>

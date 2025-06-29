@@ -24,7 +24,7 @@ export const experiences: Experience[] = [
 			'Samza',
 			'Trino',
 			'HDFS',
-			'Kusto',
+			'Kusto'
 		]
 	},
 	{
