@@ -8,8 +8,15 @@ code in this repository.
 ### Development
 
 ```bash
+# Initial setup for new installation
+pnpm install && pnpm build && vite dev --open
+
+# Start development server
 pnpm run dev          # Start development server on localhost:5173
 pnpm run preview      # Preview production build locally
+
+# Development with custom port (useful for git worktrees)
+vite dev --port 8989  # Use different port for testing multiple versions
 ```
 
 ### Code Quality & Testing
