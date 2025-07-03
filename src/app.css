@@ -35,11 +35,11 @@
 	}
 
 	h1 {
-		@apply mb-4 mt-0 text-3xl font-bold text-emerald-400 md:text-4xl;
+		@apply mb-3 mt-0 text-2xl font-bold text-emerald-400 sm:mb-4 sm:text-3xl md:text-4xl;
 	}
 
 	h2 {
-		@apply mb-3 text-xl font-bold text-emerald-400 md:mb-4 md:text-2xl;
+		@apply mb-2 text-lg font-bold text-emerald-400 sm:mb-3 sm:text-xl md:mb-4 md:text-2xl;
 	}
 
 	a {
@@ -212,7 +212,7 @@ pre button.copy {
 /* Table Styles - Consolidated */
 table,
 .mdsvex-content table {
-	@apply my-6 block min-w-full border-collapse overflow-x-auto;
+	@apply my-4 block min-w-full border-collapse overflow-x-auto sm:my-6;
 	border-spacing: 0;
 }
 
@@ -220,7 +220,7 @@ th,
 td,
 .mdsvex-content th,
 .mdsvex-content td {
-	@apply border border-zinc-400 px-4 py-2 md:px-6 md:py-3;
+	@apply border border-zinc-400 px-2 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm md:px-6 md:py-3 md:text-base;
 	text-align: left;
 }
 

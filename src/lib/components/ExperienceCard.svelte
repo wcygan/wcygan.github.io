@@ -15,9 +15,9 @@
 	class="card-base card-hover list-none border border-zinc-700 hover:border-emerald-400"
 	role="listitem"
 >
-	<header class="mb-3 flex items-baseline justify-between">
+	<header class="mb-3 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
 		<div class="flex items-center gap-2">
-			<span class="text-lg font-semibold tracking-wide text-zinc-100">
+			<span class="text-base font-semibold tracking-wide text-zinc-100 sm:text-lg">
 				{experience.company}
 			</span>
 			{#if isCurrent}
@@ -28,7 +28,7 @@
 				</span>
 			{/if}
 		</div>
-		<time class="text-sm text-zinc-400" datetime={experience.period}>
+		<time class="text-xs text-zinc-400 sm:text-sm" datetime={experience.period}>
 			{experience.period}
 		</time>
 	</header>
@@ -59,10 +59,10 @@
 	{/if}
 
 	{#if experience.technologies && experience.technologies.length > 0}
-		<div class="flex flex-wrap gap-2.5">
+		<div class="flex flex-wrap gap-1.5 sm:gap-2.5">
 			{#each experience.technologies as tech}
 				<span
-					class="rounded-full bg-emerald-600/20 px-3 py-1.5 text-sm font-medium text-emerald-300 transition-all duration-200 hover:scale-105 hover:bg-emerald-600/30 hover:shadow-sm"
+					class="rounded-full bg-emerald-600/20 px-2 py-1 text-xs font-medium text-emerald-300 transition-all duration-200 hover:scale-105 hover:bg-emerald-600/30 hover:shadow-sm sm:px-3 sm:py-1.5 sm:text-sm"
 				>
 					{tech}
 				</span>
