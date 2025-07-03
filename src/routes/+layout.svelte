@@ -15,8 +15,8 @@
 
 <div class="min-h-screen">
 	<Navbar />
-	<main class="mx-auto max-w-3xl px-4 py-8 md:max-w-4xl">
-		<div class="rounded-lg border-2 border-white p-8">
+	<main class="mx-auto max-w-3xl px-4 py-4 md:max-w-4xl md:py-8">
+		<div class="rounded-lg border-2 border-white p-4 sm:p-6 md:p-8">
 			{@render children()}
 		</div>
 	</main>

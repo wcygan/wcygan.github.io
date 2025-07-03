@@ -9,6 +9,7 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 3. **High Contrast**: Ensure readability with appropriate contrast ratios
 4. **Consistent Typography**: Use Inter font family throughout all diagrams
 5. **Responsive Design**: Diagrams must scale appropriately on all devices
+6. **Mobile Optimization**: Enhanced touch interactions and readable text on small screens
 
 ## Color Palette
 
@@ -172,6 +173,76 @@ This document defines the styling standards for Mermaid diagrams across the wcyg
 - Use viewport-based loading for below-fold diagrams
 - Keep diagram complexity reasonable
 - Batch multiple small diagrams when possible
+
+## Mobile Responsive Design
+
+### Mobile-First Approach
+
+The application implements comprehensive mobile optimizations for Mermaid diagrams:
+
+#### 1. Responsive Breakpoints
+
+- **Tablet (≤768px)**: Adjusted padding, font sizes, scroll indicators
+- **Mobile (≤480px)**: Further optimized font sizes, compact spacing
+- **Touch devices**: Enhanced touch targets and smooth scrolling
+
+#### 2. Mobile-Specific Features
+
+##### Horizontal Scroll Indicators
+
+- Automatic detection of scrollable content
+- Visual "← Scroll →" indicator with pulsing animation
+- Fade-out edge effect for better UX
+
+##### Fullscreen Viewing
+
+- Dedicated fullscreen button on mobile devices
+- Modal overlay with optimized SVG scaling
+- Touch-friendly close button
+
+##### Optimized SVG Rendering
+
+- Dynamic viewBox calculation with padding
+- `preserveAspectRatio="xMidYMid meet"` for proper scaling
+- Automatic width adjustment for mobile viewports
+
+#### 3. Mobile CSS Classes
+
+```css
+/* Scrollable container detection */
+.mermaid-container[data-scrollable="true"] {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile font sizing */
+@media (max-width: 768px) {
+  .mermaid-render-container text {
+    font-size: 12px !important;
+  }
+}
+
+/* Touch-friendly targets */
+@media (pointer: coarse) {
+  .mermaid-render-container .node {
+    cursor: pointer;
+  }
+}
+```
+
+#### 4. Performance Optimizations
+
+- Viewport-based lazy loading with reduced margins on mobile
+- SessionStorage caching persists across page views
+- Resize event handling for orientation changes
+
+### Mobile Testing Guidelines
+
+1. **Test on real devices** when possible
+2. **Check both portrait and landscape** orientations
+3. **Verify touch interactions** work smoothly
+4. **Ensure text remains readable** at all zoom levels
+5. **Test scroll performance** on long diagrams
 
 ## CSS Override Patterns
 

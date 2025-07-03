@@ -4,17 +4,19 @@
 </script>
 
 <div class="mx-auto max-w-2xl">
-	<h1 class="mb-6 text-4xl font-bold">About</h1>
+	<h1 class="mb-4 text-3xl font-bold sm:mb-6 sm:text-4xl">About</h1>
 	<div class="prose prose-emerald prose-invert max-w-none">
-		<div class="mb-8">
+		<div class="mb-6 sm:mb-8">
 			<img
 				src="/wcygan.jpeg"
 				alt="Will Cygan"
-				class="mx-auto mb-6 h-48 w-48 rounded-lg object-cover"
+				class="mx-auto mb-4 h-32 w-32 rounded-lg object-cover sm:mb-6 sm:h-48 sm:w-48"
 			/>
 		</div>
 
-		<p class="mb-6 text-center text-lg">Software Engineer from Chicago, Illinois</p>
+		<p class="mb-4 text-center text-base sm:mb-6 sm:text-lg">
+			Software Engineer from Chicago, Illinois
+		</p>
 
 		<h2>Experience</h2>
 		<section id="experience" aria-labelledby="exp-heading" class="not-prose mb-8">

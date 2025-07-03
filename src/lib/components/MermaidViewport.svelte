@@ -6,6 +6,10 @@
 	export let diagram = '';
 	export let rootMargin = '100px'; // Start loading 100px before viewport
 
+	// Adjust root margin for mobile devices
+	$: actualRootMargin =
+		typeof window !== 'undefined' && window.innerWidth <= 768 ? '50px' : rootMargin;
+
 	let containerElement: HTMLDivElement;
 	let shouldRender = false;
 
@@ -27,7 +31,7 @@
 				});
 			},
 			{
-				rootMargin,
+				rootMargin: actualRootMargin,
 				threshold: 0
 			}
 		);
