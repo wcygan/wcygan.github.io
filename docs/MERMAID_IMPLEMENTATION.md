@@ -16,7 +16,7 @@ Quick reference for implementing consistent Mermaid diagrams across the applicat
 
 ```svelte
 <!-- Mobile-optimized diagram with automatic features -->
-<MermaidDiagram 
+<MermaidDiagram
   height={400}
   diagram={`flowchart TD
     A[Mobile User] --> B{Screen Width}
@@ -28,6 +28,7 @@ Quick reference for implementing consistent Mermaid diagrams across the applicat
 ```
 
 The component automatically:
+
 - Detects mobile viewport and adjusts behavior
 - Shows fullscreen button only on mobile (≤768px)
 - Displays scroll indicators when content overflows

@@ -189,16 +189,19 @@ The application implements comprehensive mobile optimizations for Mermaid diagra
 #### 2. Mobile-Specific Features
 
 ##### Horizontal Scroll Indicators
+
 - Automatic detection of scrollable content
 - Visual "← Scroll →" indicator with pulsing animation
 - Fade-out edge effect for better UX
 
 ##### Fullscreen Viewing
+
 - Dedicated fullscreen button on mobile devices
 - Modal overlay with optimized SVG scaling
 - Touch-friendly close button
 
 ##### Optimized SVG Rendering
+
 - Dynamic viewBox calculation with padding
 - `preserveAspectRatio="xMidYMid meet"` for proper scaling
 - Automatic width adjustment for mobile viewports
