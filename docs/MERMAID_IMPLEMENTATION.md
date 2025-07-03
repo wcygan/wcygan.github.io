@@ -2,6 +2,38 @@
 
 Quick reference for implementing consistent Mermaid diagrams across the application.
 
+## Mobile Responsive Features
+
+### Key Mobile Enhancements
+
+1. **Automatic Scroll Detection**: Diagrams wider than viewport show scroll indicators
+2. **Fullscreen Mode**: Mobile users get a dedicated fullscreen button
+3. **Optimized Text Sizes**: Responsive font scaling for readability
+4. **Touch-Friendly**: Enhanced touch targets and smooth scrolling
+5. **Dynamic ViewBox**: SVG viewBox automatically adjusts for better mobile scaling
+
+### Mobile Implementation Example
+
+```svelte
+<!-- Mobile-optimized diagram with automatic features -->
+<MermaidDiagram 
+  height={400}
+  diagram={`flowchart TD
+    A[Mobile User] --> B{Screen Width}
+    B -->|≤768px| C[Show Fullscreen Button]
+    B -->|>768px| D[Desktop View]
+    C --> E[Scroll Indicators]
+    C --> F[Touch Optimized]`}
+/>
+```
+
+The component automatically:
+- Detects mobile viewport and adjusts behavior
+- Shows fullscreen button only on mobile (≤768px)
+- Displays scroll indicators when content overflows
+- Optimizes SVG viewBox with proper padding
+- Handles resize events for orientation changes
+
 ## Quick Start
 
 ### 1. Import Component

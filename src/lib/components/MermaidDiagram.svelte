@@ -2,6 +2,7 @@
 	import { onMount, tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import Loading from './Loading.svelte';
+	import MermaidFullscreen from './MermaidFullscreen.svelte';
 	import { getCachedSVG, setCachedSVG } from '$lib/utils/mermaid-cache';
 
 	export let height = 400;
@@ -13,6 +14,10 @@
 	let errorMessage = '';
 	let status = 'initializing';
 	let isMounted = false;
+	let isScrollable = false;
+	let containerWidth = 0;
+	let showFullscreen = false;
+	let currentSvgContent = '';
 
 	async function loadMermaid() {
 		try {
@@ -45,7 +50,7 @@
 				console.log('[MermaidDiagram] Using cached SVG');
 				container.innerHTML = cachedSVG;
 
-				// Add accessibility attributes to cached SVG as well
+				// Add accessibility attributes and optimize cached SVG as well
 				const svgElement = container.querySelector('svg');
 				if (svgElement) {
 					svgElement.setAttribute('role', 'img');
@@ -53,8 +58,25 @@
 						'aria-label',
 						`Mermaid diagram: ${diagram.split('\n')[0].trim()}`
 					);
+
+					// Optimize SVG viewBox for better mobile scaling (cached version)
+					const bbox = svgElement.getBBox();
+					if (bbox.width > 0 && bbox.height > 0) {
+						// Add padding around the content
+						const padding = 10;
+						svgElement.setAttribute(
+							'viewBox',
+							`${bbox.x - padding} ${bbox.y - padding} ${bbox.width + 2 * padding} ${bbox.height + 2 * padding}`
+						);
+						svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+					}
+
+					// Check if diagram needs horizontal scrolling
+					checkScrollability();
 				}
 
+				// Store SVG content for fullscreen
+				currentSvgContent = cachedSVG;
 				rendered = true;
 				status = 'complete';
 				return;
@@ -75,6 +97,9 @@
 
 			// Initialize
 			status = 'initializing';
+			// Check if we're on mobile
+			const isMobile = window.innerWidth <= 768;
+
 			mermaid.initialize({
 				startOnLoad: false,
 				theme: 'dark',
@@ -84,6 +109,13 @@
 					useMaxWidth: true,
 					htmlLabels: true,
 					curve: 'basis'
+				},
+				gitGraph: {
+					useMaxWidth: true
+				},
+				sequence: {
+					useMaxWidth: true,
+					wrap: isMobile // Enable text wrapping on mobile
 				}
 			});
 
@@ -123,11 +155,29 @@
 			// Insert SVG
 			container.innerHTML = renderResult.svg;
 
-			// Add accessibility attributes to the SVG
+			// Store SVG content for fullscreen
+			currentSvgContent = renderResult.svg;
+
+			// Add accessibility attributes and optimize SVG for mobile
 			const svgElement = container.querySelector('svg');
 			if (svgElement) {
 				svgElement.setAttribute('role', 'img');
 				svgElement.setAttribute('aria-label', `Mermaid diagram: ${diagram.split('\n')[0].trim()}`);
+
+				// Optimize SVG viewBox for better mobile scaling
+				const bbox = svgElement.getBBox();
+				if (bbox.width > 0 && bbox.height > 0) {
+					// Add padding around the content
+					const padding = 10;
+					svgElement.setAttribute(
+						'viewBox',
+						`${bbox.x - padding} ${bbox.y - padding} ${bbox.width + 2 * padding} ${bbox.height + 2 * padding}`
+					);
+					svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+				}
+
+				// Check if diagram needs horizontal scrolling
+				checkScrollability();
 			}
 
 			rendered = true;
@@ -153,6 +203,28 @@
 		}
 	}
 
+	function checkScrollability() {
+		if (!container) return;
+
+		const svg = container.querySelector('svg');
+		if (!svg) return;
+
+		// Get the actual rendered width of the SVG
+		const svgWidth = svg.getBoundingClientRect().width;
+		containerWidth = container.getBoundingClientRect().width;
+
+		// Check if content is wider than container
+		isScrollable = svgWidth > containerWidth + 10; // 10px tolerance
+	}
+
+	function openFullscreen() {
+		showFullscreen = true;
+	}
+
+	function closeFullscreen() {
+		showFullscreen = false;
+	}
+
 	onMount(() => {
 		// onMount only runs in the browser, so we don't need to check $app/environment
 		isMounted = true;
@@ -176,15 +248,24 @@
 			renderDiagram();
 		}, 100);
 
+		// Handle resize events for responsive behavior
+		function handleResize() {
+			checkScrollability();
+		}
+
+		window.addEventListener('resize', handleResize);
+
 		// Cleanup on unmount
 		return () => {
 			clearTimeout(timeoutId);
+			window.removeEventListener('resize', handleResize);
 		};
 	});
 </script>
 
 <div
 	class="mermaid-container relative overflow-x-auto rounded-lg bg-zinc-900 p-4"
+	data-scrollable={isScrollable}
 	style="min-height: {height}px"
 >
 	{#if !rendered && isMounted}
@@ -227,12 +308,42 @@
 		transition:fade={{ duration: 300 }}
 	></div>
 
+	<!-- Fullscreen button for mobile -->
+	{#if rendered && !error && typeof window !== 'undefined' && window.innerWidth <= 768}
+		<button
+			class="fullscreen-button"
+			on:click={openFullscreen}
+			aria-label="View diagram in fullscreen"
+			transition:fade={{ duration: 200 }}
+		>
+			<svg
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path
+					d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+				></path>
+			</svg>
+		</button>
+	{/if}
+
 	{#if !isMounted}
 		<div class="flex items-center justify-center" style="height: {height}px">
 			<p class="text-zinc-400">Loading diagram...</p>
 		</div>
 	{/if}
 </div>
+
+<!-- Fullscreen modal -->
+<MermaidFullscreen
+	svgContent={currentSvgContent}
+	isOpen={showFullscreen}
+	onClose={closeFullscreen}
+/>
 
 <style>
 	.mermaid-container {
@@ -258,5 +369,40 @@
 
 	details summary:hover {
 		text-decoration: underline;
+	}
+
+	/* Fullscreen button styling */
+	.fullscreen-button {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		background: rgba(63, 63, 70, 0.9); /* zinc-700 with opacity */
+		color: rgb(228, 228, 231); /* zinc-100 */
+		border: 1px solid rgb(82, 82, 91); /* zinc-600 */
+		border-radius: 0.375rem;
+		padding: 0.375rem;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		opacity: 0.7;
+		z-index: 10;
+	}
+
+	.fullscreen-button:hover {
+		opacity: 1;
+		background: rgb(82, 82, 91); /* zinc-600 */
+		border-color: rgb(52, 211, 153); /* emerald-400 */
+		transform: scale(1.05);
+	}
+
+	.fullscreen-button:active {
+		transform: scale(0.95);
+	}
+
+	@media (max-width: 480px) {
+		.fullscreen-button {
+			padding: 0.25rem;
+			top: 0.25rem;
+			right: 0.25rem;
+		}
 	}
 </style>
