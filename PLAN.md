@@ -467,14 +467,14 @@ deno task preview
 - [x] PLAN.md created
 - [x] Initial commit made
 
-### Phase 2: Docusaurus Setup
-- [ ] Docusaurus installed with TypeScript
-- [ ] Configuration updated for personal pages
-- [ ] Static files added (.nojekyll)
+### Phase 2: Docusaurus Setup ✅
+- [x] Docusaurus installed with TypeScript
+- [x] Configuration updated for personal pages
+- [x] Static files added (.nojekyll)
 
-### Phase 3: GitHub Actions
-- [ ] Deploy workflow created
-- [ ] Test workflow created (optional)
+### Phase 3: GitHub Actions ✅
+- [x] Deploy workflow created
+- [x] Test workflow created (optional)
 - [ ] Workflows tested and verified
 
 ### Phase 4: Development Environment
