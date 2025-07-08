@@ -76,6 +76,35 @@ static/         # Static assets (contains .nojekyll for GitHub Pages)
 
 **Styling**: Uses CSS modules pattern (`styles.module.css`) with custom CSS in `src/css/custom.css`
 
+## Browser Testing with Puppeteer MCP
+
+**Automated Browser Testing**: Use Puppeteer MCP for testing the site during development:
+
+```bash
+# After starting the dev server
+yarn start  # or npm start
+
+# Use Puppeteer MCP tools in Claude Code:
+mcp__puppeteer__puppeteer_navigate --url "http://localhost:3000/"
+mcp__puppeteer__puppeteer_screenshot --name "homepage-test"
+mcp__puppeteer__puppeteer_click --selector "a[href='/docs/intro']"
+mcp__puppeteer__puppeteer_evaluate --script "document.title"
+```
+
+**Common Testing Scenarios**:
+- Navigation testing: Click through docs sidebar, verify breadcrumbs
+- Dark mode toggle: Test theme switching functionality
+- Responsive design: Capture screenshots at different viewport sizes
+- Search functionality: Test Algolia DocSearch integration
+- Interactive elements: Verify code block copy buttons, tabs
+
+**Testing Tips**:
+- The site runs on `http://localhost:3000/` in development
+- Use CSS selectors for navigation links: `a[href="/docs/intro"]`
+- Dark mode toggle: `button[aria-label*="dark"]`
+- Capture screenshots to verify visual changes
+- Use `puppeteer_evaluate` to check JavaScript state and console errors
+
 ## Implementation Context
 
 This site was built following a comprehensive implementation plan (see PLAN.md) with phases for Docusaurus setup, GitHub Actions deployment, and content customization. The current state represents completion of Phases 1-3 (foundation, Docusaurus setup, GitHub Actions).
