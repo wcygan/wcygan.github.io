@@ -14,6 +14,12 @@ const config: Config = {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
+  // Mermaid diagram support
+  themes: ['@docusaurus/theme-mermaid'],
+  markdown: {
+    mermaid: true,
+  },
+
   // Set the production url of your site here
   url: 'https://wcygan.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served

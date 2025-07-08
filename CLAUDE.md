@@ -76,6 +76,37 @@ static/         # Static assets (contains .nojekyll for GitHub Pages)
 
 **Styling**: Uses CSS modules pattern (`styles.module.css`) with custom CSS in `src/css/custom.css`
 
+## Mermaid Diagrams
+
+**Configuration**: Mermaid diagrams are supported via `@docusaurus/theme-mermaid` package.
+
+**Setup Requirements**:
+1. Package installed: `@docusaurus/theme-mermaid@3.8.1`
+2. Configuration in `docusaurus.config.ts`:
+   ```typescript
+   themes: ['@docusaurus/theme-mermaid'],
+   markdown: {
+     mermaid: true,
+   },
+   ```
+
+**Usage in Markdown**:
+```markdown
+```mermaid
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Do this]
+    B -->|No| D[Do that]
+```
+```
+
+**Supported Diagram Types**: Flowchart, Sequence, Gantt, Class, State, Entity Relationship, User Journey, Pie Chart, Requirement, Gitgraph, Mindmap, Quadrant Chart, Architecture
+
+**Important Notes**:
+- Clear cache (`npm run clear`) and restart dev server after adding Mermaid configuration
+- Some diagram types (e.g., mindmap) may have rendering issues
+- Diagrams support theme customization via directives: `%%{init: { "theme": "forest" } }%%`
+
 ## Browser Testing with Puppeteer MCP
 
 **Automated Browser Testing**: Use Puppeteer MCP for testing the site during development:
@@ -97,6 +128,7 @@ mcp__puppeteer__puppeteer_evaluate --script "document.title"
 - Responsive design: Capture screenshots at different viewport sizes
 - Search functionality: Test Algolia DocSearch integration
 - Interactive elements: Verify code block copy buttons, tabs
+- Mermaid diagrams: Verify diagram rendering and SVG generation
 
 **Testing Tips**:
 - The site runs on `http://localhost:3000/` in development
@@ -104,6 +136,8 @@ mcp__puppeteer__puppeteer_evaluate --script "document.title"
 - Dark mode toggle: `button[aria-label*="dark"]`
 - Capture screenshots to verify visual changes
 - Use `puppeteer_evaluate` to check JavaScript state and console errors
+- For Mermaid diagrams: Check for `.mermaid svg` elements to verify rendering
+- Test diagram visibility: `document.querySelector('.mermaid svg') !== null`
 
 ## Implementation Context
 
