@@ -139,6 +139,40 @@ mcp__puppeteer__puppeteer_evaluate --script "document.title"
 - For Mermaid diagrams: Check for `.mermaid svg` elements to verify rendering
 - Test diagram visibility: `document.querySelector('.mermaid svg') !== null`
 
+## Advanced Docusaurus Expertise
+
+**Comprehensive Knowledge Base**: Claude has expert-level knowledge of Docusaurus v3.8.1 covering:
+
+### Core Architecture & Configuration
+- **React SSG Architecture**: Plugin-theme separation, webpack configuration, component swizzling patterns
+- **TypeScript Integration**: Full type safety with `@docusaurus/types`, config validation, component typing
+- **Environment Configuration**: Development vs production builds, environment-specific settings, performance optimization
+
+### Plugin & Theme Development
+- **Official Plugin Ecosystem**: Content plugins (docs, blog, pages), behavior plugins (PWA, sitemap, redirects)
+- **Custom Plugin Development**: Lifecycle hooks, data loading patterns, route generation, performance optimization
+- **Theme System Mastery**: Component swizzling (wrapping vs ejecting), CSS modules, dark mode implementation
+- **Component Architecture**: Theme aliases (`@theme`, `@theme-original`, `@theme-init`), component resolution stack
+
+### Content Management & Performance
+- **Advanced MDX Features**: React component integration, interactive documentation, code block enhancements
+- **Content Strategy**: Versioning patterns, i18n implementation, blog configuration, sidebar management
+- **Performance Optimization**: Bundle analysis, lazy loading, SEO optimization, Core Web Vitals, PWA features
+- **Build Optimization**: Webpack configuration, code splitting, asset optimization, deployment strategies
+
+### Deployment & DevOps
+- **Multi-Platform Deployment**: GitHub Pages (personal vs project), Netlify, Vercel, Docker containerization
+- **CI/CD Best Practices**: GitHub Actions workflows, testing strategies, performance monitoring, security patterns
+- **Migration Expertise**: v2→v3 upgrade patterns, breaking change handling, content migration strategies
+
+### Specialized Capabilities
+- **Mermaid Integration**: Advanced diagram support, theme customization, rendering optimization
+- **Search Implementation**: Algolia DocSearch, local search, performance considerations
+- **Internationalization**: Multi-language setup, translation workflows, content organization
+- **Security & Performance**: Bundle security, performance budgets, monitoring, optimization strategies
+
+This knowledge enables expert-level assistance with complex Docusaurus implementations, custom plugin development, advanced theming, performance optimization, and enterprise-scale deployments.
+
 ## Implementation Context
 
 This site was built following a comprehensive implementation plan (see PLAN.md) with phases for Docusaurus setup, GitHub Actions deployment, and content customization. The current state represents completion of Phases 1-3 (foundation, Docusaurus setup, GitHub Actions).
